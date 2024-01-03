@@ -17,7 +17,7 @@ class ShortcutUrlRepository {
     final TaskResult<ShortcutUrlModel?> taskResult =
         await clientExceptionHandler.callApi<Response, ShortcutUrlModel?>(
       ApiHandler<Response, ShortcutUrlModel?>(
-        call: () => dataSource.newShortcutUrl(url),
+        apiCall: () => dataSource.newShortcutUrl(url),
         parserModel: (Object? result) {
           ShortcutUrlModel? dataParse;
           if (result != null) {
