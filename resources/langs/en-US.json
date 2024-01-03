@@ -1,0 +1,107 @@
+{
+  "core": {
+    "exception": {
+      "networkNoInternetConnection": "No Internet connection. Check your network and retry.",
+      "urlDuplicateExist": "This URL already exists",
+      "urlEmptyInput": "Enter the URL",
+      "urlInvalidInput": "Please enter a valid URL"
+    },
+    "httpCode": {
+      "100": "Continue with the request.",
+      "101": "Switching protocols.",
+      "102": "The request is being processed but is not complete.",
+      "103": "Early hints about the final response content for preloading resources.",
+      "200": "The operation was successful.",
+      "201": "The resource was successfully created.",
+      "202": "The request has been accepted for processing.",
+      "203": "The response is correct, but the information might be from another source.",
+      "204": "The request was successful but there is no content to respond.",
+      "205": "Indicates to the client to reset the view that caused the request.",
+      "206": "The request has succeeded and the body contains the requested data ranges.",
+      "207": "Provides information about multiple resources in situations like WebDAV.",
+      "208": "Members of a WebDAV set have already been enumerated in a previous reply and are not included again.",
+      "226": "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
+      "300": "Multiple options for the resource that the client may follow.",
+      "301": "The resource has been moved permanently. Update your links.",
+      "302": "The resource has been moved temporarily.",
+      "303": "The response can be found under a different URI and should be retrieved using a GET method.",
+      "304": "The resource has not been modified.",
+      "305": "A proxy must be used to access this resource.",
+      "306": "Code used in previous versions of HTTP but now deprecated.",
+      "307": "The resource has temporarily moved to another URI.",
+      "308": "The request and all future requests should be repeated using another URI.",
+      "400": "The request could not be understood or was malformed.",
+      "401": "Authentication required. Please log in.",
+      "402": "Payment is required for accessing this resource.",
+      "403": "You do not have permission to access this resource.",
+      "404": "The requested resource was not found.",
+      "405": "The HTTP method is not allowed for this resource.",
+      "406": "The resource is not available in a format that is acceptable.",
+      "407": "Authentication with the proxy is required to access this resource.",
+      "408": "The request took too long. Please try again.",
+      "409": "The request could not be processed due to a conflict in the current state of the resource.",
+      "410": "The resource is no longer available and will not be available again.",
+      "411": "The length of the content must be specified in the request.",
+      "412": "One or more conditions given in the request header fields failed.",
+      "413": "The size of the request is too large to process.",
+      "414": "The URI requested is too long to be processed.",
+      "415": "The media type of the request is not supported.",
+      "416": "The specified range cannot be satisfied.",
+      "417": "The expectation given in the request cannot be fulfilled by the server.",
+      "418": "Joke error code, defined in the Hyper Text Coffee Pot Control Protocol.",
+      "421": "The request was directed to a server that cannot produce a response.",
+      "422": "The request is well-formed but was unable to be followed due to semantic errors.",
+      "423": "The resource being accessed is locked.",
+      "424": "The request failed due to failure of a previous request.",
+      "426": "Upgrading to a new protocol is necessary.",
+      "428": "Preconditions are required for the request.",
+      "429": "Too many requests. Please try again later.",
+      "431": "The request header fields are too large.",
+      "451": "The content is not available for legal reasons.",
+      "500": "The server encountered an internal error. Please try again later.",
+      "501": "The server cannot fulfill the required functionality.",
+      "502": "The server, acting as a gateway or proxy, received an invalid response.",
+      "503": "The service is unavailable. Please try again later.",
+      "504": "The server, acting as a gateway, did not receive a timely response.",
+      "505": "The HTTP version in the request is not supported by the server.",
+      "506": "Transparent content negotiation for the request results in a circular reference.",
+      "507": "The server cannot store the representation needed to complete the request.",
+      "508": "An infinite loop was detected while processing the request.",
+      "509": "The server has exceeded the bandwidth limit.",
+      "510": "Further extensions are required for the request.",
+      "511": "Network authentication is required to access the network."
+    },
+    "language": "Language",
+    "languages": {
+      "en": {
+        "original": "English",
+        "translation": "English"
+      },
+      "es": {
+        "original": "Español",
+        "translation": "Spanish"
+      },
+      "pt": {
+        "original": "Portuguese",
+        "translation": "Portuguese"
+      }
+    }
+  },
+  "feature": {
+    "main": {
+      "sliverListUrl": {
+        "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
+      },
+      "title": "Recently shortend URLs"
+    }
+  },
+  "widget": {
+    "cdsItemListTileShortcutUrl": {
+      "iconButton": {
+        "onPressed": {
+          "msgSnackbar": "Link shortend {linkShortend}\nCopied to your clipboard"
+        }
+      }
+    }
+  }
+}

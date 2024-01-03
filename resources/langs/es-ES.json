@@ -1,0 +1,110 @@
+{
+  "core": {
+    "exception": {
+      "networkNoInternetConnection": "Sin conexión a Internet. Verifica tu red y reintenta.",
+      "urlDuplicateExist": "Esta URL ya existe",
+      "urlEmptyInput": "Introduzca la URL",
+      "urlInvalidInput": "Por favor, introduzca una URL válida"
+    },
+    "httpCode": {
+      "100": "Continúa con la solicitud.",
+      "101": "Cambiando protocolos.",
+      "102": "La solicitud está siendo procesada, pero aún no ha terminado.",
+      "103": "Indica pistas tempranas sobre el contenido final de la respuesta para cargar recursos previamente.",
+      "200": "La operación fue exitosa.",
+      "201": "El recurso fue creado exitosamente.",
+      "202": "La petición ha sido aceptada para procesamiento.",
+      "203": "La respuesta es correcta, pero la información podría ser de otra fuente.",
+      "204": "La petición fue exitosa pero no hay contenido para responder.",
+      "205": "Indica al cliente que debe resetear la vista que causó la solicitud.",
+      "206": "La solicitud ha tenido éxito y el cuerpo contiene los rangos de datos solicitados.",
+      "207": "Proporciona información sobre múltiples recursos en situaciones como WebDAV.",
+      "208": "Los miembros de un conjunto de WebDAV ya han sido enumerados en una respuesta previa y no se incluyen de nuevo.",
+      "226": "El servidor ha cumplido una solicitud GET para el recurso y la respuesta es una representación del resultado de una o más manipulaciones de instancia aplicadas a la instancia actual.",
+      "301": "El recurso se ha movido permanentemente. Actualiza tus enlaces.",
+      "302": "El recurso se ha movido temporalmente.",
+      "304": "El recurso no ha sido modificado.",
+      "305": "Es necesario utilizar un proxy para acceder a este recurso.",
+      "306": "Código usado en versiones anteriores de HTTP pero ahora está obsoleto.",
+      "307": "El recurso se ha movido temporalmente a otra dirección.",
+      "400": "La solicitud no se pudo entender o estaba mal formada.",
+      "401": "Autenticación requerida. Por favor, inicia sesión.",
+      "403": "No tienes permiso para acceder a este recurso.",
+      "404": "El recurso solicitado no fue encontrado.",
+      "405": "El método HTTP no está permitido para este recurso.",
+      "406": "El recurso no está disponible en el formato solicitado que es aceptable.",
+      "407": "Se requiere autenticación con el proxy para acceder a este recurso.",
+      "408": "La solicitud tardó demasiado tiempo. Inténtalo de nuevo.",
+      "409": "La solicitud no pudo ser procesada debido a un conflicto en el estado actual del recurso.",
+      "410": "El recurso ya no está disponible y no lo estará en el futuro.",
+      "411": "Es necesario especificar la longitud del contenido en la solicitud.",
+      "412": "Una o más condiciones en los encabezados de la solicitud fallaron.",
+      "413": "El tamaño de la solicitud es demasiado grande para procesar.",
+      "414": "La URI solicitada es demasiado larga para ser procesada.",
+      "415": "El tipo de medio de la solicitud no es compatible.",
+      "416": "El rango especificado no se puede satisfacer.",
+      "417": "La expectativa dada en la solicitud no puede ser cumplida por el servidor.",
+      "418": "Código de error de broma, definido en el protocolo de protocolo de control de cafeteras/teteras de hiper texto.",
+      "421": "La solicitud fue dirigida a un servidor que no puede producir una respuesta.",
+      "422": "La solicitud está bien formada pero fue imposible seguirla debido a errores semánticos.",
+      "423": "El recurso que se está accediendo está bloqueado.",
+      "424": "La solicitud falló debido a una falla de una solicitud previa.",
+      "426": "Es necesario actualizar el protocolo para continuar.",
+      "428": "Se requieren condiciones previas para la solicitud.",
+      "429": "Demasiadas solicitudes. Por favor, intenta de nuevo más tarde.",
+      "431": "Los campos de encabezado de la solicitud son demasiado grandes.",
+      "451": "El contenido no está disponible por razones legales.",
+      "500": "El servidor encontró un error interno. Inténtalo de nuevo más tarde.",
+      "501": "El servidor no puede cumplir con la funcionalidad requerida.",
+      "502": "El servidor, actuando como puerta de enlace o proxy, recibió una respuesta inválida.",
+      "503": "El servicio no está disponible. Por favor, inténtalo de nuevo más tarde.",
+      "504": "El servidor actuando como puerta de enlace no recibió una respuesta a tiempo.",
+      "505": "La versión de HTTP en la solicitud no es soportada por el servidor.",
+      "506": "La negociación de contenido transparente para la solicitud da como resultado una referencia circular.",
+      "507": "El servidor no puede almacenar la representación necesaria para completar la solicitud.",
+      "508": "Se detectó un bucle infinito al procesar la solicitud.",
+      "509": "El servidor ha alcanzado el límite de ancho de banda asignado.",
+      "510": "Se requieren extensiones adicionales para la solicitud.",
+      "511": "Se requiere autenticación de red para acceder a la red.",
+      "520": "Error desconocido cuando se conecta a un servidor web como Cloudflare.",
+      "521": "El servidor web está apagado.",
+      "522": "La conexión al servidor ha tardado demasiado.",
+      "523": "El origen del servidor web no se puede alcanzar.",
+      "524": "Se produjo un tiempo de espera al intentar conectarse al servidor web.",
+      "525": "El apretón de manos SSL con el servidor web falló.",
+      "526": "El servidor web tiene un certificado SSL inválido."
+    },
+    "language": "Idioma",
+    "languages": {
+      "en": {
+        "original": "English",
+        "translation": "Inglés"
+      },
+      "es": {
+        "original": "Español",
+        "translation": "Español"
+      },
+      "pt": {
+        "original": "Portuguese",
+        "translation": "Portugués"
+      }
+    }
+  },
+  "feature": {
+    "main": {
+      "sliverListUrl": {
+        "dataEmpty": "¡Parece un poco vacío aquí! Añade tus primeras URLs acortadas."
+      },
+      "title": "URL acortadas recientemente"
+    }
+  },
+  "widget": {
+    "cdsItemListTileShortcutUrl": {
+      "iconButton": {
+        "onPressed": {
+          "msgSnackbar": "Enlace acortado {linkShortend}\nCopiado a tu portapapeles"
+        }
+      }
+    }
+  }
+}

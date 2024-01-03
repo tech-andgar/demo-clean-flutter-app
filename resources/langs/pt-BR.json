@@ -1,0 +1,107 @@
+{
+  "core": {
+    "exception": {
+      "networkNoInternetConnection": "Sem conexão com a Internet. Verifique sua rede e tente novamente.",
+      "urlDuplicateExist": "Este URL já existe",
+      "urlEmptyInput": "Digite a URL",
+      "urlInvalidInput": "Favor digitar um URL válido"
+    },
+    "httpCode": {
+      "100": "Continue com a solicitação.",
+      "101": "Mudando protocolos.",
+      "102": "A solicitação está sendo processada, mas ainda não está completa.",
+      "103": "Indicações iniciais sobre o conteúdo final da resposta para pré-carregar recursos.",
+      "200": "A operação foi bem-sucedida.",
+      "201": "O recurso foi criado com sucesso.",
+      "202": "A solicitação foi aceita para processamento.",
+      "203": "A resposta está correta, mas as informações podem ser de outra fonte.",
+      "204": "A solicitação foi bem-sucedida, mas não há conteúdo para responder.",
+      "205": "Indica ao cliente para redefinir a visualização que causou a solicitação.",
+      "206": "A solicitação foi bem-sucedida e o corpo contém os intervalos de dados solicitados.",
+      "207": "Fornece informações sobre vários recursos em situações como WebDAV.",
+      "208": "Os membros de um conjunto WebDAV já foram listados em uma resposta anterior e não são incluídos novamente.",
+      "226": "O servidor cumpriu uma solicitação GET para o recurso, e a resposta é uma representação do resultado de uma ou mais manipulações de instância aplicadas à instância atual.",
+      "300": "Múltiplas opções para o recurso que o cliente pode seguir.",
+      "301": "O recurso foi movido permanentemente. Atualize seus links.",
+      "302": "O recurso foi movido temporariamente.",
+      "303": "A resposta pode ser encontrada sob um URI diferente e deve ser recuperada usando o método GET.",
+      "304": "O recurso não foi modificado.",
+      "305": "Um proxy deve ser usado para acessar este recurso.",
+      "306": "Código usado em versões anteriores do HTTP, mas agora obsoleto.",
+      "307": "O recurso foi temporariamente movido para outro URI.",
+      "308": "A solicitação e todas as futuras solicitações devem ser repetidas usando outro URI.",
+      "400": "A solicitação não pôde ser entendida ou estava mal-formada.",
+      "401": "Autenticação necessária. Por favor, faça login.",
+      "402": "Pagamento necessário para acessar este recurso.",
+      "403": "Você não tem permissão para acessar este recurso.",
+      "404": "O recurso solicitado não foi encontrado.",
+      "405": "O método HTTP não é permitido para este recurso.",
+      "406": "O recurso não está disponível em um formato que seja aceitável.",
+      "407": "Autenticação com o proxy é necessária para acessar este recurso.",
+      "408": "A solicitação demorou muito. Por favor, tente novamente.",
+      "409": "A solicitação não pôde ser processada devido a um conflito no estado atual do recurso.",
+      "410": "O recurso não está mais disponível e não estará no futuro.",
+      "411": "O comprimento do conteúdo deve ser especificado na solicitação.",
+      "412": "Uma ou mais condições nos campos do cabeçalho da solicitação falharam.",
+      "413": "O tamanho da solicitação é muito grande para ser processado.",
+      "414": "A URI solicitada é muito longa para ser processada.",
+      "415": "O tipo de mídia da solicitação não é suportado.",
+      "416": "O intervalo especificado não pode ser satisfeito.",
+      "417": "A expectativa dada na solicitação não pode ser cumprida pelo servidor.",
+      "418": "Código de erro de brincadeira, definido no Protocolo de Controle de Bule de Café/Tetera de Hipertexto.",
+      "421": "A solicitação foi direcionada a um servidor que não pode produzir uma resposta.",
+      "422": "A solicitação está bem-formada, mas não pôde ser seguida devido a erros semânticos.",
+      "423": "O recurso que está sendo acessado está bloqueado.",
+      "424": "A solicitação falhou devido à falha de uma solicitação anterior.",
+      "426": "É necessário atualizar para um novo protocolo.",
+      "428": "Condições prévias são necessárias para a solicitação.",
+      "429": "Muitas solicitações. Por favor, tente novamente mais tarde.",
+      "431": "Os campos de cabeçalho da solicitação são muito grandes.",
+      "451": "O conteúdo não está disponível por razões legais.",
+      "500": "O servidor encontrou um erro interno. Por favor, tente novamente mais tarde.",
+      "501": "O servidor não pode cumprir a funcionalidade requerida.",
+      "502": "O servidor, atuando como um gateway ou proxy, recebeu uma resposta inválida.",
+      "503": "O serviço está indisponível. Por favor, tente novamente mais tarde.",
+      "504": "O servidor, atuando como um gateway, não recebeu uma resposta em tempo hábil.",
+      "505": "A versão do HTTP na solicitação não é suportada pelo servidor.",
+      "506": "A negociação de conteúdo transparente para a solicitação resulta em uma referência circular.",
+      "507": "O servidor não pode armazenar a representação necessária para completar a solicitação.",
+      "508": "Um loop infinito foi detectado durante o processamento da solicitação.",
+      "509": "O servidor excedeu o limite de largura de banda.",
+      "510": "Extensões adicionais são necessárias para a solicitação.",
+      "511": "Autenticação de rede é necessária para acessar a rede."
+    },
+    "language": "Língua",
+    "languages": {
+      "en": {
+        "original": "English",
+        "translation": "Inglês"
+      },
+      "es": {
+        "original": "Español",
+        "translation": "Espanhol"
+      },
+      "pt": {
+        "original": "Portuguese",
+        "translation": "Portuguese"
+      }
+    }
+  },
+  "feature": {
+    "main": {
+      "sliverListUrl": {
+        "dataEmpty": "Parece um pouco vazio aqui! Adicione suas primeiras URLs encurtadas."
+      },
+      "title": "URLs de encurtamento recentes"
+    }
+  },
+  "widget": {
+    "cdsItemListTileShortcutUrl": {
+      "iconButton": {
+        "onPressed": {
+          "msgSnackbar": "Link encurtado {linkShortend}\nCopiado para sua área de transferência"
+        }
+      }
+    }
+  }
+}
