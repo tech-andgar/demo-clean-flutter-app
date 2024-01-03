@@ -28,6 +28,9 @@ class MockDioException extends Mock implements DioException {
   DioExceptionType type;
 }
 
+class MockClientExceptionHandler extends Mock
+    implements ClientExceptionHandler {}
+
 class MockDioExceptionHandler extends Mock implements DioExceptionHandler {}
 
 class MockApiHandler<R, T> extends Mock implements ApiHandler<R, T> {}

@@ -8,51 +8,143 @@ import '../../../mocks.dart';
 
 void main() {
   late ShortcutUrlRepository repository;
-  late MockDioExceptionHandler mockDioExceptionHandler;
-  late MockShortcutUrlRemoteDataSource mockShortcutUrlRemoteDataSource;
-  const ShortcutUrlModel testModel = ShortcutUrlModel(
-    alias: 'alias',
-    links: LinksModel(self: 'self', short: 'short'),
-  );
+  late MockDioExceptionHandler mockExceptionHandler;
+  late MockShortcutUrlRemoteDataSource mockDataSource;
 
   setUp(() {
     registerFallbackValue(FakeApiHandler());
 
-    mockDioExceptionHandler = MockDioExceptionHandler();
-    mockShortcutUrlRemoteDataSource = MockShortcutUrlRemoteDataSource();
+    mockExceptionHandler = MockDioExceptionHandler();
+    mockDataSource = MockShortcutUrlRemoteDataSource();
 
     repository = ShortcutUrlRepository(
-      clientExceptionHandler: mockDioExceptionHandler,
-      dataSource: mockShortcutUrlRemoteDataSource,
+      clientExceptionHandler: mockExceptionHandler,
+      dataSource: mockDataSource,
     );
   });
 
-  test('Direct call to newShortcutUrl', () async {
-    const testUrl = 'http://test.com';
+  group('ShortcutUrlRepository', () {
+    test('postShortcutUrl returns SuccessState on successful API call',
+        () async {
+      const url = 'https://example.com';
+      const shortcutUrlModel = ShortcutUrlModel(
+        alias: 'example',
+        links: LinksModel(self: '', short: ''),
+      );
 
-    when(() => mockShortcutUrlRemoteDataSource.newShortcutUrl(any()))
-        .thenAnswer(
-      (_) async => Response(
-        requestOptions: RequestOptions(path: 'path'),
-        data: 'mock data',
-      ),
-    );
-    when(
-      () => mockDioExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
-    ).thenAnswer((_) async => const SuccessState(testModel));
+      when(() => mockDataSource.newShortcutUrl(url)).thenAnswer(
+        (_) async => Response(
+          data: '/* ... */',
+          statusCode: 200,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      when(
+        () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
+      ).thenAnswer((_) async => const SuccessState(shortcutUrlModel));
 
-    final result = await repository.postShortcutUrl(testUrl);
+      final result = await repository.postShortcutUrl(url);
 
-    await mockShortcutUrlRemoteDataSource.newShortcutUrl(testUrl);
+      expect(result, isA<SuccessState>());
+      expect((result as SuccessState).data, shortcutUrlModel);
+    });
+    test('postShortcutUrl returns FailureState on network exception', () async {
+      const url = 'https://example.com';
+      final stackTrace = StackTrace.current;
 
-    expect(result, isA<TaskResult<ShortcutUrlModel?>>());
-    result.when(
-      success: (data) {
-        expect(data, equals(testModel));
-      },
-      failure: (e) {},
-    );
-    verify(() => mockShortcutUrlRemoteDataSource.newShortcutUrl(testUrl))
-        .called(1);
+      when(() => mockDataSource.newShortcutUrl(url))
+          .thenThrow(NetworkException.noInternetConnection);
+      when(
+        () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
+      ).thenAnswer(
+        (_) async => FailureState(
+          DataNetworkException(
+            NetworkException.noInternetConnection,
+            stackTrace,
+          ),
+        ),
+      );
+
+      final result = await repository.postShortcutUrl(url);
+
+      expect(result, isA<FailureState>());
+      expect((result as FailureState).exception, isA<DataNetworkException>());
+    });
+    test('postShortcutUrl returns FailureState on DioException', () async {
+      const url = 'https://example.com';
+      final stackTrace = StackTrace.current;
+      final dioException =
+          DioException(requestOptions: RequestOptions(path: url));
+
+      when(() => mockDataSource.newShortcutUrl(url)).thenThrow(dioException);
+      when(
+        () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
+      ).thenAnswer(
+        (_) async =>
+            FailureState(DataClientException(dioException, stackTrace)),
+      );
+
+      final result = await repository.postShortcutUrl(url);
+
+      expect(result, isA<FailureState>());
+      expect((result as FailureState).exception, isA<DataClientException>());
+    });
+    test('postShortcutUrl returns FailureState on parse error', () async {
+      const url = 'https://example.com';
+      final stackTrace = StackTrace.current;
+      const parseException = FormatException('Invalid JSON');
+
+      when(() => mockDataSource.newShortcutUrl(url)).thenAnswer(
+        (_) async => Response(
+          data: 'invalid json',
+          statusCode: 200,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      when(
+        () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
+      ).thenAnswer(
+        (_) async =>
+            FailureState(DataParseException(parseException, stackTrace)),
+      );
+
+      final result = await repository.postShortcutUrl(url);
+
+      expect(result, isA<FailureState>());
+      expect((result as FailureState).exception, isA<DataParseException>());
+    });
+
+    test('parserModel parses non-null result correctly', () async {
+      const url = 'https://example.com';
+      final mockResponseData = {
+        'alias': '1878290138',
+        '_links': {
+          'self': 'www.example.com',
+          'short':
+              'https://url-shortener-server.onrender.com/api/alias/1878290138',
+        },
+      };
+
+      when(() => mockDataSource.newShortcutUrl(url)).thenAnswer(
+        (_) async => Response(
+          data: mockResponseData,
+          statusCode: 200,
+          requestOptions: RequestOptions(),
+        ),
+      );
+
+      when(
+        () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
+      ).thenAnswer(
+        (_) async => SuccessState(ShortcutUrlModel.fromJson(mockResponseData)),
+      );
+
+      final result = await repository.postShortcutUrl(url);
+
+      expect(result, isA<SuccessState<ShortcutUrlModel?>>());
+      final successResult = result as SuccessState<ShortcutUrlModel?>;
+      expect(successResult.data, isNotNull);
+      expect(successResult.data?.alias, equals('1878290138'));
+    });
   });
 }
