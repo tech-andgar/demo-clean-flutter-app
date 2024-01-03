@@ -1,4 +1,4 @@
-import 'package:demoafgr/src/core/core.dart';
+import 'package:demoafgr/demoafgr.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

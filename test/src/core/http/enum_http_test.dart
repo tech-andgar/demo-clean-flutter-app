@@ -1,4 +1,4 @@
-import 'package:demoafgr/src/core/http/http.dart';
+import 'package:demoafgr/demoafgr.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

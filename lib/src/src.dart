@@ -1,8 +1,6 @@
-export 'common/utils/constants.dart';
-export 'common/utils/extensions.dart';
-export 'common/widgets/custom_widget.dart';
-export 'features/counter/counter.dart';
-export 'features/counter/counter_bloc.dart';
-export 'features/counter/counter_model.dart';
-export 'features/counter/counter_repository.dart';
-export 'features/counter/counter_screen.dart';
+export 'bloc/bloc.dart';
+export 'common/common.dart';
+export 'core/core.dart';
+export 'data/data.dart';
+export 'screens/screens.dart';
+export 'services/services.dart';

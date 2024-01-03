@@ -1,4 +1,4 @@
-import 'package:demoafgr/src/common/widgets/widgets.dart';
+import 'package:demoafgr/demoafgr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,5 +1,4 @@
-import 'package:demoafgr/src/bloc/bloc.dart';
-import 'package:demoafgr/src/data/models/models.dart';
+import 'package:demoafgr/demoafgr.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:exception_handler/exception_handler.dart';

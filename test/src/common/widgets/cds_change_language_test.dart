@@ -1,29 +1,21 @@
 import 'package:demoafgr/demoafgr.dart';
 import 'package:demoafgr/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../mocks.dart';
+import '../../pre_main.dart';
 
 void main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences.setMockInitialValues({});
-  EasyLocalization.logger.enableLevels = <LevelMessages>[];
-  await EasyLocalization.ensureInitialized();
+  preMainTest();
   group('CdsChangeLanguage Widget Tests', () {
     tearDown(() {
-      context = null;
+      context_ = null;
     });
     testWidgets('Renders PopupMenuButton with correct items',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MockBase.appTestLocalization(
-          MyWidget(child: CdsChangeLanguage(() {})),
-        ),
-      );
+      await tester.pumpWidget(MockBase.appTest(CdsChangeLanguage(() {})));
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuButton), findsOneWidget);
@@ -35,20 +27,7 @@ void main() async {
     });
     testWidgets('Renders PopupMenuButton with correct items and handles taps',
         (WidgetTester tester) async {
-      mockCallback() {}
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: EasyLocalization(
-              supportedLocales: CdsI18n.supportedLocals,
-              path: 'resources/langs',
-              assetLoader: const CodegenLoader(),
-              child: CdsChangeLanguage(mockCallback),
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(MockBase.appTest(CdsChangeLanguage(() {})));
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuButton), findsOneWidget);
@@ -68,20 +47,7 @@ void main() async {
     });
     testWidgets('Locale verify correctly in en-US',
         (WidgetTester tester) async {
-      mockCallback() {}
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: EasyLocalization(
-              supportedLocales: CdsI18n.supportedLocals,
-              path: 'resources/langs',
-              assetLoader: const CodegenLoader(),
-              child: CdsChangeLanguage(mockCallback),
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(MockBase.appTest(CdsChangeLanguage(() {})));
       await tester.pumpAndSettle();
 
       final BuildContext context =
@@ -94,18 +60,8 @@ void main() async {
       bool callbackInvoked = false;
       mockCallback() => callbackInvoked = true;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: EasyLocalization(
-              supportedLocales: CdsI18n.supportedLocals,
-              path: 'resources/langs',
-              assetLoader: const CodegenLoader(),
-              child: CdsChangeLanguage(mockCallback),
-            ),
-          ),
-        ),
-      );
+      await tester
+          .pumpWidget(MockBase.appTest(CdsChangeLanguage(mockCallback)));
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuButton), findsOneWidget);
