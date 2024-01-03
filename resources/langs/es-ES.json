@@ -91,7 +91,7 @@
     }
   },
   "feature": {
-    "main": {
+    "mainShortcutUrl": {
       "sliverListUrl": {
         "dataEmpty": "¡Parece un poco vacío aquí! Añade tus primeras URLs acortadas."
       },

@@ -82,10 +82,10 @@ abstract class  LocaleKeys {
   static const core_languages_pt = 'core.languages.pt';
   static const core_languages = 'core.languages';
   static const core = 'core';
-  static const feature_main_sliverListUrl_dataEmpty = 'feature.main.sliverListUrl.dataEmpty';
-  static const feature_main_sliverListUrl = 'feature.main.sliverListUrl';
-  static const feature_main_title = 'feature.main.title';
-  static const feature_main = 'feature.main';
+  static const feature_mainShortcutUrl_sliverListUrl_dataEmpty = 'feature.mainShortcutUrl.sliverListUrl.dataEmpty';
+  static const feature_mainShortcutUrl_sliverListUrl = 'feature.mainShortcutUrl.sliverListUrl';
+  static const feature_mainShortcutUrl_title = 'feature.mainShortcutUrl.title';
+  static const feature_mainShortcutUrl = 'feature.mainShortcutUrl';
   static const feature = 'feature';
   static const widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar = 'widget.cdsItemListTileShortcutUrl.iconButton.onPressed.msgSnackbar';
   static const widget_cdsItemListTileShortcutUrl_iconButton_onPressed = 'widget.cdsItemListTileShortcutUrl.iconButton.onPressed';

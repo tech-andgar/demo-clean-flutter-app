@@ -104,7 +104,7 @@ class CodegenLoader extends AssetLoader{
     }
   },
   "feature": {
-    "main": {
+    "mainShortcutUrl": {
       "sliverListUrl": {
         "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
       },
@@ -214,7 +214,7 @@ static const Map<String,dynamic> es_ES = {
     }
   },
   "feature": {
-    "main": {
+    "mainShortcutUrl": {
       "sliverListUrl": {
         "dataEmpty": "¡Parece un poco vacío aquí! Añade tus primeras URLs acortadas."
       },
@@ -321,7 +321,7 @@ static const Map<String,dynamic> pt_BR = {
     }
   },
   "feature": {
-    "main": {
+    "mainShortcutUrl": {
       "sliverListUrl": {
         "dataEmpty": "Parece um pouco vazio aqui! Adicione suas primeiras URLs encurtadas."
       },
