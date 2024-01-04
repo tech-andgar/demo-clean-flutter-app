@@ -31,7 +31,7 @@ class CdsItemListTileShortcutUrl extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) async {
-    clipboard(ClipboardData(text: item.links.short));
+    await clipboard(ClipboardData(text: item.links.short));
 
     if (!context.mounted) return;
 
