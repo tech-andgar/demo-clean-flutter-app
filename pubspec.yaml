@@ -39,7 +39,7 @@ dependencies:
   dio: ^5.4.0
   http: ^1.1.2
   connectivity_plus: ^5.0.2
-  exception_handler: ^1.0.11
+  exception_handler: ^1.1.3
   easy_localization: ^3.0.3
 
 dev_dependencies:

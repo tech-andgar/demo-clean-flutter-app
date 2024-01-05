@@ -128,7 +128,7 @@ void main() async {
     await tester.runAsync(() async {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (_) async => FailureState(
-          DataNetworkException(
+          DataNetworkExceptionState(
             NetworkException.noInternetConnection,
             StackTrace.current,
           ),

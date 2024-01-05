@@ -71,7 +71,7 @@ void main() {
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
-        DataNetworkException(
+        DataNetworkExceptionState(
           NetworkException.noInternetConnection,
           StackTrace.current,
         ),
@@ -94,7 +94,7 @@ void main() {
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
-        DataClientException(
+        DataClientExceptionState(
           Exception('Falied.ExceptionInternalClient'),
           StackTrace.current,
         ),
@@ -117,7 +117,7 @@ void main() {
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
-        DataParseException(
+        DataParseExceptionState(
           Exception('Falied.ExceptionInternalParse'),
           StackTrace.current,
         ),
@@ -140,7 +140,7 @@ void main() {
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
-        DataParseException(
+        DataParseExceptionState(
           Exception('Falied.ExceptionInternalParse'),
           StackTrace.current,
         ),
@@ -164,7 +164,7 @@ void main() {
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
-        DataHttpException(
+        DataHttpExceptionState(
           exception: Exception('Falied.ExceptionInternalHttp'),
           httpException: HttpException.notFound,
           stackTrace: StackTrace.current,
@@ -181,7 +181,30 @@ void main() {
     );
     expect(
       shortcutUrlBloc.notifierNotificationMessage.value?.message,
-      'Error HTTP 404: core.http_code.404',
+      'Error HTTP 404: core.httpCode.404',
+    );
+    expect(shortcutUrlBloc.isLoading, false);
+  });
+  test(
+      'should handle failure ExeptionState other type Unknown in URL generation',
+      () async {
+    const testUrl = 'http://test.com';
+
+    when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
+      (_) async => FailureState(
+        DataCacheExceptionState(CacheException.unknown, StackTrace.current),
+      ),
+    );
+
+    expect(shortcutUrlBloc.isLoading, false);
+    expect(await shortcutUrlBloc.generateShortcutUrl(testUrl), false);
+    expect(
+      shortcutUrlBloc.notifierNotificationMessage.value?.type,
+      NotificationType.error,
+    );
+    expect(
+      shortcutUrlBloc.notifierNotificationMessage.value?.message,
+      'Error Unknown: DataCacheExceptionState<ShortcutUrlModel?>(cacheException: CacheException.unknown)',
     );
     expect(shortcutUrlBloc.isLoading, false);
   });

@@ -6,7 +6,6 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks.dart';
 
-
 void main() {
   late ShortcutUrlRepository repository;
   late MockDioExceptionHandler mockExceptionHandler;
@@ -59,7 +58,7 @@ void main() {
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
         (_) async => FailureState(
-          DataNetworkException(
+          DataNetworkExceptionState(
             NetworkException.noInternetConnection,
             stackTrace,
           ),
@@ -69,7 +68,10 @@ void main() {
       final result = await repository.postShortcutUrl(url);
 
       expect(result, isA<FailureState>());
-      expect((result as FailureState).exception, isA<DataNetworkException>());
+      expect(
+        (result as FailureState).exception,
+        isA<DataNetworkExceptionState>(),
+      );
     });
     test('postShortcutUrl returns FailureState on DioException', () async {
       const url = 'https://example.com';
@@ -82,13 +84,16 @@ void main() {
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
         (_) async =>
-            FailureState(DataClientException(dioException, stackTrace)),
+            FailureState(DataClientExceptionState(dioException, stackTrace)),
       );
 
       final result = await repository.postShortcutUrl(url);
 
       expect(result, isA<FailureState>());
-      expect((result as FailureState).exception, isA<DataClientException>());
+      expect(
+        (result as FailureState).exception,
+        isA<DataClientExceptionState>(),
+      );
     });
     test('postShortcutUrl returns FailureState on parse error', () async {
       const url = 'https://example.com';
@@ -106,13 +111,16 @@ void main() {
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
         (_) async =>
-            FailureState(DataParseException(parseException, stackTrace)),
+            FailureState(DataParseExceptionState(parseException, stackTrace)),
       );
 
       final result = await repository.postShortcutUrl(url);
 
       expect(result, isA<FailureState>());
-      expect((result as FailureState).exception, isA<DataParseException>());
+      expect(
+        (result as FailureState).exception,
+        isA<DataParseExceptionState>(),
+      );
     });
 
     test('parserModel parses non-null result correctly', () async {

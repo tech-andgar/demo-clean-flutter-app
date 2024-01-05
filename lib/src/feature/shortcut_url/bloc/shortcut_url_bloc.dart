@@ -12,10 +12,10 @@ enum NotificationType {
 }
 
 class NotificationMessage {
-  final NotificationType type;
-  final String message;
-
   NotificationMessage(this.type, this.message);
+
+  final String message;
+  final NotificationType type;
 }
 
 class ShortcutUrlBloc {
@@ -61,35 +61,35 @@ class ShortcutUrlBloc {
     }
 
     showLoading();
-    final TaskResult<ShortcutUrlModel?> result =
+    final ResultState<ShortcutUrlModel?> result =
         await shortcutUrlRepository.postShortcutUrl(url.ensureHttpsPrefix);
 
     late bool isSuccess;
-    result.when(
-      success: (ShortcutUrlModel? data) {
-        if (data != null) {
-          notifierItemsShortcutUrls.value.insert(0, data);
+    switch (result) {
+      case final SuccessState<ShortcutUrlModel?> successData:
+        if (successData.data != null) {
+          notifierItemsShortcutUrls.value.insert(0, successData.data!);
         }
         isSuccess = true;
-      },
-      failure: (ExceptionState<ShortcutUrlModel?> exception) {
-        final String msgException = switch (exception) {
-          final DataClientException dataClientException =>
-            'Error Client: ${dataClientException.clientException.toString().split('.')[1]}',
-          final DataParseException dataParseException =>
-            'Error Data Parse: ${dataParseException.parseException.toString()}',
-          final DataHttpException dataHttpException =>
-            'Error HTTP ${dataHttpException.statusCode}: ${'core.http_code.${dataHttpException.statusCode}'.tr()}',
-          final DataNetworkException dataNetworkException => 'Error Network: '
-              '${NetworkException.noInternetConnection == dataNetworkException.networkException ? LocaleKeys.core_exception_networkNoInternetConnection.tr() : LocaleKeys.core_httpCode_408.tr()}',
+      case final FailureState<ShortcutUrlModel?> failureData:
+        final String msgException = switch (failureData.exception) {
+          final DataClientExceptionState dataClientExceptionState =>
+            'Error Client: ${dataClientExceptionState.clientException.toString().split('.')[1]}',
+          final DataParseExceptionState dataParseExceptionState =>
+            'Error Data Parse: ${dataParseExceptionState.parseException.toString()}',
+          final DataHttpExceptionState dataHttpExceptionState =>
+            'Error HTTP ${dataHttpExceptionState.statusCode}: ${'core.httpCode.${dataHttpExceptionState.statusCode}'.tr()}',
+          final DataNetworkExceptionState dataNetworkExceptionState =>
+            'Error Network: '
+                '${NetworkException.noInternetConnection == dataNetworkExceptionState.networkException ? LocaleKeys.core_exception_networkNoInternetConnection.tr() : LocaleKeys.core_httpCode_408.tr()}',
+          _ => 'Error Unknown: ${failureData.exception}',
         };
 
         notifierNotificationMessage.value =
             NotificationMessage(NotificationType.error, msgException);
-
         isSuccess = false;
-      },
-    );
+    }
+
     hideLoading();
     return isSuccess;
   }
