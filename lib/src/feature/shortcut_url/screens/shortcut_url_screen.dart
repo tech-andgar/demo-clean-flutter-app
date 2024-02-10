@@ -28,7 +28,6 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
   @override
   void initState() {
     super.initState();
-
     _textUrlController = TextEditingController();
   }
 
@@ -47,13 +46,13 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
         },
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar(
+            const SliverAppBar(
               centerTitle: true,
-              title: const Text('Demo AFGR'),
+              title: Text('Demo AFGR'),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: CdsChangeLanguage(() => setState(() {})),
+                  padding: EdgeInsets.only(right: 16),
+                  child: CdsChangeLanguage(),
                 ),
               ],
             ),

@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import '../common.dart';
 
 class CdsChangeLanguage extends StatelessWidget {
-  const CdsChangeLanguage(this.setState, {super.key});
-  final VoidCallback setState;
+  const CdsChangeLanguage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +16,7 @@ class CdsChangeLanguage extends StatelessWidget {
             return context.supportedLocales.map((Locale locale) {
               return PopupMenuItem(
                 child: Text(locale.localeToLanguageName()),
-                onTap: () {
-                  context.setLocale(locale);
-                  setState();
-                },
+                onTap: () => context.setLocale(locale),
               );
             }).toList();
           },

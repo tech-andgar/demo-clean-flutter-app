@@ -14,13 +14,20 @@ void main() async {
       assetLoader: const CodegenLoader(),
       supportedLocales: CdsI18n.supportedLocals,
       fallbackLocale: CdsI18n.supportedLocals.first,
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final ShortcutUrlBloc shortcutUrlBloc = ShortcutUrlBloc(
+    shortcutUrlRepository: ShortcutUrlRepository(
+      clientExceptionHandler: DioExceptionHandler(),
+      dataSource: ShortcutUrlRemoteDataSource(),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +41,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: ShortUrlScreen(
-        shortcutUrlBloc: ShortcutUrlBloc(
-          shortcutUrlRepository: ShortcutUrlRepository(
-            clientExceptionHandler: DioExceptionHandler(),
-            dataSource: ShortcutUrlRemoteDataSource(),
-          ),
-        ),
-      ),
+      home: ShortUrlScreen(shortcutUrlBloc: shortcutUrlBloc),
     );
   }
 }
