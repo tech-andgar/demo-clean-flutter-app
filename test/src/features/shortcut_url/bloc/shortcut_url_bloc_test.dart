@@ -72,8 +72,8 @@ void main() {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataNetworkExceptionState(
-          NetworkException.noInternetConnection,
-          StackTrace.current,
+          message: 'NetworkException.noInternetConnection',
+          stackTrace: StackTrace.current,
         ),
       ),
     );
@@ -95,8 +95,8 @@ void main() {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataClientExceptionState(
-          Exception('Falied.ExceptionInternalClient'),
-          StackTrace.current,
+          message: 'Falied.ExceptionInternalClient',
+          stackTrace: StackTrace.current,
         ),
       ),
     );
@@ -118,8 +118,8 @@ void main() {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataParseExceptionState(
-          Exception('Falied.ExceptionInternalParse'),
-          StackTrace.current,
+          message: 'Falied.ExceptionInternalParse',
+          stackTrace: StackTrace.current,
         ),
       ),
     );
@@ -131,7 +131,7 @@ void main() {
     );
     expect(
       shortcutUrlBloc.notifierNotificationMessage.value?.message,
-      'Error Data Parse: Exception: Falied.ExceptionInternalParse',
+      'Error Data Parse: Falied.ExceptionInternalParse',
     );
     expect(shortcutUrlBloc.isLoading, false);
   });
@@ -141,8 +141,8 @@ void main() {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataParseExceptionState(
-          Exception('Falied.ExceptionInternalParse'),
-          StackTrace.current,
+          message: 'Falied.ExceptionInternalParse',
+          stackTrace: StackTrace.current,
         ),
       ),
     );
@@ -155,7 +155,7 @@ void main() {
     );
     expect(
       shortcutUrlBloc.notifierNotificationMessage.value?.message,
-      'Error Data Parse: Exception: Falied.ExceptionInternalParse',
+      'Error Data Parse: Falied.ExceptionInternalParse',
     );
     expect(shortcutUrlBloc.isLoading, false);
   });
@@ -165,10 +165,9 @@ void main() {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataHttpExceptionState(
-          exception: Exception('Falied.ExceptionInternalHttp'),
-          httpException: HttpException.notFound,
+          message: 'Falied.ExceptionInternalHttp',
+          httpException: HttpStatus.fromCode(404).exception(),
           stackTrace: StackTrace.current,
-          statusCode: 404,
         ),
       ),
     );
@@ -192,7 +191,10 @@ void main() {
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
-        DataCacheExceptionState(CacheException.unknown, StackTrace.current),
+        DataCacheExceptionState(
+          message: 'CacheException.unknown',
+          stackTrace: StackTrace.current,
+        ),
       ),
     );
 
@@ -204,7 +206,7 @@ void main() {
     );
     expect(
       shortcutUrlBloc.notifierNotificationMessage.value?.message,
-      'Error Unknown: DataCacheExceptionState<ShortcutUrlModel?>(cacheException: CacheException.unknown)',
+      'Error Unknown: DataCacheExceptionState<ShortcutUrlModel?>(cacheException: "CacheException.unknown")',
     );
     expect(shortcutUrlBloc.isLoading, false);
   });
