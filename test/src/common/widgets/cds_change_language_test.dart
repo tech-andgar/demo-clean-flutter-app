@@ -15,7 +15,7 @@ void main() async {
     });
     testWidgets('Renders PopupMenuButton with correct items',
         (WidgetTester tester) async {
-      await tester.pumpWidget(MockBase.appTest(CdsChangeLanguage(() {})));
+      await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuButton), findsOneWidget);
@@ -27,7 +27,7 @@ void main() async {
     });
     testWidgets('Renders PopupMenuButton with correct items and handles taps',
         (WidgetTester tester) async {
-      await tester.pumpWidget(MockBase.appTest(CdsChangeLanguage(() {})));
+      await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuButton), findsOneWidget);
@@ -47,7 +47,7 @@ void main() async {
     });
     testWidgets('Locale verify correctly in en-US',
         (WidgetTester tester) async {
-      await tester.pumpWidget(MockBase.appTest(CdsChangeLanguage(() {})));
+      await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
       final BuildContext context =
@@ -57,11 +57,7 @@ void main() async {
 
     testWidgets('setState callback is invoked on selection',
         (WidgetTester tester) async {
-      bool callbackInvoked = false;
-      mockCallback() => callbackInvoked = true;
-
-      await tester
-          .pumpWidget(MockBase.appTest(CdsChangeLanguage(mockCallback)));
+      await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
       expect(find.byType(PopupMenuButton), findsOneWidget);
@@ -76,8 +72,6 @@ void main() async {
 
       await tester.tap(find.text('Portuguese').last);
       await tester.pumpAndSettle();
-
-      expect(callbackInvoked, isTrue);
     });
   });
   group('UI/UX Tests for CdsChangeLanguage', () {
@@ -89,7 +83,7 @@ void main() async {
               supportedLocales: CdsI18n.supportedLocals,
               path: 'resources/langs',
               assetLoader: const CodegenLoader(),
-              child: CdsChangeLanguage(() {}),
+              child: const CdsChangeLanguage(),
             ),
           ),
         ),
