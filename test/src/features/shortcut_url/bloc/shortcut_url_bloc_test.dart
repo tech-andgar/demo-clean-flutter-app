@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:exception_handler/exception_handler.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http_exception/http_exception.dart';
+import 'package:http_status/http_status.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../mocks.dart';
@@ -11,6 +13,7 @@ void main() {
   EasyLocalization.logger.enableLevels = <LevelMessages>[];
   late ShortcutUrlBloc shortcutUrlBloc;
   late MockShortcutUrlRepository mockShortcutUrlRepository;
+  const testUrl = 'http://test.com';
 
   setUp(() {
     mockShortcutUrlRepository = MockShortcutUrlRepository();
@@ -29,12 +32,11 @@ void main() {
   });
 
   test('should handle duplicate URL input', () async {
-    const testUrl = 'http://test.com';
     shortcutUrlBloc.notifierItemsShortcutUrls.value = [
       const ShortcutUrlModel(
         alias: '123456',
         links: LinksModel(
-          self: 'http://test.com',
+          self: testUrl,
           short: 'http://short.link.com/123456',
         ),
       ),
@@ -44,7 +46,6 @@ void main() {
   });
 
   test('should handle successful URL generation', () async {
-    const testUrl = 'http://test.com';
     expect(shortcutUrlBloc.isLoading, false);
     expect(shortcutUrlBloc.itemsShortcutUrls.length, 0);
 
@@ -53,7 +54,7 @@ void main() {
         ShortcutUrlModel(
           alias: '123456',
           links: LinksModel(
-            self: 'http://test.com',
+            self: testUrl,
             short: 'http://short.link.com/123456',
           ),
         ),
@@ -67,8 +68,6 @@ void main() {
 
   test('should handle failure DataNetworkException in URL generation',
       () async {
-    const testUrl = 'http://test.com';
-
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataNetworkExceptionState(
@@ -90,8 +89,6 @@ void main() {
     expect(shortcutUrlBloc.isLoading, false);
   });
   test('should handle failure DataClientException in URL generation', () async {
-    const testUrl = 'http://test.com';
-
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataClientExceptionState(
@@ -113,8 +110,6 @@ void main() {
     expect(shortcutUrlBloc.isLoading, false);
   });
   test('should handle failure DataParseException in URL generation', () async {
-    const testUrl = 'http://test.com';
-
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataParseExceptionState(
@@ -136,8 +131,6 @@ void main() {
     expect(shortcutUrlBloc.isLoading, false);
   });
   test('should handle failure DataParseException in URL generation', () async {
-    const testUrl = 'http://test.com';
-
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataParseExceptionState(
@@ -160,8 +153,6 @@ void main() {
     expect(shortcutUrlBloc.isLoading, false);
   });
   test('should handle failure DataParseException in URL generation', () async {
-    const testUrl = 'http://test.com';
-
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataHttpExceptionState(
@@ -187,8 +178,6 @@ void main() {
   test(
       'should handle failure ExeptionState other type Unknown in URL generation',
       () async {
-    const testUrl = 'http://test.com';
-
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
       (_) async => FailureState(
         DataCacheExceptionState(
