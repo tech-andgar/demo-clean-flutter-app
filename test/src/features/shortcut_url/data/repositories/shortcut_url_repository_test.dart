@@ -59,8 +59,8 @@ void main() {
       ).thenAnswer(
         (_) async => FailureState(
           DataNetworkExceptionState(
-            NetworkException.noInternetConnection,
-            stackTrace,
+            message: 'NetworkException.noInternetConnection',
+            stackTrace: stackTrace,
           ),
         ),
       );
