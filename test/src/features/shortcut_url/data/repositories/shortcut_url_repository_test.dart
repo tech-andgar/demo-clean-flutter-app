@@ -83,8 +83,12 @@ void main() {
       when(
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (_) async =>
-            FailureState(DataClientExceptionState(dioException, stackTrace)),
+        (_) async => FailureState(
+          DataClientExceptionState(
+            message: dioException.toString(),
+            stackTrace: stackTrace,
+          ),
+        ),
       );
 
       final result = await repository.postShortcutUrl(url);
@@ -110,8 +114,12 @@ void main() {
       when(
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (_) async =>
-            FailureState(DataParseExceptionState(parseException, stackTrace)),
+        (_) async => FailureState(
+          DataParseExceptionState(
+            message: parseException.toString(),
+            stackTrace: stackTrace,
+          ),
+        ),
       );
 
       final result = await repository.postShortcutUrl(url);

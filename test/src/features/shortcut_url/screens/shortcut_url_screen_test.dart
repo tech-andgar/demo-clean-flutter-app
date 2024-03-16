@@ -129,8 +129,8 @@ void main() async {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (_) async => FailureState(
           DataNetworkExceptionState(
-            NetworkException.noInternetConnection,
-            StackTrace.current,
+            message: 'NetworkException.noInternetConnection',
+            stackTrace: StackTrace.current,
           ),
         ),
       );
