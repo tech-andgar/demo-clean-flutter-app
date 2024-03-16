@@ -10,14 +10,12 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (BuildContext context) {
-                return Center(
+              builder: (BuildContext context) => Center(
                   child: ElevatedButton(
                     onPressed: () => CdsSnackBar.show(context, 'Test Message'),
                     child: const Text('Show SnackBar'),
                   ),
-                );
-              },
+                ),
             ),
           ),
         ),

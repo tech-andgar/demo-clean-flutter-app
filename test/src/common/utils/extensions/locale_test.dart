@@ -17,7 +17,7 @@ class MyWidgetLanguages extends StatefulWidget {
 
 class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     context_ = context;
     const localeEn = Locale('en', 'US');
     const localeEs = Locale('es', 'ES');
@@ -25,8 +25,8 @@ class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
       body: Column(
         children: <Widget>[
           Text('core.languages.pt.original'.tr()),
-          Text(localeEn.localeToLanguageName(false)),
-          Text(localeEs.localeToLanguageName(true)),
+          Text(localeEn.localeToLanguageName(toOriginal: false)),
+          Text(localeEs.localeToLanguageName(toOriginal: true)),
         ],
       ),
     );
@@ -34,7 +34,7 @@ class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
 }
 
 void main() async {
-  preMainTest();
+  await preMainTest();
   tearDown(() => context_ = null);
   testWidgets(
     '[EasyLocalization with CodegenLoader] test',

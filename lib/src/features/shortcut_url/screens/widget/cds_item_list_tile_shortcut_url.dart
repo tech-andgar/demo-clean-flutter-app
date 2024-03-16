@@ -9,31 +9,31 @@ import '../../data/data.dart';
 class CdsItemListTileShortcutUrl extends StatelessWidget {
   const CdsItemListTileShortcutUrl(
     this.item, {
-    super.key,
     required this.clipboard,
+    super.key,
   });
 
   final ShortcutUrlModel item;
-  final Future Function(ClipboardData) clipboard;
+  final Future<Object?> Function(ClipboardData) clipboard;
 
   @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(item.links.self),
-      subtitle: Text(item.links.short),
-      trailing: IconButton(
-        icon: const Icon(Icons.copy),
-        onPressed: () {
-          _onPressed(context);
-        },
-      ),
-    );
-  }
+  Widget build(BuildContext context) => ListTile(
+        title: Text(item.links.self),
+        subtitle: Text(item.links.short),
+        trailing: IconButton(
+          icon: const Icon(Icons.copy),
+          onPressed: () {
+            _onPressed(context);
+          },
+        ),
+      );
 
-  void _onPressed(BuildContext context) async {
+  Future<void> _onPressed(BuildContext context) async {
     await clipboard(ClipboardData(text: item.links.short));
 
-    if (!context.mounted) return;
+    if (!context.mounted) {
+      return;
+    }
 
     CdsSnackBar.show(
       context,

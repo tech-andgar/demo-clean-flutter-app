@@ -15,8 +15,9 @@ class ShortcutUrlRepository {
 
   Future<ResultState<ShortcutUrlModel?>> postShortcutUrl(String url) async {
     final ResultState<ShortcutUrlModel?> taskResult =
-        await clientExceptionHandler.callApi<Response, ShortcutUrlModel?>(
-      ApiHandler<Response, ShortcutUrlModel?>(
+        await clientExceptionHandler
+            .callApi<Response<Object?>, ShortcutUrlModel?>(
+      ApiHandler<Response<Object?>, ShortcutUrlModel?>(
         apiCall: () => dataSource.newShortcutUrl(url),
         parserModel: (Object? result) {
           ShortcutUrlModel? dataParse;

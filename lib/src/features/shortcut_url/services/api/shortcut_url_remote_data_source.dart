@@ -12,9 +12,10 @@ class ShortcutUrlRemoteDataSource {
 
   final HttpClient httpClient_;
 
-  Future<Response> newShortcutUrl(String url) async {
-    final Map urlModel = UrlModel(url).toJson();
-    final response = await httpClient_.post('alias', body: urlModel);
+  Future<Response<Object?>> newShortcutUrl(String url) async {
+    final Map<String, Object?> urlModel = UrlModel(url).toJson();
+    final response =
+        await httpClient_.post('alias', body: urlModel) as Response<Object?>;
     return response;
   }
 }

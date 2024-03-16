@@ -1,51 +1,51 @@
 import 'enum_http.dart';
 
 abstract class HttpClient {
-  Future<dynamic> get(
+  Future<Object?> get(
     String url, {
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 
-  Future<dynamic> post(
+  Future<Object?> post(
     String url, {
-    dynamic body,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Object? body,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 
-  Future<dynamic> put(
+  Future<Object?> put(
     String url, {
-    dynamic body,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Object? body,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 
-  Future<dynamic> delete(
+  Future<Object?> delete(
     String url, {
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 
-  Future<dynamic> patch(
+  Future<Object?> patch(
     String url, {
-    dynamic body,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Object? body,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 
-  Future<dynamic> head(
+  Future<Object?> head(
     String url, {
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 
   /// Generic method for handling requests
-  Future<dynamic> request(
+  Future<Object?> request(
     String url, {
     required HTTPRequestMethod method,
-    dynamic body,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Object? body,
+    Map<String, Object?>? queryParameters,
+    Map<String, Object?>? headers,
   });
 }

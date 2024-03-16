@@ -6,9 +6,9 @@ import '../common.dart';
 
 class CdsShimmerLoading extends StatelessWidget {
   CdsShimmerLoading({
-    super.key,
     required this.width,
     required this.height,
+    super.key,
   }) : decoration = BoxDecoration(
           color: Colors.white,
           borderRadius: AppConstants.borderRadius,

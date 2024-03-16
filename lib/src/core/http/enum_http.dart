@@ -40,9 +40,8 @@ enum ContentType {
   textPlain('text/plain'),
   multipartFormData('multipart/form-data');
 
-  final String value;
-
   const ContentType(this.value);
+  final String value;
 
   @override
   String toString() => value;

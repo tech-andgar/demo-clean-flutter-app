@@ -8,7 +8,7 @@ import '../../mocks.dart';
 import '../../pre_main.dart';
 
 void main() async {
-  preMainTest();
+  await preMainTest();
   group('CdsChangeLanguage Widget Tests', () {
     tearDown(() {
       context_ = null;
@@ -37,7 +37,7 @@ void main() async {
 
       expect(
         find.byType(PopupMenuItem),
-        findsNWidgets(CdsI18n.supportedLocals.length),
+        findsNWidgets(supportedI18nLocals.length),
       );
 
       await tester.tap(
@@ -67,7 +67,7 @@ void main() async {
 
       expect(
         find.byType(PopupMenuItem),
-        findsNWidgets(CdsI18n.supportedLocals.length),
+        findsNWidgets(supportedI18nLocals.length),
       );
 
       await tester.tap(find.text('Portuguese').last);
@@ -80,7 +80,7 @@ void main() async {
         MaterialApp(
           home: Scaffold(
             body: EasyLocalization(
-              supportedLocales: CdsI18n.supportedLocals,
+              supportedLocales: supportedI18nLocals,
               path: 'resources/langs',
               assetLoader: const CodegenLoader(),
               child: const CdsChangeLanguage(),
@@ -94,6 +94,7 @@ void main() async {
 
       final Finder languageButton = find.byType(PopupMenuButton);
       expect(
+        // ignore: strict_raw_type
         tester.widget<PopupMenuButton>(languageButton).tooltip,
         'Change language',
       );

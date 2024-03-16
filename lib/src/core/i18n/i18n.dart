@@ -1,9 +1,7 @@
 import 'dart:ui';
 
-class CdsI18n {
-  static List<Locale> get supportedLocals => [
-        const Locale('en', 'US'),
-        const Locale('es', 'ES'),
-        const Locale('pt', 'BR'),
-      ];
-}
+List<Locale> get supportedI18nLocals => [
+      const Locale('en', 'US'),
+      const Locale('es', 'ES'),
+      const Locale('pt', 'BR'),
+    ];

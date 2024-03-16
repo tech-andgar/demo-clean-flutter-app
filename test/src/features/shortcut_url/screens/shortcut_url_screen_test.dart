@@ -12,33 +12,31 @@ import '../../../pre_main.dart';
 late BuildContext _context;
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.shortcutUrlBloc});
+  const MyApp({required this.shortcutUrlBloc, super.key});
+  final ShortcutUrlBloc shortcutUrlBloc;
+
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+        locale: EasyLocalization.of(context)!.locale,
+        supportedLocales: EasyLocalization.of(context)!.supportedLocales,
+        localizationsDelegates: EasyLocalization.of(context)!.delegates,
+        home: MyWidget(shortcutUrlBloc: shortcutUrlBloc),
+      );
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({required this.shortcutUrlBloc, super.key});
   final ShortcutUrlBloc shortcutUrlBloc;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: EasyLocalization.of(context)!.locale,
-      supportedLocales: EasyLocalization.of(context)!.supportedLocales,
-      localizationsDelegates: EasyLocalization.of(context)!.delegates,
-      home: MyWidget(shortcutUrlBloc: shortcutUrlBloc),
-    );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key, required this.shortcutUrlBloc});
-  final ShortcutUrlBloc shortcutUrlBloc;
-
-  @override
-  Widget build(context) {
     _context = context;
     return ShortUrlScreen(shortcutUrlBloc: shortcutUrlBloc);
   }
 }
 
 void main() async {
-  preMainTest();
+  await preMainTest();
 
   late MockShortcutUrlBloc mockBloc;
   late MockShortcutUrlRepository mockShortcutUrlRepository;
@@ -82,7 +80,7 @@ void main() async {
         EasyLocalization(
           path: 'resources/langs',
           assetLoader: const CodegenLoader(),
-          supportedLocales: CdsI18n.supportedLocals,
+          supportedLocales: supportedI18nLocals,
           child: MyApp(shortcutUrlBloc: mockBloc),
         ),
       );
@@ -109,7 +107,7 @@ void main() async {
         EasyLocalization(
           path: 'resources/langs',
           assetLoader: const CodegenLoader(),
-          supportedLocales: CdsI18n.supportedLocals,
+          supportedLocales: supportedI18nLocals,
           child: MyApp(shortcutUrlBloc: mockBloc),
         ),
       );
@@ -139,7 +137,7 @@ void main() async {
         EasyLocalization(
           path: 'resources/langs',
           assetLoader: const CodegenLoader(),
-          supportedLocales: CdsI18n.supportedLocals,
+          supportedLocales: supportedI18nLocals,
           child: MyApp(
             shortcutUrlBloc: ShortcutUrlBloc(
               shortcutUrlRepository: mockShortcutUrlRepository,
@@ -182,7 +180,7 @@ void main() async {
         EasyLocalization(
           path: 'resources/langs',
           assetLoader: const CodegenLoader(),
-          supportedLocales: CdsI18n.supportedLocals,
+          supportedLocales: supportedI18nLocals,
           child: MyApp(
             shortcutUrlBloc: ShortcutUrlBloc(
               shortcutUrlRepository: mockShortcutUrlRepository,

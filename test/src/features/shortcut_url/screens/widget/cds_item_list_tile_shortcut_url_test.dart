@@ -27,7 +27,7 @@ void main() {
           home: Scaffold(
             body: CdsItemListTileShortcutUrl(
               mockItem,
-              clipboard: (ClipboardData clipboardData) async {},
+              clipboard: (ClipboardData clipboardData) async => null,
             ),
           ),
         ),
@@ -45,7 +45,8 @@ void main() {
             body: CdsItemListTileShortcutUrl(
               mockItem,
               clipboard: (ClipboardData data) async {
-                MockClipboard.setData(data);
+                await MockClipboard.setData(data);
+                return null;
               },
             ),
           ),

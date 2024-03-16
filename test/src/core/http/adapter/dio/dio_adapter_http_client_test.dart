@@ -17,7 +17,7 @@ void main() {
       mockDio.options.baseUrl = 'https://example.com';
 
       when(
-        () => mockDio.get(
+        () => mockDio.get<Object?>(
           any(),
           queryParameters: any(named: 'queryParameters'),
           options: any(named: 'options'),
@@ -34,7 +34,7 @@ void main() {
       final response = await client.get('endpoint');
       expect(response.data, 'GET response');
       verify(
-        () => mockDio.get(
+        () => mockDio.get<Object?>(
           'endpoint',
           queryParameters: null,
           options: any(named: 'options'),
@@ -45,7 +45,7 @@ void main() {
     test('Sends POST request correctly', () async {
       final dynamic postData = {'key': 'value'};
       when(
-        () => mockDio.post(
+        () => mockDio.post<Object?>(
           any(),
           data: postData,
           options: any(named: 'options'),
@@ -60,7 +60,7 @@ void main() {
       final response = await client.post('endpoint', body: postData);
       expect(response.data, 'POST response');
       verify(
-        () => mockDio.post(
+        () => mockDio.post<Object?>(
           'endpoint',
           data: postData,
           options: any(named: 'options'),
@@ -71,7 +71,11 @@ void main() {
     test('Sends PUT request correctly', () async {
       final dynamic putData = {'key': 'value'};
       when(
-        () => mockDio.put(any(), data: putData, options: any(named: 'options')),
+        () => mockDio.put<Object?>(
+          any(),
+          data: putData,
+          options: any(named: 'options'),
+        ),
       ).thenAnswer(
         (_) async => Response(
           requestOptions: RequestOptions(path: ''),
@@ -82,7 +86,7 @@ void main() {
       final response = await client.put('endpoint', body: putData);
       expect(response.data, 'PUT response');
       verify(
-        () => mockDio.put(
+        () => mockDio.put<Object?>(
           'endpoint',
           data: putData,
           options: any(named: 'options'),
@@ -91,7 +95,7 @@ void main() {
     });
 
     test('Sends DELETE request correctly', () async {
-      when(() => mockDio.delete(any(), options: any(named: 'options')))
+      when(() => mockDio.delete<Object?>(any(), options: any(named: 'options')))
           .thenAnswer(
         (_) async => Response(
           requestOptions: RequestOptions(path: ''),
@@ -101,14 +105,18 @@ void main() {
 
       final response = await client.delete('endpoint');
       expect(response.data, 'DELETE response');
-      verify(() => mockDio.delete('endpoint', options: any(named: 'options')))
-          .called(1);
+      verify(
+        () => mockDio.delete<Object?>(
+          'endpoint',
+          options: any(named: 'options'),
+        ),
+      ).called(1);
     });
 
     test('Sends PATCH request correctly', () async {
       final dynamic patchData = {'key': 'value'};
       when(
-        () => mockDio.patch(
+        () => mockDio.patch<Object?>(
           any(),
           data: patchData,
           options: any(named: 'options'),
@@ -123,7 +131,7 @@ void main() {
       final response = await client.patch('endpoint', body: patchData);
       expect(response.data, 'PATCH response');
       verify(
-        () => mockDio.patch(
+        () => mockDio.patch<Object?>(
           'endpoint',
           data: patchData,
           options: any(named: 'options'),
@@ -131,7 +139,7 @@ void main() {
       ).called(1);
     });
     test('Sends HEAD request correctly', () async {
-      when(() => mockDio.head(any(), options: any(named: 'options')))
+      when(() => mockDio.head<Object?>(any(), options: any(named: 'options')))
           .thenAnswer(
         (_) async => Response(
           requestOptions: RequestOptions(path: ''),
@@ -141,13 +149,14 @@ void main() {
 
       final response = await client.head('endpoint');
       expect(response.data, 'HEAD response');
-      verify(() => mockDio.head('endpoint', options: any(named: 'options')))
-          .called(1);
+      verify(
+        () => mockDio.head<Object?>('endpoint', options: any(named: 'options')),
+      ).called(1);
     });
 
     test('Sends request using generic method correctly', () async {
       when(
-        () => mockDio.request(
+        () => mockDio.request<Object?>(
           any(),
           queryParameters: any(named: 'queryParameters'),
           options: any(named: 'options'),
@@ -164,7 +173,7 @@ void main() {
           await client.request('endpoint', method: HTTPRequestMethod.get);
       expect(response.data, 'Generic response');
       verify(
-        () => mockDio.request(
+        () => mockDio.request<Object?>(
           'endpoint',
           queryParameters: null,
           options: any(named: 'options'),
@@ -174,7 +183,8 @@ void main() {
     });
 
     test('Handles errors correctly', () async {
-      when(() => mockDio.get(any(), options: any(named: 'options'))).thenThrow(
+      when(() => mockDio.get<Object?>(any(), options: any(named: 'options')))
+          .thenThrow(
         DioException(
           requestOptions: RequestOptions(path: ''),
           error: 'Error occurred',

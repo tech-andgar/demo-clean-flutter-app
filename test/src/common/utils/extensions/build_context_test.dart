@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../mocks.dart';
 import '../../../pre_main.dart';
 
-void main() async {
-  preMainTest();
+Future<void> main() async {
+  await preMainTest();
   group('BuildContext extension -', () {
-		tearDown(() {
+    tearDown(() {
       theme_ = null;
     });
     testWidgets(

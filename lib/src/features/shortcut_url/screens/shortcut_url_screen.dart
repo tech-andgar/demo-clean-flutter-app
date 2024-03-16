@@ -8,7 +8,7 @@ import '../bloc/bloc.dart';
 import 'widget/widget.dart';
 
 class ShortUrlScreen extends StatefulWidget {
-  const ShortUrlScreen({super.key, required this.shortcutUrlBloc});
+  const ShortUrlScreen({required this.shortcutUrlBloc, super.key});
   final ShortcutUrlBloc shortcutUrlBloc;
 
   @override
@@ -32,123 +32,122 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ValueListenableBuilder<NotificationMessage?>(
-        valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
-        builder: (context, message, child) {
-          if (message != null) {
-            Future.microtask(() => CdsSnackBar.show(context, message.message));
-            widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
-          }
+  Widget build(BuildContext context) => Scaffold(
+        body: ValueListenableBuilder<NotificationMessage?>(
+          valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
+          builder: (context, message, child) {
+            if (message != null) {
+              Future.microtask(
+                () => CdsSnackBar.show(context, message.message),
+              );
+              widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
+            }
 
-          return child!;
-        },
-        child: CustomScrollView(
-          slivers: <Widget>[
-            const SliverAppBar(
-              centerTitle: true,
-              title: Text('Demo AFGR'),
-              actions: [
-                Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: CdsChangeLanguage(),
-                ),
-              ],
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CdsInputButton(
-                  controller: _textUrlController,
-                  onPressed: () {
-                    if (_textUrlController.text == '') {
-                      CdsSnackBar.show(
-                        context,
-                        LocaleKeys.core_exception_urlEmptyInput.tr(),
-                      );
-                    } else {
-                      widget.shortcutUrlBloc
-                          .generateShortcutUrl(_textUrlController.text)
-                          .then((isSuccess) {
-                        if (isSuccess) {
-                          _textUrlController.clear();
-                        }
-                      });
-                    }
-                  },
-                ),
+            return child!;
+          },
+          child: CustomScrollView(
+            slivers: <Widget>[
+              const SliverAppBar(
+                centerTitle: true,
+                title: Text('Demo AFGR'),
+                actions: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 16),
+                    child: CdsChangeLanguage(),
+                  ),
+                ],
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  LocaleKeys.feature_mainShortcutUrl_title.tr(),
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CdsInputButton(
+                    controller: _textUrlController,
+                    onPressed: () {
+                      if (_textUrlController.text == '') {
+                        CdsSnackBar.show(
+                          context,
+                          LocaleKeys.core_exception_urlEmptyInput.tr(),
+                        );
+                      } else {
+                        widget.shortcutUrlBloc
+                            .generateShortcutUrl(_textUrlController.text)
+                            .then((isSuccess) {
+                          if (isSuccess) {
+                            _textUrlController.clear();
+                          }
+                        });
+                      }
+                    },
                   ),
                 ),
               ),
-            ),
-            ListenableBuilder(
-              listenable: Listenable.merge(<Listenable?>[
-                widget.shortcutUrlBloc.notifierItemsShortcutUrls,
-                widget.shortcutUrlBloc.notifierLoading,
-              ]),
-              builder: (BuildContext context, _) {
-                if (widget.shortcutUrlBloc.notifierItemsShortcutUrls.value
-                        .isEmpty &&
-                    !widget.shortcutUrlBloc.isLoading) {
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 64,
-                      horizontal: 16,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    LocaleKeys.feature_mainShortcutUrl_title.tr(),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
                     ),
-                    sliver: SliverToBoxAdapter(
-                      child: Center(
-                        child: Text(
-                          LocaleKeys
-                              .feature_mainShortcutUrl_sliverListUrl_dataEmpty
-                              .tr(),
+                  ),
+                ),
+              ),
+              ListenableBuilder(
+                listenable: Listenable.merge(<Listenable?>[
+                  widget.shortcutUrlBloc.notifierItemsShortcutUrls,
+                  widget.shortcutUrlBloc.notifierLoading,
+                ]),
+                builder: (BuildContext context, _) {
+                  if (widget.shortcutUrlBloc.notifierItemsShortcutUrls.value
+                          .isEmpty &&
+                      !widget.shortcutUrlBloc.isLoading) {
+                    return SliverPadding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 64,
+                        horizontal: 16,
+                      ),
+                      sliver: SliverToBoxAdapter(
+                        child: Center(
+                          child: Text(
+                            LocaleKeys
+                                .feature_mainShortcutUrl_sliverListUrl_dataEmpty
+                                .tr(),
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                } else {
-                  return SliverList.separated(
-                    itemCount: widget.shortcutUrlBloc.isLoading
-                        ? widget.shortcutUrlBloc.itemsShortcutUrls.length + 1
-                        : widget.shortcutUrlBloc.itemsShortcutUrls.length,
-                    itemBuilder: (_, int index) {
-                      if (widget.shortcutUrlBloc.isLoading && index == 0) {
-                        return const CdsItemLoading();
-                      } else {
-                        final int index2 = widget.shortcutUrlBloc.isLoading
-                            ? index - 1
-                            : index;
-                        return CdsItemListTileShortcutUrl(
-                          widget.shortcutUrlBloc.itemsShortcutUrls[index2],
-                          clipboard: (ClipboardData clipboardData) async {
-                            await Clipboard.setData(clipboardData);
-                          },
-                        );
-                      }
-                    },
-                    separatorBuilder: (_, __) {
-                      return const Padding(
+                    );
+                  } else {
+                    return SliverList.separated(
+                      itemCount: widget.shortcutUrlBloc.isLoading
+                          ? widget.shortcutUrlBloc.itemsShortcutUrls.length + 1
+                          : widget.shortcutUrlBloc.itemsShortcutUrls.length,
+                      itemBuilder: (_, int index) {
+                        if (widget.shortcutUrlBloc.isLoading && index == 0) {
+                          return const CdsItemLoading();
+                        } else {
+                          final int index2 = widget.shortcutUrlBloc.isLoading
+                              ? index - 1
+                              : index;
+                          return CdsItemListTileShortcutUrl(
+                            widget.shortcutUrlBloc.itemsShortcutUrls[index2],
+                            clipboard: (ClipboardData clipboardData) async {
+                              await Clipboard.setData(clipboardData);
+                              return null;
+                            },
+                          );
+                        }
+                      },
+                      separatorBuilder: (_, __) => const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Divider(),
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

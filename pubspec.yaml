@@ -45,6 +45,10 @@ dependencies:
   http_status: ^3.3.0
 
 dev_dependencies:
+  dart_code_linter:
+    git:
+      url: https://github.com/andgar2010/dart-code-linter/
+      ref: fix_analyzer_6_0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.3

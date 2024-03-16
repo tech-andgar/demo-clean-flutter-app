@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:demoafgr/demoafgr.dart';
 import 'package:demoafgr/generated/codegen_loader.g.dart';
@@ -68,9 +70,8 @@ class MockClipboard {
     _copiedText = data.text;
   }
 
-  static Future<ClipboardData> getData(String format) async {
-    return ClipboardData(text: _copiedText ?? '');
-  }
+  static Future<ClipboardData> getData(String format) async =>
+      ClipboardData(text: _copiedText ?? '');
 }
 
 /// BLoC
@@ -99,14 +100,12 @@ const supportedLocalsCurrent = [
 ];
 
 class MockBase {
-  static Widget appTest([Widget? widget]) {
-    return EasyLocalization(
-      path: 'resources/langs',
-      assetLoader: const CodegenLoader(),
-      supportedLocales: CdsI18n.supportedLocals,
-      child: _AppTest(widget: widget),
-    );
-  }
+  static Widget appTest([Widget? widget]) => EasyLocalization(
+        path: 'resources/langs',
+        assetLoader: const CodegenLoader(),
+        supportedLocales: supportedI18nLocals,
+        child: _AppTest(widget: widget),
+      );
 }
 
 class _AppTest extends StatelessWidget {
@@ -115,15 +114,13 @@ class _AppTest extends StatelessWidget {
   final Widget? widget;
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: DemoWidget(child: widget),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Flutter Demo',
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        home: DemoWidget(child: widget),
+      );
 }
 
 late BuildContext? context_;

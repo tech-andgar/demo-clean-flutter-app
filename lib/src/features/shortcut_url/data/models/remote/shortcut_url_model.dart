@@ -7,14 +7,23 @@ class ShortcutUrlModel extends CustomEquatable {
     required this.alias,
     required this.links,
   });
+
+  factory ShortcutUrlModel.fromJson(Map<String, dynamic> json) {
+    if (json
+        case {
+          'alias': final String alias,
+          '_links': final Map<String, Object?> links,
+        }) {
+      return ShortcutUrlModel(
+        alias: alias,
+        links: LinksModel.fromJson(links),
+      );
+    } else {
+      throw FormatException('Invalid JSON: $json');
+    }
+  }
   final String alias;
   final LinksModel links;
-
-  factory ShortcutUrlModel.fromJson(Map<String, dynamic> json) =>
-      ShortcutUrlModel(
-        alias: json['alias'],
-        links: LinksModel.fromJson(json['_links']),
-      );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

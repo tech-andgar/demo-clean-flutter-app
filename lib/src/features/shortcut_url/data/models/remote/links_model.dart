@@ -5,19 +5,29 @@ class LinksModel extends CustomEquatable {
     required this.self,
     required this.short,
   });
+
+  factory LinksModel.fromJson(Map<String, Object?> json) {
+    if (json
+        case {
+          'self': final String self,
+          'short': final String short,
+        }) {
+      return LinksModel(self: self, short: short);
+    } else {
+      throw FormatException('Invalid JSON: $json');
+    }
+  }
+
   final String self;
   final String short;
 
-  factory LinksModel.fromJson(Map<String, dynamic> json) =>
-      LinksModel(self: json['self'], short: json['short']);
+  @override
+  Map<String, Object?> get namedProps => {'self': self, 'short': short};
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+  Map<String, Object?> toJson() {
+    final Map<String, Object?> data = <String, Object?>{};
     data['self'] = self;
     data['short'] = short;
     return data;
   }
-
-  @override
-  Map<String, Object?> get namedProps => {'self': self, 'short': short};
 }
