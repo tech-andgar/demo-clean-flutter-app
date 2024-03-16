@@ -36,11 +36,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   shimmer: ^3.0.0
-  dio: ^5.4.0
-  http: ^1.2.0
+  dio: ^5.4.1
+  http: ^1.2.1
   connectivity_plus: ^5.0.2
-  exception_handler: ^1.1.4
-  easy_localization: ^3.0.3
+  exception_handler: ^2.0.2
+  easy_localization: ^3.0.5
+  http_exception: ^2.0.0
+  http_status: ^3.3.0
 
 dev_dependencies:
   flutter_test:
