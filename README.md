@@ -142,7 +142,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 1. For each supported locale, add a new ARB file in `lib/resources/langs`.
 
-    ```
+    ```txt
     ├── resources
     │   ├── langs
     │   │   ├── en-US.json
