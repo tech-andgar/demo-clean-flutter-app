@@ -125,11 +125,11 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
                       if (widget.shortcutUrlBloc.isLoading && index == 0) {
                         return const CdsItemLoading();
                       } else {
+                        final int index2 = widget.shortcutUrlBloc.isLoading
+                            ? index - 1
+                            : index;
                         return CdsItemListTileShortcutUrl(
-                          widget.shortcutUrlBloc.itemsShortcutUrls[
-                              widget.shortcutUrlBloc.isLoading
-                                  ? index - 1
-                                  : index],
+                          widget.shortcutUrlBloc.itemsShortcutUrls[index2],
                           clipboard: (ClipboardData clipboardData) async {
                             await Clipboard.setData(clipboardData);
                           },
