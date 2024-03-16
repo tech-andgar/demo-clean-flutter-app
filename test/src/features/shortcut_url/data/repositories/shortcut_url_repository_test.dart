@@ -52,8 +52,6 @@ void main() {
       const url = 'https://example.com';
       final stackTrace = StackTrace.current;
 
-      when(() => mockDataSource.newShortcutUrl(url))
-          .thenThrow(NetworkException.noInternetConnection);
       when(
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
@@ -104,13 +102,6 @@ void main() {
       final stackTrace = StackTrace.current;
       const parseException = FormatException('Invalid JSON');
 
-      when(() => mockDataSource.newShortcutUrl(url)).thenAnswer(
-        (_) async => Response(
-          data: 'invalid json',
-          statusCode: 200,
-          requestOptions: RequestOptions(),
-        ),
-      );
       when(
         () => mockExceptionHandler.callApi<Response, ShortcutUrlModel?>(any()),
       ).thenAnswer(
