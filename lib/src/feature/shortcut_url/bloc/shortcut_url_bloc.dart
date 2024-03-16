@@ -74,14 +74,14 @@ class ShortcutUrlBloc {
       case final FailureState<ShortcutUrlModel?> failureData:
         final String msgException = switch (failureData.exception) {
           final DataClientExceptionState dataClientExceptionState =>
-            'Error Client: ${dataClientExceptionState.clientException.toString().split('.')[1]}',
+            'Error Client: ${dataClientExceptionState.message.toString().split('.')[1]}',
           final DataParseExceptionState dataParseExceptionState =>
-            'Error Data Parse: ${dataParseExceptionState.parseException.toString()}',
+            'Error Data Parse: ${dataParseExceptionState.message.toString()}',
           final DataHttpExceptionState dataHttpExceptionState =>
-            'Error HTTP ${dataHttpExceptionState.statusCode}: ${'core.httpCode.${dataHttpExceptionState.statusCode}'.tr()}',
+            'Error HTTP ${dataHttpExceptionState.httpException.httpStatus.code}: ${'core.httpCode.${dataHttpExceptionState.httpException.httpStatus.code}'.tr()}',
           final DataNetworkExceptionState dataNetworkExceptionState =>
             'Error Network: '
-                '${NetworkException.noInternetConnection == dataNetworkExceptionState.networkException ? LocaleKeys.core_exception_networkNoInternetConnection.tr() : LocaleKeys.core_httpCode_408.tr()}',
+                '${'NetworkException.noInternetConnection' == dataNetworkExceptionState.message ? LocaleKeys.core_exception_networkNoInternetConnection.tr() : LocaleKeys.core_httpCode_408.tr()}',
           _ => 'Error Unknown: ${failureData.exception}',
         };
 
