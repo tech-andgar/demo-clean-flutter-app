@@ -57,70 +57,70 @@ This project relies on flutter_localizations and follows the [Package easy_local
 
 1. To add a new localizable string, open the `en-US.json` file at `lib/resources/langs/en-US.json`.
 
-```json
-{
-  "feature": {
-    "main": {
-      "sliverListUrl": {
-        "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
-      },
-      "title": "Recently shortend URLs"
-    }
-  }
-}
-```
-
-2. Then add a new key/value and description
-
-```json
-{
-  "feature": {
-    "main": {
-      "sliverListUrl": {
-        "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
-      },
-      "title": "Recently shortend URLs"
-    }
-  },
-  "widget": {
-    "cdsItemListTileShortcutUrl": {
-      "iconButton": {
-        "onPressed": {
-          "msgSnackbar": "Link shortend {linkShortend}\nCopied to your clipboard"
+    ```json
+    {
+      "feature": {
+        "main": {
+          "sliverListUrl": {
+            "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
+          },
+          "title": "Recently shortend URLs"
         }
       }
     }
-  }
-}
-```
+    ```
+
+2. Then add a new key/value and description
+
+    ```json
+    {
+      "feature": {
+        "main": {
+          "sliverListUrl": {
+            "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
+          },
+          "title": "Recently shortend URLs"
+        }
+      },
+      "widget": {
+        "cdsItemListTileShortcutUrl": {
+          "iconButton": {
+            "onPressed": {
+              "msgSnackbar": "Link shortend {linkShortend}\nCopied to your clipboard"
+            }
+          }
+        }
+      }
+    }
+    ```
 
 3. Use the new string
 
-```dart
-import 'package:easy_localization/easy_localization.dart';
-import '../generated/locale_keys.g.dart';
+    ```dart
+    import 'package:easy_localization/easy_localization.dart';
+    import '../generated/locale_keys.g.dart';
 
-@override
-Widget build(BuildContext context) {
-  return Text(LocaleKeys.feature_main_title.tr());
-}
-```
+    @override
+    Widget build(BuildContext context) {
+      return Text(LocaleKeys.feature_main_title.tr());
+    }
+    ```
 
-or used with named arguments
+    or used with named arguments
 
-```dart
-import 'package:easy_localization/easy_localization.dart';
-import '../generated/locale_keys.g.dart';
+    ```dart
+    import 'package:easy_localization/easy_localization.dart';
+    import '../generated/locale_keys.g.dart';
 
-@override
-Widget build(BuildContext context) {
-  return Text(
-          LocaleKeys
-          .widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar
-          .tr(namedArgs: {'linkShortend': 'https://short.link/123abc'})
-        );
-}
-```
+    @override
+    Widget build(BuildContext context) {
+      return Text(
+              LocaleKeys
+              .widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar
+              .tr(namedArgs: {'linkShortend': 'https://short.link/123abc'})
+            );
+    }
+    ```
 
 ### Adding Supported Locales
 
@@ -142,44 +142,44 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 1. For each supported locale, add a new ARB file in `lib/resources/langs`.
 
-```
-├── resources
-│   ├── langs
-│   │   ├── en-US.json
-│   │   └── es-ES.json
-```
+    ```
+    ├── resources
+    │   ├── langs
+    │   │   ├── en-US.json
+    │   │   └── es-ES.json
+    ```
 
 2. Add the translated strings to each `.json` file:
 
-`es-ES.json`
+    `es-ES.json`
 
-```json
-{
-  "feature": {
-    "main": {
-      "sliverListUrl": {
-        "dataEmpty": "¡Parece un poco vacío aquí! Añade tus primeras URLs acortadas."
-      },
-      "title": "URL acortadas recientemente"
+    ```json
+    {
+      "feature": {
+        "main": {
+          "sliverListUrl": {
+            "dataEmpty": "¡Parece un poco vacío aquí! Añade tus primeras URLs acortadas."
+          },
+          "title": "URL acortadas recientemente"
+        }
+      }
     }
-  }
-}
-```
+    ```
 
-`en-US.json`
+    `en-US.json`
 
-```json
-{
-  "feature": {
-    "main": {
-      "sliverListUrl": {
-        "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
+    ```json
+    {
+      "feature": {
+        "main": {
+          "sliverListUrl": {
+            "dataEmpty": "Looks a bit empty here! Add your first shortened URLs."
+          },
+          "title": "Recently shortend URLs"
+        }
       },
-      "title": "Recently shortend URLs"
     }
-  },
-}
-```
+    ```
 
 ### Generating Translations
 
@@ -187,8 +187,8 @@ To use the latest translations changes, you will need to generate them:
 
 1. Generate localizations for the current project:
 
-```sh
-dart run easy_localization:generate && dart run easy_localization:generate -f keys -o locale_keys.g.dart
-```
+    ```sh
+    dart run easy_localization:generate && dart run easy_localization:generate -f keys -o locale_keys.g.dart
+    ```
 
 [coverage_badge]: coverage_badge.svg
