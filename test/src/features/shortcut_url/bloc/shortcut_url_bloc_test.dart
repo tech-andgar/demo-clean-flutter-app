@@ -13,7 +13,7 @@ void main() {
   EasyLocalization.logger.enableLevels = <LevelMessages>[];
   late ShortcutUrlBloc shortcutUrlBloc;
   late MockShortcutUrlRepository mockShortcutUrlRepository;
-  const testUrl = 'http://test.com';
+  const String testUrl = 'http://test.com';
 
   setUp(() {
     mockShortcutUrlRepository = MockShortcutUrlRepository();
@@ -26,13 +26,13 @@ void main() {
   });
 
   test('should handle invalid URL input', () async {
-    const testUrl = 'invalid-url';
+    const String testUrl = 'invalid-url';
 
     expect(await shortcutUrlBloc.generateShortcutUrl(testUrl), false);
   });
 
   test('should handle duplicate URL input', () async {
-    shortcutUrlBloc.notifierItemsShortcutUrls.value = [
+    shortcutUrlBloc.notifierItemsShortcutUrls.value = <ShortcutUrlModel>[
       const ShortcutUrlModel(
         alias: '123456',
         links: LinksModel(
@@ -50,7 +50,7 @@ void main() {
     expect(shortcutUrlBloc.itemsShortcutUrls.length, 0);
 
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => const SuccessState(
+      (final _) async => const SuccessState<ShortcutUrlModel?>(
         ShortcutUrlModel(
           alias: '123456',
           links: LinksModel(
@@ -69,8 +69,8 @@ void main() {
   test('should handle failure DataNetworkException in URL generation',
       () async {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => FailureState(
-        DataNetworkExceptionState(
+      (final _) async => FailureState<ShortcutUrlModel?>(
+        DataNetworkExceptionState<ShortcutUrlModel?>(
           message: 'NetworkException.noInternetConnection',
           stackTrace: StackTrace.current,
         ),
@@ -90,8 +90,8 @@ void main() {
   });
   test('should handle failure DataClientException in URL generation', () async {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => FailureState(
-        DataClientExceptionState(
+      (final _) async => FailureState<ShortcutUrlModel?>(
+        DataClientExceptionState<ShortcutUrlModel?>(
           message: 'Falied.ExceptionInternalClient',
           stackTrace: StackTrace.current,
         ),
@@ -111,8 +111,8 @@ void main() {
   });
   test('should handle failure DataParseException in URL generation', () async {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => FailureState(
-        DataParseExceptionState(
+      (final _) async => FailureState<ShortcutUrlModel?>(
+        DataParseExceptionState<ShortcutUrlModel?>(
           message: 'Falied.ExceptionInternalParse',
           stackTrace: StackTrace.current,
         ),
@@ -132,8 +132,8 @@ void main() {
   });
   test('should handle failure DataParseException in URL generation', () async {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => FailureState(
-        DataParseExceptionState(
+      (final _) async => FailureState<ShortcutUrlModel?>(
+        DataParseExceptionState<ShortcutUrlModel?>(
           message: 'Falied.ExceptionInternalParse',
           stackTrace: StackTrace.current,
         ),
@@ -154,8 +154,8 @@ void main() {
   });
   test('should handle failure DataParseException in URL generation', () async {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => FailureState(
-        DataHttpExceptionState(
+      (final _) async => FailureState<ShortcutUrlModel?>(
+        DataHttpExceptionState<ShortcutUrlModel?>(
           message: 'Falied.ExceptionInternalHttp',
           httpException: HttpStatus.fromCode(404).exception(),
           stackTrace: StackTrace.current,
@@ -179,8 +179,8 @@ void main() {
       'should handle failure ExeptionState other type Unknown in URL generation',
       () async {
     when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-      (_) async => FailureState(
-        DataCacheExceptionState(
+      (final _) async => FailureState<ShortcutUrlModel?>(
+        DataCacheExceptionState<ShortcutUrlModel?>(
           message: 'CacheException.unknown',
           stackTrace: StackTrace.current,
         ),

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('CdsItemLoading Widget Tests', () {
     testWidgets('Renders correctly with expected layout and children',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -27,7 +27,7 @@ void main() {
       final List<Finder> shimmerFinders = find
           .byType(CdsShimmerLoading)
           .evaluate()
-          .map((e) => find.byWidget(e.widget))
+          .map((final Element e) => find.byWidget(e.widget))
           .toList();
       expect(shimmerFinders.length, 2);
 

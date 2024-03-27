@@ -14,7 +14,7 @@ void main() async {
       context_ = null;
     });
     testWidgets('Renders PopupMenuButton with correct items',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
@@ -26,7 +26,7 @@ void main() async {
       expect(find.byType(PopupMenuItem), findsNWidgets(3));
     });
     testWidgets('Renders PopupMenuButton with correct items and handles taps',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
@@ -46,7 +46,7 @@ void main() async {
       await tester.pump();
     });
     testWidgets('Locale verify correctly in en-US',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
@@ -56,7 +56,7 @@ void main() async {
     });
 
     testWidgets('setState callback is invoked on selection',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
       await tester.pumpAndSettle();
 
@@ -75,7 +75,8 @@ void main() async {
     });
   });
   group('UI/UX Tests for CdsChangeLanguage', () {
-    testWidgets('UI elements display correctly', (WidgetTester tester) async {
+    testWidgets('UI elements display correctly',
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

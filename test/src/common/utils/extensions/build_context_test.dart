@@ -12,7 +12,7 @@ Future<void> main() async {
     });
     testWidgets(
       'check type theme',
-      (WidgetTester tester) async {
+      (final WidgetTester tester) async {
         // Act
         await tester.pumpWidget(MockBase.appTest());
         await tester.pump();

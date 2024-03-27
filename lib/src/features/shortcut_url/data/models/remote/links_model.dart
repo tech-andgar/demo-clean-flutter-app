@@ -6,7 +6,7 @@ class LinksModel extends CustomEquatable {
     required this.short,
   });
 
-  factory LinksModel.fromJson(Map<String, Object?> json) {
+  factory LinksModel.fromJson(final Map<String, Object?> json) {
     if (json
         case {
           'self': final String self,
@@ -22,12 +22,14 @@ class LinksModel extends CustomEquatable {
   final String short;
 
   @override
-  Map<String, Object?> get namedProps => {'self': self, 'short': short};
+  Map<String, Object?> get namedProps =>
+      <String, Object?>{'self': self, 'short': short};
 
   Map<String, Object?> toJson() {
     final Map<String, Object?> data = <String, Object?>{};
     data['self'] = self;
     data['short'] = short;
+
     return data;
   }
 }

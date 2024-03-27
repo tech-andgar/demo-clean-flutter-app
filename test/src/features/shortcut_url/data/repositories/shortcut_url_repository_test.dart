@@ -26,62 +26,72 @@ void main() {
   group('ShortcutUrlRepository', () {
     test('postShortcutUrl returns SuccessState on successful API call',
         () async {
-      const url = 'https://example.com';
-      const shortcutUrlModel = ShortcutUrlModel(
+      const String url = 'https://example.com';
+      const ShortcutUrlModel shortcutUrlModel = ShortcutUrlModel(
         alias: 'example',
         links: LinksModel(self: '', short: ''),
       );
 
       when(() => mockDataSource.newShortcutUrl(url)).thenAnswer(
-        (_) async => Response<Object?>(
+        (final _) async => Response<Object?>(
           data: '/* ... */',
           statusCode: 200,
           requestOptions: RequestOptions(),
         ),
       );
       when(
-        () => mockExceptionHandler.callApi<Response<Object?>, ShortcutUrlModel?>(any()),
-      ).thenAnswer((_) async => const SuccessState(shortcutUrlModel));
+        () => mockExceptionHandler
+            .callApi<Response<Object?>, ShortcutUrlModel?>(any()),
+      ).thenAnswer(
+        (final _) async => const SuccessState<ShortcutUrlModel?>(shortcutUrlModel),
+      );
 
-      final result = await repository.postShortcutUrl(url);
+      final ResultState<ShortcutUrlModel?> result =
+          await repository.postShortcutUrl(url);
 
       expect(result, isA<SuccessState<ShortcutUrlModel?>>());
-      expect((result as SuccessState).data, shortcutUrlModel);
+      expect(
+        (result as SuccessState<ShortcutUrlModel?>).data,
+        shortcutUrlModel,
+      );
     });
     test('postShortcutUrl returns FailureState on network exception', () async {
-      const url = 'https://example.com';
-      final stackTrace = StackTrace.current;
+      const String url = 'https://example.com';
+      final StackTrace stackTrace = StackTrace.current;
 
       when(
-        () => mockExceptionHandler.callApi<Response<Object?>, ShortcutUrlModel?>(any()),
+        () => mockExceptionHandler
+            .callApi<Response<Object?>, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (_) async => FailureState(
-          DataNetworkExceptionState(
+        (final _) async => FailureState<ShortcutUrlModel?>(
+          DataNetworkExceptionState<ShortcutUrlModel?>(
             message: 'NetworkException.noInternetConnection',
             stackTrace: stackTrace,
           ),
         ),
       );
 
-      final result = await repository.postShortcutUrl(url);
+      final ResultState<ShortcutUrlModel?> result =
+          await repository.postShortcutUrl(url);
 
       expect(result, isA<FailureState<ShortcutUrlModel?>>());
       expect(
-        (result as FailureState).exception,
+        (result as FailureState<ShortcutUrlModel?>).exception,
         isA<DataNetworkExceptionState<ShortcutUrlModel?>>(),
       );
     });
     test('postShortcutUrl returns FailureState on DioException', () async {
-      const url = 'https://example.com';
-      final stackTrace = StackTrace.current;
-      final dioException =
+      const String url = 'https://example.com';
+      final StackTrace stackTrace = StackTrace.current;
+      final DioException dioException =
           DioException(requestOptions: RequestOptions(path: url));
 
       when(() => mockDataSource.newShortcutUrl(url)).thenThrow(dioException);
       when(
-        () => mockExceptionHandler.callApi<Response<Object?>, ShortcutUrlModel?>(any()),
+        () => mockExceptionHandler
+            .callApi<Response<Object?>, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (_) async => FailureState(
+        (final _) async => FailureState<ShortcutUrlModel?>(
           DataClientExceptionState<ShortcutUrlModel?>(
             message: dioException.toString(),
             stackTrace: stackTrace,
@@ -89,44 +99,47 @@ void main() {
         ),
       );
 
-      final result = await repository.postShortcutUrl(url);
+      final ResultState<ShortcutUrlModel?> result =
+          await repository.postShortcutUrl(url);
 
       expect(result, isA<FailureState<ShortcutUrlModel?>>());
       expect(
-        (result as FailureState).exception,
+        (result as FailureState<ShortcutUrlModel?>).exception,
         isA<DataClientExceptionState<ShortcutUrlModel?>>(),
       );
     });
     test('postShortcutUrl returns FailureState on parse error', () async {
-      const url = 'https://example.com';
-      final stackTrace = StackTrace.current;
-      const parseException = FormatException('Invalid JSON');
+      const String url = 'https://example.com';
+      final StackTrace stackTrace = StackTrace.current;
+      const FormatException parseException = FormatException('Invalid JSON');
 
       when(
-        () => mockExceptionHandler.callApi<Response<Object?>, ShortcutUrlModel?>(any()),
+        () => mockExceptionHandler
+            .callApi<Response<Object?>, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (_) async => FailureState(
-          DataParseExceptionState(
+        (final _) async => FailureState<ShortcutUrlModel?>(
+          DataParseExceptionState<ShortcutUrlModel?>(
             message: parseException.toString(),
             stackTrace: stackTrace,
           ),
         ),
       );
 
-      final result = await repository.postShortcutUrl(url);
+      final ResultState<ShortcutUrlModel?> result =
+          await repository.postShortcutUrl(url);
 
       expect(result, isA<FailureState<ShortcutUrlModel?>>());
       expect(
-        (result as FailureState).exception,
+        (result as FailureState<ShortcutUrlModel?>).exception,
         isA<DataParseExceptionState<ShortcutUrlModel?>>(),
       );
     });
 
     test('parserModel parses non-null result correctly', () async {
-      const url = 'https://example.com';
-      final mockResponseData = {
+      const String url = 'https://example.com';
+      final Map<String, Object> mockResponseData = <String, Object>{
         'alias': '1878290138',
-        '_links': {
+        '_links': <String, String>{
           'self': 'www.example.com',
           'short':
               'https://url-shortener-server.onrender.com/api/alias/1878290138',
@@ -134,7 +147,7 @@ void main() {
       };
 
       when(() => mockDataSource.newShortcutUrl(url)).thenAnswer(
-        (_) async => Response(
+        (final _) async => Response<Object?>(
           data: mockResponseData,
           statusCode: 200,
           requestOptions: RequestOptions(),
@@ -142,15 +155,20 @@ void main() {
       );
 
       when(
-        () => mockExceptionHandler.callApi<Response<Object?>, ShortcutUrlModel?>(any()),
+        () => mockExceptionHandler
+            .callApi<Response<Object?>, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (_) async => SuccessState(ShortcutUrlModel.fromJson(mockResponseData)),
+        (final _) async => SuccessState<ShortcutUrlModel?>(
+          ShortcutUrlModel.fromJson(mockResponseData),
+        ),
       );
 
-      final result = await repository.postShortcutUrl(url);
+      final ResultState<ShortcutUrlModel?> result =
+          await repository.postShortcutUrl(url);
 
       expect(result, isA<SuccessState<ShortcutUrlModel?>>());
-      final successResult = result as SuccessState<ShortcutUrlModel?>;
+      final SuccessState<ShortcutUrlModel?> successResult =
+          result as SuccessState<ShortcutUrlModel?>;
       expect(successResult.data, isNotNull);
       expect(successResult.data?.alias, equals('1878290138'));
     });

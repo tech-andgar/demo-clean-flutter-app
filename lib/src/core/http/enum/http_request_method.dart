@@ -7,12 +7,12 @@ enum HTTPRequestMethod {
   /// but without the response body.
   head,
 
-  /// The `POST` method submits an entity to the specified resource, often causing
-  /// a change in state or side effects on the server.
+  /// The `POST` method submits an entity to the specified resource,
+	/// often causing a change in state or side effects on the server.
   post,
 
-  /// The `PUT` method replaces all current representations of the target resource
-  /// with the request payload.
+  /// The `PUT` method replaces all current representations of the target
+	/// resource with the request payload.
   put,
 
   /// The `DELETE` method deletes the specified resource.
@@ -46,3 +46,5 @@ enum ContentType {
   @override
   String toString() => value;
 }
+
+

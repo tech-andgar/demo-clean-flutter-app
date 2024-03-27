@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('CdsInputButton Widget Tests', () {
     testWidgets('Renders TextField and IconButton with correct initial states',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       final TextEditingController controller = TextEditingController();
 
       await tester.pumpWidget(
@@ -26,7 +26,7 @@ void main() {
     });
 
     testWidgets('Text input changes are reflected in the controller',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       final TextEditingController controller = TextEditingController();
 
       await tester.pumpWidget(
@@ -47,7 +47,7 @@ void main() {
     });
 
     testWidgets('onPressed callback is called when button is pressed',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       bool pressed = false;
       final TextEditingController controller = TextEditingController();
 

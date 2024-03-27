@@ -21,13 +21,13 @@ void main() {
       );
     });
 
-    testWidgets('should display correct data', (WidgetTester tester) async {
+    testWidgets('should display correct data', (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: CdsItemListTileShortcutUrl(
               mockItem,
-              clipboard: (ClipboardData clipboardData) async => null,
+              clipboard: (final ClipboardData clipboardData) async => null,
             ),
           ),
         ),
@@ -38,13 +38,13 @@ void main() {
     });
 
     testWidgets('copy button should copy short link to clipboard',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: CdsItemListTileShortcutUrl(
               mockItem,
-              clipboard: (ClipboardData data) async {
+              clipboard: (final ClipboardData data) async {
                 await MockClipboard.setData(data);
                 return null;
               },
@@ -64,7 +64,11 @@ void main() {
         find.text(
           LocaleKeys
               .widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar
-              .tr(namedArgs: {'linkShortend': mockItem.links.self}),
+              .tr(
+            namedArgs: <String, String>{
+              'linkShortend': mockItem.links.self,
+            },
+          ),
         ),
         findsOneWidget,
       );

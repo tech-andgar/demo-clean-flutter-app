@@ -17,7 +17,7 @@ class CdsItemListTileShortcutUrl extends StatelessWidget {
   final Future<Object?> Function(ClipboardData) clipboard;
 
   @override
-  Widget build(BuildContext context) => ListTile(
+  Widget build(final BuildContext context) => ListTile(
         title: Text(item.links.self),
         subtitle: Text(item.links.short),
         trailing: IconButton(
@@ -28,7 +28,7 @@ class CdsItemListTileShortcutUrl extends StatelessWidget {
         ),
       );
 
-  Future<void> _onPressed(BuildContext context) async {
+  Future<void> _onPressed(final BuildContext context) async {
     await clipboard(ClipboardData(text: item.links.short));
 
     if (!context.mounted) {
@@ -39,7 +39,7 @@ class CdsItemListTileShortcutUrl extends StatelessWidget {
       context,
       LocaleKeys
           .widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar
-          .tr(namedArgs: {'linkShortend': item.links.self}),
+          .tr(namedArgs: <String, String>{'linkShortend': item.links.self}),
     );
   }
 }

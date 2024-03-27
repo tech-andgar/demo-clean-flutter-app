@@ -6,7 +6,7 @@ import 'package:shimmer/shimmer.dart';
 void main() {
   group('CdsShimmerLoading Widget Tests', () {
     testWidgets('Renders default CdsShimmerLoading with correct dimensions',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -23,7 +23,7 @@ void main() {
     });
 
     testWidgets('Renders rectangular CdsShimmerLoading with correct shape',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -45,7 +45,7 @@ void main() {
     });
 
     testWidgets('Renders circular CdsShimmerLoading with correct shape',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       const double size = 100;
       await tester.pumpWidget(
         const MaterialApp(
@@ -67,7 +67,7 @@ void main() {
     });
 
     testWidgets('Renders square CdsShimmerLoading with correct dimensions',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       const double size = 100;
       await tester.pumpWidget(
         const MaterialApp(
@@ -83,7 +83,7 @@ void main() {
       expect(tester.getSize(containerFinder), equals(const Size(size, size)));
     });
 
-    testWidgets('Uses theme colors correctly', (WidgetTester tester) async {
+    testWidgets('Uses theme colors correctly', (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(
@@ -103,14 +103,14 @@ void main() {
 
       final Finder shimmerFinder = find.byType(Shimmer);
       final Shimmer shimmer = tester.widget(shimmerFinder) as Shimmer;
-      expect(shimmer.gradient.colors, [
+      expect(shimmer.gradient.colors, <Color>[
         const Color(0x1af44336),
         const Color(0x1af44336),
         const Color(0x4df44336),
         const Color(0x1af44336),
         const Color(0x1af44336),
       ]);
-      expect(shimmer.gradient.colors, [
+      expect(shimmer.gradient.colors, <Color>[
         const Color(0x1af44336),
         const Color(0x1af44336),
         const Color(0x4df44336),

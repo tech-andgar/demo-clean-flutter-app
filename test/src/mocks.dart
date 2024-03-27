@@ -66,11 +66,11 @@ class MockBuildContext extends Mock implements BuildContext {}
 class MockClipboard {
   static String? _copiedText;
 
-  static Future<void> setData(ClipboardData data) async {
+  static Future<void> setData(final ClipboardData data) async {
     _copiedText = data.text;
   }
 
-  static Future<ClipboardData> getData(String format) async =>
+  static Future<ClipboardData> getData(final String format) async =>
       ClipboardData(text: _copiedText ?? '');
 }
 
@@ -78,29 +78,32 @@ class MockClipboard {
 
 class MockShortcutUrlBloc extends Mock implements ShortcutUrlBloc {
   @override
-  ValueNotifier<NotificationMessage?> get notifierNotificationMessage =>
-      ValueNotifier<NotificationMessage?>(null);
+  final ValueNotifier<List<ShortcutUrlModel>> notifierItemsShortcutUrls =
+      ValueNotifier<List<ShortcutUrlModel>>(<ShortcutUrlModel>[]);
+
   @override
-  final notifierItemsShortcutUrls = ValueNotifier<List<ShortcutUrlModel>>([]);
+  final ValueNotifier<bool> notifierLoading = ValueNotifier<bool>(false);
+
+  @override
+  bool get isLoading => notifierLoading.value;
+
   @override
   List<ShortcutUrlModel> get itemsShortcutUrls =>
       notifierItemsShortcutUrls.value;
 
   @override
-  final notifierLoading = ValueNotifier<bool>(false);
-
-  @override
-  bool get isLoading => notifierLoading.value;
+  ValueNotifier<NotificationMessage?> get notifierNotificationMessage =>
+      ValueNotifier<NotificationMessage?>(null);
 }
 
-const supportedLocalsCurrent = [
+const List<Locale> supportedLocalsCurrent = <Locale>[
   Locale('en', 'US'),
   Locale('es', 'ES'),
   Locale('pt', 'BR'),
 ];
 
 class MockBase {
-  static Widget appTest([Widget? widget]) => EasyLocalization(
+  static Widget appTest([final Widget? widget]) => EasyLocalization(
         path: 'resources/langs',
         assetLoader: const CodegenLoader(),
         supportedLocales: supportedI18nLocals,
@@ -114,7 +117,7 @@ class _AppTest extends StatelessWidget {
   final Widget? widget;
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(final BuildContext context) => MaterialApp(
         title: 'Flutter Demo',
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
@@ -128,6 +131,7 @@ late ThemeData? theme_;
 
 class DemoWidget extends StatefulWidget {
   const DemoWidget({super.key, this.child});
+
   final Widget? child;
 
   @override
@@ -143,7 +147,7 @@ class _DemoWidgetState extends State<DemoWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     theme_ = context.theme;
     context_ = context;
     return Scaffold(body: widget.child);

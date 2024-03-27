@@ -8,7 +8,7 @@ class ShortcutUrlModel extends CustomEquatable {
     required this.links,
   });
 
-  factory ShortcutUrlModel.fromJson(Map<String, dynamic> json) {
+  factory ShortcutUrlModel.fromJson(final Map<String, dynamic> json) {
     if (json
         case {
           'alias': final String alias,
@@ -22,16 +22,19 @@ class ShortcutUrlModel extends CustomEquatable {
       throw FormatException('Invalid JSON: $json');
     }
   }
+
   final String alias;
   final LinksModel links;
+
+  @override
+  Map<String, Object?> get namedProps =>
+      <String, Object?>{'alias': alias, 'links': links};
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['alias'] = alias;
     data['_links'] = links.toJson();
+
     return data;
   }
-
-  @override
-  Map<String, Object?> get namedProps => {'alias': alias, 'links': links};
 }

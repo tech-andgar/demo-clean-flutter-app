@@ -6,7 +6,7 @@ class CdsListInitialLoading extends StatelessWidget {
   const CdsListInitialLoading({super.key});
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: List.generate(10, (_) => const CdsItemLoading()),
+  Widget build(final BuildContext context) => Column(
+        children: List<Widget>.generate(10, (final _) => const CdsItemLoading()),
       );
 }

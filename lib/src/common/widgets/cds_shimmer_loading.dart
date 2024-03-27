@@ -11,21 +11,21 @@ class CdsShimmerLoading extends StatelessWidget {
     super.key,
   }) : decoration = BoxDecoration(
           color: Colors.white,
-          borderRadius: AppConstants.borderRadius,
+          borderRadius: Constants.borderRadius,
         );
 
   CdsShimmerLoading.rectangular({
     required this.width,
     required this.height,
     super.key,
-    ShapeBorder? shape = const RoundedRectangleBorder(),
+    final ShapeBorder? shape = const RoundedRectangleBorder(),
   }) : decoration = ShapeDecoration(
           color: Colors.white,
           shape: shape!,
         );
 
   const CdsShimmerLoading.circular({
-    required double size,
+    required final double size,
     super.key,
   })  : width = size,
         height = size,
@@ -35,24 +35,23 @@ class CdsShimmerLoading extends StatelessWidget {
         );
 
   const CdsShimmerLoading.square({
-    required double size,
+    required final double size,
     this.decoration,
     super.key,
   })  : width = size,
         height = size;
 
   final double height;
-  //final ShapeBorder? shape;
   final Decoration? decoration;
   final double width;
 
   @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = context.theme;
+  Widget build(final BuildContext context) {
+    final Color colorOutline = context.theme.colorScheme.outline;
 
     return Shimmer.fromColors(
-      baseColor: theme.colorScheme.outline.withOpacity(.1),
-      highlightColor: theme.colorScheme.outline.withOpacity(.3),
+      baseColor: colorOutline.withOpacity(.1),
+      highlightColor: colorOutline.withOpacity(.3),
       child: Container(
         height: height,
         width: width,

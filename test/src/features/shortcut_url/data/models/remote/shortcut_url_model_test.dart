@@ -9,36 +9,46 @@ void main() {
         LinksModel(self: 'https://example.com', short: 'https://exmpl.com');
 
     test('Constructor initializes properties correctly', () {
-      const shortcut = ShortcutUrlModel(alias: testAlias, links: testLinks);
+      const ShortcutUrlModel shortcut =
+          ShortcutUrlModel(alias: testAlias, links: testLinks);
       expect(shortcut.alias, testAlias);
       expect(shortcut.links, testLinks);
     });
 
     test('fromJson creates correct instance', () {
-      final json = {
+      final Map<String, Object> json = <String, Object>{
         'alias': testAlias,
-        '_links': {'self': testLinks.self, 'short': testLinks.short},
+        '_links': <String, String>{
+          'self': testLinks.self,
+          'short': testLinks.short,
+        },
       };
-      final shortcut = ShortcutUrlModel.fromJson(json);
+      final ShortcutUrlModel shortcut = ShortcutUrlModel.fromJson(json);
 
       expect(shortcut.alias, testAlias);
       expect(shortcut.links, equals(testLinks));
     });
 
     test('toJson returns correct JSON map', () {
-      const shortcut = ShortcutUrlModel(alias: testAlias, links: testLinks);
-      final json = shortcut.toJson();
+      const ShortcutUrlModel shortcut =
+          ShortcutUrlModel(alias: testAlias, links: testLinks);
+      final Map<String, dynamic> json = shortcut.toJson();
 
-      expect(json, {
+      expect(json, <String, Object>{
         'alias': testAlias,
-        '_links': {'self': testLinks.self, 'short': testLinks.short},
+        '_links': <String, String>{
+          'self': testLinks.self,
+          'short': testLinks.short,
+        },
       });
     });
 
     test('Equality comparison works correctly', () {
-      const shortcut1 = ShortcutUrlModel(alias: testAlias, links: testLinks);
-      const shortcut2 = ShortcutUrlModel(alias: testAlias, links: testLinks);
-      const shortcut3 =
+      const ShortcutUrlModel shortcut1 =
+          ShortcutUrlModel(alias: testAlias, links: testLinks);
+      const ShortcutUrlModel shortcut2 =
+          ShortcutUrlModel(alias: testAlias, links: testLinks);
+      const ShortcutUrlModel shortcut3 =
           ShortcutUrlModel(alias: 'differentAlias', links: testLinks);
 
       expect(shortcut1, equals(shortcut2));

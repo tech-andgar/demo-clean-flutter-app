@@ -17,10 +17,10 @@ class MyWidgetLanguages extends StatefulWidget {
 
 class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     context_ = context;
-    const localeEn = Locale('en', 'US');
-    const localeEs = Locale('es', 'ES');
+    const Locale localeEn = Locale('en', 'US');
+    const Locale localeEs = Locale('es', 'ES');
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -38,7 +38,7 @@ void main() async {
   tearDown(() => context_ = null);
   testWidgets(
     '[EasyLocalization with CodegenLoader] test',
-    (WidgetTester tester) async {
+    (final WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(MockBase.appTest(const MyWidgetLanguages()));
         await tester.pumpAndSettle();
@@ -46,7 +46,7 @@ void main() async {
         expect(context_!.supportedLocales, supportedLocalsCurrent);
         expect(context_!.locale, const Locale('en', 'US'));
 
-        final trFinder = find.text('English');
+        final Finder trFinder = find.text('English');
         expect(trFinder, findsOneWidget);
         expect(tr('core.languages.en.original'), 'English');
         expect(tr('core.languages.es.original'), 'Español');
@@ -57,26 +57,26 @@ void main() async {
 
   testWidgets(
     '[EasyLocalization] change locale test',
-    (WidgetTester tester) async {
+    (final WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(MockBase.appTest(const MyWidgetLanguages()));
         await tester.pumpAndSettle();
 
-        final trFinder = find.text('English');
+        final Finder trFinder = find.text('English');
         expect(trFinder, findsOneWidget);
         expect(Localization.of(context_!), isInstanceOf<Localization>());
         expect(context_!.supportedLocales, supportedLocalsCurrent);
         expect(context_!.locale, const Locale('en', 'US'));
         expect(LocaleKeys.core_languages_en_translation.tr(), 'English');
 
-        const changedLocaleEs = Locale('es', 'ES');
+        const Locale changedLocaleEs = Locale('es', 'ES');
         await context_!.setLocale(changedLocaleEs);
         await tester.pump();
 
         expect(context_!.locale, changedLocaleEs);
         expect(tr(LocaleKeys.core_languages_en_translation), 'Inglés');
 
-        const changedLocalePt = Locale('pt', 'BR');
+        const Locale changedLocalePt = Locale('pt', 'BR');
         await context_!.setLocale(changedLocalePt);
         await tester.pump();
 
@@ -87,24 +87,24 @@ void main() async {
   );
   testWidgets(
     'Extension locale test',
-    (WidgetTester tester) async {
+    (final WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(MockBase.appTest(const MyWidgetLanguages()));
         await tester.pumpAndSettle();
 
-        const changedLocale = Locale('pt', 'BR');
+        const Locale changedLocale = Locale('pt', 'BR');
         await context_!.setLocale(changedLocale);
         await tester.pump();
 
-        final trEnFinder = find.text('Inglês');
+        final Finder trEnFinder = find.text('Inglês');
         expect(trEnFinder, findsOneWidget);
-        final trEsFinder = find.text('Español');
+        final Finder trEsFinder = find.text('Español');
         expect(trEsFinder, findsOneWidget);
       });
     },
   );
   test('Should return "Unknown" for unsupported locales', () {
-    const localeUnsupported = Locale('fr');
+    const Locale localeUnsupported = Locale('fr');
     expect(localeUnsupported.localeToLanguageName(), 'Unknown');
   });
 }

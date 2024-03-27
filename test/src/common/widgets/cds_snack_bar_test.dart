@@ -5,12 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('CdsSnackBar Tests', () {
     testWidgets('Shows a SnackBar with the correct message',
-        (WidgetTester tester) async {
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (BuildContext context) => Center(
+              builder: (final BuildContext context) => Center(
                   child: ElevatedButton(
                     onPressed: () => CdsSnackBar.show(context, 'Test Message'),
                     child: const Text('Show SnackBar'),

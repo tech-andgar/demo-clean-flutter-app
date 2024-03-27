@@ -1,43 +1,37 @@
+import 'package:demoafgr/src/features/shortcut_url/data/models/remote/shortcut_url_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../generated/locale_keys.g.dart';
 import '../../../common/common.dart';
+import '../../../core/core.dart';
 import '../bloc/bloc.dart';
 import 'widget/widget.dart';
 
-class ShortUrlScreen extends StatefulWidget {
-  const ShortUrlScreen({required this.shortcutUrlBloc, super.key});
+class ShortcutUrlScreen extends StatefulWidget {
+  const ShortcutUrlScreen({required this.shortcutUrlBloc, super.key});
+
   final ShortcutUrlBloc shortcutUrlBloc;
 
   @override
-  State<ShortUrlScreen> createState() => _ShortUrlScreenState();
+  State<ShortcutUrlScreen> createState() => _ShortcutUrlScreenState();
 }
 
-class _ShortUrlScreenState extends State<ShortUrlScreen> {
+class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
   late final TextEditingController _textUrlController;
 
   @override
-  void dispose() {
-    _textUrlController.dispose();
-    widget.shortcutUrlBloc.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _textUrlController = TextEditingController();
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         body: ValueListenableBuilder<NotificationMessage?>(
           valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
-          builder: (context, message, child) {
+          builder: (
+            final BuildContext context,
+            final NotificationMessage? message,
+            final Widget? child,
+          ) {
             if (message != null) {
-              Future.microtask(
+              Future<void>.microtask(
                 () => CdsSnackBar.show(context, message.message),
               );
               widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
@@ -50,7 +44,7 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
               const SliverAppBar(
                 centerTitle: true,
                 title: Text('Demo AFGR'),
-                actions: [
+                actions: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(right: 16),
                     child: CdsChangeLanguage(),
@@ -71,7 +65,7 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
                       } else {
                         widget.shortcutUrlBloc
                             .generateShortcutUrl(_textUrlController.text)
-                            .then((isSuccess) {
+                            .then((final bool isSuccess) {
                           if (isSuccess) {
                             _textUrlController.clear();
                           }
@@ -98,55 +92,92 @@ class _ShortUrlScreenState extends State<ShortUrlScreen> {
                   widget.shortcutUrlBloc.notifierItemsShortcutUrls,
                   widget.shortcutUrlBloc.notifierLoading,
                 ]),
-                builder: (BuildContext context, _) {
-                  if (widget.shortcutUrlBloc.notifierItemsShortcutUrls.value
-                          .isEmpty &&
-                      !widget.shortcutUrlBloc.isLoading) {
-                    return SliverPadding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 64,
-                        horizontal: 16,
-                      ),
-                      sliver: SliverToBoxAdapter(
-                        child: Center(
-                          child: Text(
-                            LocaleKeys
-                                .feature_mainShortcutUrl_sliverListUrl_dataEmpty
-                                .tr(),
-                          ),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return SliverList.separated(
-                      itemCount: widget.shortcutUrlBloc.isLoading
-                          ? widget.shortcutUrlBloc.itemsShortcutUrls.length + 1
-                          : widget.shortcutUrlBloc.itemsShortcutUrls.length,
-                      itemBuilder: (_, int index) {
-                        if (widget.shortcutUrlBloc.isLoading && index == 0) {
-                          return const CdsItemLoading();
-                        } else {
-                          final int index2 = widget.shortcutUrlBloc.isLoading
-                              ? index - 1
-                              : index;
-                          return CdsItemListTileShortcutUrl(
-                            widget.shortcutUrlBloc.itemsShortcutUrls[index2],
-                            clipboard: (ClipboardData clipboardData) async {
-                              await Clipboard.setData(clipboardData);
-                              return null;
-                            },
-                          );
-                        }
-                      },
-                      separatorBuilder: (_, __) => const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(),
-                      ),
-                    );
-                  }
-                },
+                builder: (final BuildContext context, final _) => (widget
+                            .shortcutUrlBloc
+                            .notifierItemsShortcutUrls
+                            .value
+                            .isEmpty &&
+                        !widget.shortcutUrlBloc.isLoading)
+                    ? const UiWidgetEmptyList()
+                    : UiWidgetListItems(widget: widget),
               ),
             ],
+          ),
+        ),
+      );
+
+  @override
+  void initState() {
+    super.initState();
+    _textUrlController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _textUrlController.dispose();
+    widget.shortcutUrlBloc.dispose();
+    super.dispose();
+  }
+}
+
+class UiWidgetListItems extends StatelessWidget {
+  const UiWidgetListItems({
+    required this.widget,
+    super.key,
+  });
+
+  final ShortcutUrlScreen widget;
+
+  @override
+  Widget build(final BuildContext context) {
+    final ShortcutUrlBloc shortcutUrlBloc = widget.shortcutUrlBloc;
+    final List<ShortcutUrlModel> itemsShortcutUrls =
+        shortcutUrlBloc.itemsShortcutUrls;
+
+    return SliverList.separated(
+      itemCount: shortcutUrlBloc.isLoading
+          ? itemsShortcutUrls.length + 1
+          : itemsShortcutUrls.length,
+      itemBuilder: (final _, final int index) {
+        if (shortcutUrlBloc.isLoading && index == 0) {
+          return const CdsItemLoading();
+        } else {
+          final int index2 = shortcutUrlBloc.isLoading ? index - 1 : index;
+
+          return CdsItemListTileShortcutUrl(
+            itemsShortcutUrls[index2],
+            clipboard: (final ClipboardData clipboardData) async {
+              await Clipboard.setData(clipboardData);
+
+              return null;
+            },
+          );
+        }
+      },
+      separatorBuilder: (final _, final __) => const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Divider(),
+      ),
+    );
+  }
+}
+
+class UiWidgetEmptyList extends StatelessWidget {
+  const UiWidgetEmptyList({
+    super.key,
+  });
+
+  @override
+  Widget build(final BuildContext context) => SliverPadding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 64,
+          horizontal: 16,
+        ),
+        sliver: SliverToBoxAdapter(
+          child: Center(
+            child: Text(
+              LocaleKeys.feature_mainShortcutUrl_sliverListUrl_dataEmpty.tr(),
+            ),
           ),
         ),
       );

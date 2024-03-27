@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 
 import '../common.dart';
 
+/// A Flutter widget that displays a popup menu button for changing the
+/// application language.
 class CdsChangeLanguage extends StatelessWidget {
+  /// Constructs a `CdsChangeLanguage` widget.
   const CdsChangeLanguage({super.key});
 
   @override
-  Widget build(BuildContext context) => Builder(
-        builder: (context) => PopupMenuButton(
+  Widget build(final BuildContext context) => Builder(
+        builder: (final BuildContext context) => PopupMenuButton<dynamic>(
           tooltip: 'Change language',
-          itemBuilder: (context) => context.supportedLocales
+          itemBuilder: (final BuildContext context) => context.supportedLocales
               .map(
-                // ignore: inference_failure_on_instance_creation
-                (Locale locale) => PopupMenuItem(
+                (final Locale locale) => PopupMenuItem<dynamic>(
                   child: Text(locale.localeToLanguageName()),
                   onTap: () => context.setLocale(locale),
                 ),

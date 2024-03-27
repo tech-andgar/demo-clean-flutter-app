@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 
-import '../../enum_http.dart';
+import '../../enum/http_request_method.dart';
 import '../../http_client.dart';
 
 class DioAdapterHttpClient implements HttpClient {
   DioAdapterHttpClient(
-    String baseUrl, {
-    Map<String, Object?>? defaultHeaders,
-    Dio? dio,
+    final String baseUrl, {
+    final Map<String, Object?>? defaultHeaders,
+    final Dio? dio,
   }) : _dio = dio ??
             Dio(
               BaseOptions(
@@ -28,12 +28,13 @@ class DioAdapterHttpClient implements HttpClient {
   /// [headers] are the optional HTTP headers.
   @override
   Future<Response<Object?>> delete(
-    String url, {
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response =
         await _dio.delete(url, options: Options(headers: headers));
+
     return response;
   }
 
@@ -59,15 +60,16 @@ class DioAdapterHttpClient implements HttpClient {
   /// resulting in `https://api.example.com/endpoint?param1=value1&param2=value2`.
   @override
   Future<Response<Object?>> get(
-    String url, {
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response = await _dio.get(
       url,
       queryParameters: queryParameters,
       options: Options(headers: headers),
     );
+
     return response;
   }
 
@@ -78,12 +80,13 @@ class DioAdapterHttpClient implements HttpClient {
   /// [headers] are the optional HTTP headers.
   @override
   Future<Response<Object?>> head(
-    String url, {
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response =
         await _dio.head(url, options: Options(headers: headers));
+
     return response;
   }
 
@@ -95,13 +98,14 @@ class DioAdapterHttpClient implements HttpClient {
   /// [headers] are the optional HTTP headers.
   @override
   Future<Response<Object?>> patch(
-    String url, {
-    Object? body,
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    final Object? body,
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response =
         await _dio.patch(url, data: body, options: Options(headers: headers));
+
     return response;
   }
 
@@ -113,13 +117,14 @@ class DioAdapterHttpClient implements HttpClient {
   /// [headers] are the optional HTTP headers.
   @override
   Future<Response<Object?>> post(
-    String url, {
-    Object? body,
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    final Object? body,
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response =
         await _dio.post(url, data: body, options: Options(headers: headers));
+
     return response;
   }
 
@@ -131,13 +136,14 @@ class DioAdapterHttpClient implements HttpClient {
   /// [headers] are the optional HTTP headers.
   @override
   Future<Response<Object?>> put(
-    String url, {
-    Object? body,
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    final Object? body,
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response =
         await _dio.put(url, data: body, options: Options(headers: headers));
+
     return response;
   }
 
@@ -150,11 +156,11 @@ class DioAdapterHttpClient implements HttpClient {
   /// [headers] are the optional HTTP headers.
   @override
   Future<Response<Object?>> request(
-    String url, {
-    required HTTPRequestMethod method,
-    Object? body,
-    Map<String, Object?>? queryParameters,
-    Map<String, Object?>? headers,
+    final String url, {
+    required final HTTPRequestMethod method,
+    final Object? body,
+    final Map<String, Object?>? queryParameters,
+    final Map<String, Object?>? headers,
   }) async {
     final Response<Object?> response = await _dio.request(
       url,
@@ -162,6 +168,7 @@ class DioAdapterHttpClient implements HttpClient {
       data: body,
       options: Options(method: method.name, headers: headers),
     );
+
     return response;
   }
 
@@ -169,7 +176,7 @@ class DioAdapterHttpClient implements HttpClient {
   ///
   /// [newBaseUrl] is the new base URL to be set.
   // ignore: use_setters_to_change_properties
-  void updateBaseUrl(String newBaseUrl) {
+  void updateBaseUrl(final String newBaseUrl) {
     _dio.options.baseUrl = newBaseUrl;
   }
 }

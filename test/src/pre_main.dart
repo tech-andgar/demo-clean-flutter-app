@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> preMainTest() async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences.setMockInitialValues({});
+  SharedPreferences.setMockInitialValues(<String, Object>{});
   EasyLocalization.logger.enableLevels = <LevelMessages>[];
   await EasyLocalization.ensureInitialized();
 }

@@ -13,7 +13,7 @@ class CdsInputButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   @override
-  Widget build(BuildContext context) => Row(
+  Widget build(final BuildContext context) => Row(
         children: <Widget>[
           Expanded(
             child: Container(

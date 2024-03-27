@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   final ShortcutUrlBloc shortcutUrlBloc;
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(final BuildContext context) => MaterialApp(
         locale: EasyLocalization.of(context)!.locale,
         supportedLocales: EasyLocalization.of(context)!.supportedLocales,
         localizationsDelegates: EasyLocalization.of(context)!.delegates,
@@ -29,9 +29,9 @@ class MyWidget extends StatelessWidget {
   final ShortcutUrlBloc shortcutUrlBloc;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     _context = context;
-    return ShortUrlScreen(shortcutUrlBloc: shortcutUrlBloc);
+    return ShortcutUrlScreen(shortcutUrlBloc: shortcutUrlBloc);
   }
 }
 
@@ -48,7 +48,7 @@ void main() async {
 
   testWidgets(
     'ShortUrlScreen builds correctly',
-    (WidgetTester tester) async {
+    (final WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(
           MockBase.appTest(MyApp(shortcutUrlBloc: mockBloc)),
@@ -56,7 +56,7 @@ void main() async {
 
         await tester.pumpAndSettle();
 
-        expect(find.byType(ShortUrlScreen), findsOneWidget);
+        expect(find.byType(ShortcutUrlScreen), findsOneWidget);
 
         expect(_context.supportedLocales, supportedLocalsCurrent);
         expect(_context.locale, const Locale('en', 'US'));
@@ -71,10 +71,10 @@ void main() async {
       });
     },
   );
-  testWidgets('Generates a short URL', (WidgetTester tester) async {
+  testWidgets('Generates a short URL', (final WidgetTester tester) async {
     await tester.runAsync(() async {
       when(() => mockBloc.generateShortcutUrl(any()))
-          .thenAnswer((_) async => true);
+          .thenAnswer((final _) async => true);
 
       await tester.pumpWidget(
         EasyLocalization(
@@ -98,10 +98,10 @@ void main() async {
     });
   });
 
-  testWidgets('Empty URL Input Test', (WidgetTester tester) async {
+  testWidgets('Empty URL Input Test', (final WidgetTester tester) async {
     await tester.runAsync(() async {
       when(() => mockBloc.generateShortcutUrl(any()))
-          .thenAnswer((_) async => true);
+          .thenAnswer((final _) async => true);
 
       await tester.pumpWidget(
         EasyLocalization(
@@ -122,11 +122,11 @@ void main() async {
       verifyNever(() => mockBloc.generateShortcutUrl(any()));
     });
   });
-  testWidgets('Error Handling', (WidgetTester tester) async {
+  testWidgets('Error Handling', (final WidgetTester tester) async {
     await tester.runAsync(() async {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-        (_) async => FailureState(
-          DataNetworkExceptionState(
+        (final _) async => FailureState<ShortcutUrlModel?>(
+          DataNetworkExceptionState<ShortcutUrlModel?>(
             message: 'NetworkException.noInternetConnection',
             stackTrace: StackTrace.current,
           ),
@@ -162,10 +162,10 @@ void main() async {
     });
   });
   testWidgets('Updated UI for after success url generation',
-      (WidgetTester tester) async {
+      (final WidgetTester tester) async {
     await tester.runAsync(() async {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-        (_) async => const SuccessState(
+        (final _) async => const SuccessState<ShortcutUrlModel?>(
           ShortcutUrlModel(
             alias: '123456',
             links: LinksModel(
