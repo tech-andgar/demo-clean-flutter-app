@@ -82,20 +82,11 @@ jobs:
         run: flutter test --test-randomize-ordering-seed random --coverage
         # if: always() && steps.install.outcome == 'success'
 
-      - name: 📦 Pre-publish - dry run
-        run: dart pub publish --dry-run
-
       - name: 📊 Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v3
         with:
           path: "./coverage/lcov.info"
           min_coverage: 94
-
-      - name: ⬆️ Upload Coverage to Coveralls
-        uses: coverallsapp/github-action@v2.2.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/lcov.info
 
       - id: run_package_flutter_coverage_badge
         name: Run package flutter_coverage_badge
