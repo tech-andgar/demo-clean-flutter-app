@@ -4,28 +4,30 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CdsSnackBar Tests', () {
-    testWidgets('Shows a SnackBar with the correct message',
-        (final WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (final BuildContext context) => Center(
-                child: ElevatedButton(
-                  onPressed: () => CdsSnackBar.show(context, 'Test Message'),
-                  child: const Text('Show SnackBar'),
+    testWidgets(
+      'Shows a SnackBar with the correct message',
+      (final WidgetTester tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (final BuildContext context) => Center(
+                  child: ElevatedButton(
+                    onPressed: () => CdsSnackBar.show(context, 'Test Message'),
+                    child: const Text('Show SnackBar'),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
+        );
 
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
+        await tester.tap(find.byType(ElevatedButton));
+        await tester.pump();
 
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.text('Test Message'), findsOneWidget);
-    });
+        expect(find.byType(SnackBar), findsOneWidget);
+        expect(find.text('Test Message'), findsOneWidget);
+      },
+    );
   });
 }

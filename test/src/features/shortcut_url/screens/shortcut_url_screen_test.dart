@@ -31,6 +31,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     _context = context;
+
     return ShortcutUrlScreen(shortcutUrlBloc: shortcutUrlBloc);
   }
 }
@@ -71,140 +72,151 @@ void main() async {
       });
     },
   );
-  testWidgets('Generates a short URL', (final WidgetTester tester) async {
-    await tester.runAsync(() async {
-      when(() => mockBloc.generateShortcutUrl(any()))
-          .thenAnswer((final _) async => true);
+  testWidgets(
+    'Generates a short URL',
+    (final WidgetTester tester) async {
+      await tester.runAsync(() async {
+        when(() => mockBloc.generateShortcutUrl(any()))
+            .thenAnswer((final _) async => true);
 
-      await tester.pumpWidget(
-        EasyLocalization(
-          path: 'resources/langs',
-          assetLoader: const CodegenLoader(),
-          supportedLocales: supportedI18nLocals,
-          child: MyApp(shortcutUrlBloc: mockBloc),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      await tester.enterText(find.byType(TextField), 'https://example.com');
-      expect(find.text('https://example.com'), findsOneWidget);
-
-      await tester.tap(find.byType(IconButton));
-      await tester.pumpAndSettle();
-
-      verify(() => mockBloc.generateShortcutUrl('https://example.com'))
-          .called(1);
-    });
-  });
-
-  testWidgets('Empty URL Input Test', (final WidgetTester tester) async {
-    await tester.runAsync(() async {
-      when(() => mockBloc.generateShortcutUrl(any()))
-          .thenAnswer((final _) async => true);
-
-      await tester.pumpWidget(
-        EasyLocalization(
-          path: 'resources/langs',
-          assetLoader: const CodegenLoader(),
-          supportedLocales: supportedI18nLocals,
-          child: MyApp(shortcutUrlBloc: mockBloc),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byType(IconButton));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.text('Enter the URL'), findsOneWidget);
-      verifyNever(() => mockBloc.generateShortcutUrl(any()));
-    });
-  });
-  testWidgets('Error Handling', (final WidgetTester tester) async {
-    await tester.runAsync(() async {
-      when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-        (final _) async => FailureState<ShortcutUrlModel?>(
-          DataNetworkExceptionState<ShortcutUrlModel?>(
-            message: 'NetworkException.noInternetConnection',
-            stackTrace: StackTrace.current,
+        await tester.pumpWidget(
+          EasyLocalization(
+            path: 'resources/langs',
+            assetLoader: const CodegenLoader(),
+            supportedLocales: supportedI18nLocals,
+            child: MyApp(shortcutUrlBloc: mockBloc),
           ),
-        ),
-      );
+        );
 
-      await tester.pumpWidget(
-        EasyLocalization(
-          path: 'resources/langs',
-          assetLoader: const CodegenLoader(),
-          supportedLocales: supportedI18nLocals,
-          child: MyApp(
-            shortcutUrlBloc: ShortcutUrlBloc(
-              shortcutUrlRepository: mockShortcutUrlRepository,
+        await tester.pumpAndSettle();
+
+        await tester.enterText(find.byType(TextField), 'https://example.com');
+        expect(find.text('https://example.com'), findsOneWidget);
+
+        await tester.tap(find.byType(IconButton));
+        await tester.pumpAndSettle();
+
+        verify(() => mockBloc.generateShortcutUrl('https://example.com'))
+            .called(1);
+      });
+    },
+  );
+
+  testWidgets(
+    'Empty URL Input Test',
+    (final WidgetTester tester) async {
+      await tester.runAsync(() async {
+        when(() => mockBloc.generateShortcutUrl(any()))
+            .thenAnswer((final _) async => true);
+
+        await tester.pumpWidget(
+          EasyLocalization(
+            path: 'resources/langs',
+            assetLoader: const CodegenLoader(),
+            supportedLocales: supportedI18nLocals,
+            child: MyApp(shortcutUrlBloc: mockBloc),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byType(IconButton));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(SnackBar), findsOneWidget);
+        expect(find.text('Enter the URL'), findsOneWidget);
+        verifyNever(() => mockBloc.generateShortcutUrl(any()));
+      });
+    },
+  );
+  testWidgets(
+    'Error Handling',
+    (final WidgetTester tester) async {
+      await tester.runAsync(() async {
+        when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
+          (final _) async => FailureState<ShortcutUrlModel?>(
+            DataNetworkExceptionState<ShortcutUrlModel?>(
+              message: 'NetworkException.noInternetConnection',
+              stackTrace: StackTrace.current,
             ),
           ),
-        ),
-      );
+        );
 
-      await tester.pumpAndSettle();
-
-      await tester.enterText(find.byType(TextField), 'https://example.com');
-      await tester.tap(find.byType(IconButton));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(
-        find.text(
-          'Error Network: No Internet connection. Check your network and retry.',
-        ),
-        findsOneWidget,
-      );
-    });
-  });
-  testWidgets('Updated UI for after success url generation',
-      (final WidgetTester tester) async {
-    await tester.runAsync(() async {
-      when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
-        (final _) async => const SuccessState<ShortcutUrlModel?>(
-          ShortcutUrlModel(
-            alias: '123456',
-            links: LinksModel(
-              self: 'http://example.com',
-              short: 'http://short.link.com/123456',
+        await tester.pumpWidget(
+          EasyLocalization(
+            path: 'resources/langs',
+            assetLoader: const CodegenLoader(),
+            supportedLocales: supportedI18nLocals,
+            child: MyApp(
+              shortcutUrlBloc: ShortcutUrlBloc(
+                shortcutUrlRepository: mockShortcutUrlRepository,
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      await tester.pumpWidget(
-        EasyLocalization(
-          path: 'resources/langs',
-          assetLoader: const CodegenLoader(),
-          supportedLocales: supportedI18nLocals,
-          child: MyApp(
-            shortcutUrlBloc: ShortcutUrlBloc(
-              shortcutUrlRepository: mockShortcutUrlRepository,
+        await tester.pumpAndSettle();
+
+        await tester.enterText(find.byType(TextField), 'https://example.com');
+        await tester.tap(find.byType(IconButton));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(SnackBar), findsOneWidget);
+        expect(
+          find.text(
+            'Error Network: No Internet connection. Check your network and retry.',
+          ),
+          findsOneWidget,
+        );
+      });
+    },
+  );
+  testWidgets(
+    'Updated UI for after success url generation',
+    (final WidgetTester tester) async {
+      await tester.runAsync(() async {
+        when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
+          (final _) async => const SuccessState<ShortcutUrlModel?>(
+            ShortcutUrlModel(
+              alias: '123456',
+              links: LinksModel(
+                self: 'http://example.com',
+                short: 'http://short.link.com/123456',
+              ),
             ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.byType(Text), findsNWidgets(4));
+        );
 
-      await tester.enterText(find.byType(TextField), 'https://example.com');
-      await tester.tap(find.byType(IconButton));
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          EasyLocalization(
+            path: 'resources/langs',
+            assetLoader: const CodegenLoader(),
+            supportedLocales: supportedI18nLocals,
+            child: MyApp(
+              shortcutUrlBloc: ShortcutUrlBloc(
+                shortcutUrlRepository: mockShortcutUrlRepository,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(find.byType(Text), findsNWidgets(4));
 
-      expect(find.byType(Text), findsNWidgets(5));
+        await tester.enterText(find.byType(TextField), 'https://example.com');
+        await tester.tap(find.byType(IconButton));
+        await tester.pumpAndSettle();
 
-      expect(find.byType(CdsItemListTileShortcutUrl), findsOneWidget);
-      expect(find.text('http://example.com'), findsOneWidget);
-      expect(find.text('http://short.link.com/123456'), findsOneWidget);
+        expect(find.byType(Text), findsNWidgets(5));
 
-      await tester.enterText(find.byType(TextField), 'https://examples.com');
-      await tester.tap(find.byType(IconButton).first);
-      await tester.pumpAndSettle();
-      expect(find.byType(Divider), findsOneWidget);
-    });
-  });
+        expect(find.byType(CdsItemListTileShortcutUrl), findsOneWidget);
+        expect(find.text('http://example.com'), findsOneWidget);
+        expect(find.text('http://short.link.com/123456'), findsOneWidget);
+
+        await tester.enterText(find.byType(TextField), 'https://examples.com');
+        await tester.tap(find.byType(IconButton).first);
+        await tester.pumpAndSettle();
+        expect(find.byType(Divider), findsOneWidget);
+      });
+    },
+  );
 }

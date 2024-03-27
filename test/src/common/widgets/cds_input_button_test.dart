@@ -3,69 +3,78 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('CdsInputButton Widget Tests', () {
-    testWidgets('Renders TextField and IconButton with correct initial states',
+  group(
+    'CdsInputButton Widget Tests',
+    () {
+      testWidgets(
+        'Renders TextField and IconButton with correct initial states',
         (final WidgetTester tester) async {
-      final TextEditingController controller = TextEditingController();
+          final TextEditingController controller = TextEditingController();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: CdsInputButton(
-              controller: controller,
-              onPressed: () {},
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: CdsInputButton(
+                  controller: controller,
+                  onPressed: () {},
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+
+          expect(find.byType(TextField), findsOneWidget);
+          expect(find.byType(IconButton), findsOneWidget);
+
+          expect(find.text('https://'), findsOneWidget);
+        },
       );
 
-      expect(find.byType(TextField), findsOneWidget);
-      expect(find.byType(IconButton), findsOneWidget);
-
-      expect(find.text('https://'), findsOneWidget);
-    });
-
-    testWidgets('Text input changes are reflected in the controller',
+      testWidgets(
+        'Text input changes are reflected in the controller',
         (final WidgetTester tester) async {
-      final TextEditingController controller = TextEditingController();
+          final TextEditingController controller = TextEditingController();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: CdsInputButton(
-              controller: controller,
-              onPressed: () {},
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: CdsInputButton(
+                  controller: controller,
+                  onPressed: () {},
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+
+          await tester.enterText(find.byType(TextField), 'https://example.com');
+          await tester.pump();
+
+          expect(controller.text, 'https://example.com');
+        },
       );
 
-      await tester.enterText(find.byType(TextField), 'https://example.com');
-      await tester.pump();
-
-      expect(controller.text, 'https://example.com');
-    });
-
-    testWidgets('onPressed callback is called when button is pressed',
+      testWidgets(
+        'onPressed callback is called when button is pressed',
         (final WidgetTester tester) async {
-      bool pressed = false;
-      final TextEditingController controller = TextEditingController();
+          bool pressed = false;
+          final TextEditingController controller = TextEditingController();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: CdsInputButton(
-              controller: controller,
-              onPressed: () => pressed = true,
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: CdsInputButton(
+                  controller: controller,
+                  onPressed: () => pressed = true,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+
+          await tester.tap(find.byType(IconButton));
+          await tester.pump();
+
+          expect(pressed, isTrue);
+        },
       );
-
-      await tester.tap(find.byType(IconButton));
-      await tester.pump();
-
-      expect(pressed, isTrue);
-    });
-  });
+    },
+  );
 }

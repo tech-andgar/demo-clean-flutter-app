@@ -8,31 +8,6 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../mocks.dart';
 import '../../../pre_main.dart';
 
-class MyWidgetLanguages extends StatefulWidget {
-  const MyWidgetLanguages({super.key});
-
-  @override
-  State<MyWidgetLanguages> createState() => _MyWidgetLanguagesState();
-}
-
-class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
-  @override
-  Widget build(final BuildContext context) {
-    context_ = context;
-    const Locale localeEn = Locale('en', 'US');
-    const Locale localeEs = Locale('es', 'ES');
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Text('core.languages.pt.original'.tr()),
-          Text(localeEn.localeToLanguageName(toOriginal: false)),
-          Text(localeEs.localeToLanguageName(toOriginal: true)),
-        ],
-      ),
-    );
-  }
-}
-
 void main() async {
   await preMainTest();
   tearDown(() => context_ = null);

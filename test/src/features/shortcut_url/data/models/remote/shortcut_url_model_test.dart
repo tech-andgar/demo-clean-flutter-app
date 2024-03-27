@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ShortcutUrlModel Tests', () {
-    // Test data
+    // Test data.
     const String testAlias = 'exampleAlias';
     const LinksModel testLinks =
         LinksModel(self: 'https://example.com', short: 'https://exmpl.com');

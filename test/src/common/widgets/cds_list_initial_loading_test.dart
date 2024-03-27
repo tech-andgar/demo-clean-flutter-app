@@ -4,19 +4,21 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CdsListInitialLoading Widget Tests', () {
-    testWidgets('Renders a column with 10 CdsItemLoading children',
-        (final WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: CdsListInitialLoading(),
+    testWidgets(
+      'Renders a column with 10 CdsItemLoading children',
+      (final WidgetTester tester) async {
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: Scaffold(
+              body: CdsListInitialLoading(),
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byType(Column).first, findsOneWidget);
+        expect(find.byType(Column).first, findsOneWidget);
 
-      expect(find.byType(CdsItemLoading), findsNWidgets(10));
-    });
+        expect(find.byType(CdsItemLoading), findsNWidgets(10));
+      },
+    );
   });
 }

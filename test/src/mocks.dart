@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 
-///  Core
+///  Core.
 
 class MockDio extends Mock implements Dio {
   @override
@@ -48,7 +48,7 @@ class MockBaseRequest extends Mock implements BaseRequest {}
 class FakeApiHandler extends Fake
     implements ApiHandler<dio.Response<dynamic>, ShortcutUrlModel?> {}
 
-/// Model - DataSource
+/// Model - DataSource.
 
 class MockShortcutUrlModel extends Mock implements ShortcutUrlModel {}
 
@@ -57,7 +57,7 @@ class MockShortcutUrlRepository extends Mock implements ShortcutUrlRepository {}
 class MockShortcutUrlRemoteDataSource extends Mock
     implements ShortcutUrlRemoteDataSource {}
 
-/// UI
+/// UI.
 
 class MockLocale extends Mock implements Locale {}
 
@@ -67,6 +67,7 @@ class MockClipboard {
   static String? _copiedText;
 
   static Future<void> setData(final ClipboardData data) async {
+    await Future.value(null);
     _copiedText = data.text;
   }
 
@@ -74,7 +75,7 @@ class MockClipboard {
       ClipboardData(text: _copiedText ?? '');
 }
 
-/// BLoC
+/// BLoC.
 
 class MockShortcutUrlBloc extends Mock implements ShortcutUrlBloc {
   @override
@@ -140,16 +141,43 @@ class DemoWidget extends StatefulWidget {
 
 class _DemoWidgetState extends State<DemoWidget> {
   @override
+  Widget build(final BuildContext context) {
+    theme_ = context.theme;
+    context_ = context;
+
+    return Scaffold(body: widget.child);
+  }
+
+  @override
   void dispose() {
     theme_ = null;
     context_ = null;
     super.dispose();
   }
+}
+
+class MyWidgetLanguages extends StatefulWidget {
+  const MyWidgetLanguages({super.key});
 
   @override
+  State<MyWidgetLanguages> createState() => _MyWidgetLanguagesState();
+}
+
+class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
+  @override
   Widget build(final BuildContext context) {
-    theme_ = context.theme;
     context_ = context;
-    return Scaffold(body: widget.child);
+    const Locale localeEn = Locale('en', 'US');
+    const Locale localeEs = Locale('es', 'ES');
+
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Text('core.languages.pt.original'.tr()),
+          Text(localeEn.localeToLanguageName(toOriginal: false)),
+          Text(localeEs.localeToLanguageName(toOriginal: true)),
+        ],
+      ),
+    );
   }
 }

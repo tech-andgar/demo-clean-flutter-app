@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('LinksModel Tests', () {
-    // Test data
+    // Test data.
     const String testSelf = 'https://example.com';
     const String testShort = 'https://exmpl.com';
 
