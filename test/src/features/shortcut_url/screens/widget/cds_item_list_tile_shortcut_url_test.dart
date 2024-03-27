@@ -21,7 +21,8 @@ void main() {
       );
     });
 
-    testWidgets('should display correct data', (final WidgetTester tester) async {
+    testWidgets('should display correct data',
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

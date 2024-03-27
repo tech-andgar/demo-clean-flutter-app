@@ -43,7 +43,8 @@ void main() {
         () => mockExceptionHandler
             .callApi<Response<Object?>, ShortcutUrlModel?>(any()),
       ).thenAnswer(
-        (final _) async => const SuccessState<ShortcutUrlModel?>(shortcutUrlModel),
+        (final _) async =>
+            const SuccessState<ShortcutUrlModel?>(shortcutUrlModel),
       );
 
       final ResultState<ShortcutUrlModel?> result =

@@ -103,4 +103,3 @@ extension UrlPrefixer on String {
           ? this
           : 'https://$this';
 }
-

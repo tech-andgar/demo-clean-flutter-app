@@ -11,11 +11,11 @@ void main() {
           home: Scaffold(
             body: Builder(
               builder: (final BuildContext context) => Center(
-                  child: ElevatedButton(
-                    onPressed: () => CdsSnackBar.show(context, 'Test Message'),
-                    child: const Text('Show SnackBar'),
-                  ),
+                child: ElevatedButton(
+                  onPressed: () => CdsSnackBar.show(context, 'Test Message'),
+                  child: const Text('Show SnackBar'),
                 ),
+              ),
             ),
           ),
         ),

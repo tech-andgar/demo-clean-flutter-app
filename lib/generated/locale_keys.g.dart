@@ -1,10 +1,13 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
-  static const core_exception_networkNoInternetConnection = 'core.exception.networkNoInternetConnection';
-  static const core_exception_urlDuplicateExist = 'core.exception.urlDuplicateExist';
+abstract class LocaleKeys {
+  static const core_exception_networkNoInternetConnection =
+      'core.exception.networkNoInternetConnection';
+  static const core_exception_urlDuplicateExist =
+      'core.exception.urlDuplicateExist';
   static const core_exception_urlEmptyInput = 'core.exception.urlEmptyInput';
-  static const core_exception_urlInvalidInput = 'core.exception.urlInvalidInput';
+  static const core_exception_urlInvalidInput =
+      'core.exception.urlInvalidInput';
   static const core_exception = 'core.exception';
   static const core_httpCode_100 = 'core.httpCode.100';
   static const core_httpCode_101 = 'core.httpCode.101';
@@ -82,15 +85,20 @@ abstract class  LocaleKeys {
   static const core_languages_pt = 'core.languages.pt';
   static const core_languages = 'core.languages';
   static const core = 'core';
-  static const feature_mainShortcutUrl_sliverListUrl_dataEmpty = 'feature.mainShortcutUrl.sliverListUrl.dataEmpty';
-  static const feature_mainShortcutUrl_sliverListUrl = 'feature.mainShortcutUrl.sliverListUrl';
+  static const feature_mainShortcutUrl_sliverListUrl_dataEmpty =
+      'feature.mainShortcutUrl.sliverListUrl.dataEmpty';
+  static const feature_mainShortcutUrl_sliverListUrl =
+      'feature.mainShortcutUrl.sliverListUrl';
   static const feature_mainShortcutUrl_title = 'feature.mainShortcutUrl.title';
   static const feature_mainShortcutUrl = 'feature.mainShortcutUrl';
   static const feature = 'feature';
-  static const widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar = 'widget.cdsItemListTileShortcutUrl.iconButton.onPressed.msgSnackbar';
-  static const widget_cdsItemListTileShortcutUrl_iconButton_onPressed = 'widget.cdsItemListTileShortcutUrl.iconButton.onPressed';
-  static const widget_cdsItemListTileShortcutUrl_iconButton = 'widget.cdsItemListTileShortcutUrl.iconButton';
-  static const widget_cdsItemListTileShortcutUrl = 'widget.cdsItemListTileShortcutUrl';
+  static const widget_cdsItemListTileShortcutUrl_iconButton_onPressed_msgSnackbar =
+      'widget.cdsItemListTileShortcutUrl.iconButton.onPressed.msgSnackbar';
+  static const widget_cdsItemListTileShortcutUrl_iconButton_onPressed =
+      'widget.cdsItemListTileShortcutUrl.iconButton.onPressed';
+  static const widget_cdsItemListTileShortcutUrl_iconButton =
+      'widget.cdsItemListTileShortcutUrl.iconButton';
+  static const widget_cdsItemListTileShortcutUrl =
+      'widget.cdsItemListTileShortcutUrl';
   static const widget = 'widget';
-
 }

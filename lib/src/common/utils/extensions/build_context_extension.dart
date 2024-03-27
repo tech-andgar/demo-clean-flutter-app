@@ -7,4 +7,3 @@ extension BuildContextExtension on BuildContext {
   /// Returns the current theme data.
   ThemeData get theme => Theme.of(this);
 }
-

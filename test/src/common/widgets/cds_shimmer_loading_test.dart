@@ -83,7 +83,8 @@ void main() {
       expect(tester.getSize(containerFinder), equals(const Size(size, size)));
     });
 
-    testWidgets('Uses theme colors correctly', (final WidgetTester tester) async {
+    testWidgets('Uses theme colors correctly',
+        (final WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(
