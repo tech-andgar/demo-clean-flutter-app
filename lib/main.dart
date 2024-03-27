@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'demoafgr.dart';
 import 'generated/codegen_loader.g.dart';
-import 'my_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
