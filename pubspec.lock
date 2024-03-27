@@ -190,10 +190,10 @@ packages:
     dependency: "direct main"
     description:
       name: exception_handler
-      sha256: "46fbe39d0117e8aac14a24fbeb3c3d52f0993bd3ae0aa00a515d483c8f33bc89"
+      sha256: "8984c0817ce57e551b8f9c90fb05bd2a2af9a61d9940f64237d6683e8fd29ac1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   fake_async:
     dependency: transitive
     description:
