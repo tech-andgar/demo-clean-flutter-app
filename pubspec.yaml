@@ -38,7 +38,6 @@ dependencies:
   shimmer: ^3.0.0
   dio: ^5.4.2
   http: ^1.2.1
-  connectivity_plus: ^6.0.1
   exception_handler: ^3.0.0
   easy_localization: ^3.0.5
   http_exception: ^2.0.0
