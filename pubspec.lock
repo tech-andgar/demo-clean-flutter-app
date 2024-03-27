@@ -231,6 +231,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_coverage_badge:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: "4d6371f1bd46fee1bd28a697e303412839e53548"
+      resolved-ref: "4d6371f1bd46fee1bd28a697e303412839e53548"
+      url: "https://github.com/foresightmobile/flutter_coverage_badge"
+    source: git
+    version: "0.0.1+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -318,6 +327,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  lcov:
+    dependency: transitive
+    description:
+      path: "."
+      ref: "4319102fa64eeba72fe8dfab024762e6253e3c93"
+      resolved-ref: "4319102fa64eeba72fe8dfab024762e6253e3c93"
+      url: "https://github.com/csells/lcov.dart.git"
+    source: git
+    version: "6.1.0"
   leak_tracker:
     dependency: transitive
     description:
