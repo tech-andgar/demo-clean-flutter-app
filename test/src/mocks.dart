@@ -112,18 +112,18 @@ class DemoWidget extends StatefulWidget {
 
 class _DemoWidgetState extends State<DemoWidget> {
   @override
-  void dispose() {
-    theme_ = null;
-    context_ = null;
-    super.dispose();
-  }
-
-  @override
   Widget build(final BuildContext context) {
     theme_ = context.theme;
     context_ = context;
 
     return Scaffold(body: widget.child);
+  }
+
+  @override
+  void dispose() {
+    theme_ = null;
+    context_ = null;
+    super.dispose();
   }
 }
 
