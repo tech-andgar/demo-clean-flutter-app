@@ -27,12 +27,12 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
           valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
           builder: (
             final BuildContext context,
-            final NotificationMessage? message,
+            final NotificationMessage? notification,
             final Widget? child,
           ) {
-            if (message != null) {
+            if (notification != null) {
               Future<void>.microtask(
-                () => CdsSnackBar.show(context, message.message),
+                () => CdsSnackBar.show(context, notification.message),
               );
               widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
             }
@@ -92,14 +92,24 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
                   widget.shortcutUrlBloc.notifierItemsShortcutUrls,
                   widget.shortcutUrlBloc.notifierLoading,
                 ]),
-                builder: (final BuildContext context, final _) => (widget
-                            .shortcutUrlBloc
-                            .notifierItemsShortcutUrls
-                            .value
-                            .isEmpty &&
-                        !widget.shortcutUrlBloc.isLoading)
-                    ? const UiWidgetEmptyList()
-                    : UiWidgetListItems(widget: widget),
+                builder: (final BuildContext context, final _) =>
+                    widget.shortcutUrlBloc.isEmptyData
+                        ? SliverPadding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 64,
+                              horizontal: 16,
+                            ),
+                            sliver: SliverToBoxAdapter(
+                              child: Center(
+                                child: Text(
+                                  LocaleKeys
+                                      .feature_mainShortcutUrl_sliverListUrl_dataEmpty
+                                      .tr(),
+                                ),
+                              ),
+                            ),
+                          )
+                        : UiWidgetListItems(widget: widget),
               ),
             ],
           ),
@@ -142,10 +152,11 @@ class UiWidgetListItems extends StatelessWidget {
         if (shortcutUrlBloc.isLoading && index == 0) {
           return const CdsItemLoading();
         } else {
-          final int index2 = shortcutUrlBloc.isLoading ? index - 1 : index;
+          final int indexUpdated =
+              shortcutUrlBloc.isLoading ? index - 1 : index;
 
           return CdsItemListTileShortcutUrl(
-            itemsShortcutUrls[index2],
+            itemsShortcutUrls[indexUpdated],
             clipboard: (final ClipboardData clipboardData) async {
               await Clipboard.setData(clipboardData);
 
@@ -160,25 +171,4 @@ class UiWidgetListItems extends StatelessWidget {
       ),
     );
   }
-}
-
-class UiWidgetEmptyList extends StatelessWidget {
-  const UiWidgetEmptyList({
-    super.key,
-  });
-
-  @override
-  Widget build(final BuildContext context) => SliverPadding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 64,
-          horizontal: 16,
-        ),
-        sliver: SliverToBoxAdapter(
-          child: Center(
-            child: Text(
-              LocaleKeys.feature_mainShortcutUrl_sliverListUrl_dataEmpty.tr(),
-            ),
-          ),
-        ),
-      );
 }

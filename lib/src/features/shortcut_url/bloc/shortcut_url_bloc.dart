@@ -23,6 +23,7 @@ class ShortcutUrlBloc {
       notifierItemsShortcutUrls.value;
 
   bool get isLoading => notifierLoading.value;
+  bool get isEmptyData => notifierItemsShortcutUrls.value.isEmpty && !isLoading;
 
   void showLoading() => notifierLoading.value = true;
 
