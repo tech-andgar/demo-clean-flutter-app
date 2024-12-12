@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:exception_handler/exception_handler.dart';
 
@@ -31,6 +33,8 @@ class ShortcutUrlRepository {
         },
       ),
     );
+
+    log(result.toString());
 
     return result;
   }
