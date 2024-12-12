@@ -16,12 +16,16 @@ class MyApp extends StatelessWidget {
   final ShortcutUrlBloc shortcutUrlBloc;
 
   @override
-  Widget build(final BuildContext context) => MaterialApp(
-        locale: EasyLocalization.of(context)!.locale,
-        supportedLocales: EasyLocalization.of(context)!.supportedLocales,
-        localizationsDelegates: EasyLocalization.of(context)!.delegates,
-        home: MyWidget(shortcutUrlBloc: shortcutUrlBloc),
-      );
+  Widget build(final BuildContext context) {
+    final easyLocalizationProvider = EasyLocalization.of(context);
+
+    return MaterialApp(
+      locale: easyLocalizationProvider!.locale,
+      supportedLocales: easyLocalizationProvider.supportedLocales,
+      localizationsDelegates: easyLocalizationProvider.delegates,
+      home: MyWidget(shortcutUrlBloc: shortcutUrlBloc),
+    );
+  }
 }
 
 class MyWidget extends StatelessWidget {

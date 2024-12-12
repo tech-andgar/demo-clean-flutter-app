@@ -16,21 +16,35 @@ class HttpRequestOptions {
 ///
 /// All methods return a [Future] containing the response or `null` if no response is expected.
 abstract class HttpClient {
-  /// Sends an HTTP request to the given [url] with the specified [method].
+  /// Sends a DELETE request to the given [url].
   ///
-  /// - [method]: The HTTP method (GET, POST, etc.).
-  /// - [options]: Optional parameters including headers, query parameters, and body.
-  Future<Object?> request(
+  /// - [options]: Optional parameters including headers and query parameters.
+  Future<Object?> delete(
     final String url, {
-    required final HTTPRequestMethod method,
     final HttpRequestOptions? options,
-  });
+  }) =>
+      request(url, method: HTTPRequestMethod.delete, options: options);
 
   /// Sends a GET request to the given [url].
   ///
   /// - [options]: Optional parameters including headers and query parameters.
   Future<Object?> get(final String url, {final HttpRequestOptions? options}) =>
       request(url, method: HTTPRequestMethod.get, options: options);
+
+  /// Sends a HEAD request to the given [url].
+  ///
+  /// - [options]: Optional parameters including headers and query parameters.
+  Future<Object?> head(final String url, {final HttpRequestOptions? options}) =>
+      request(url, method: HTTPRequestMethod.head, options: options);
+
+  /// Sends a PATCH request to the given [url].
+  ///
+  /// - [options]: Optional parameters including headers and query parameters.
+  Future<Object?> patch(
+    final String url, {
+    final HttpRequestOptions? options,
+  }) =>
+      request(url, method: HTTPRequestMethod.patch, options: options);
 
   /// Sends a POST request to the given [url].
   ///
@@ -44,27 +58,13 @@ abstract class HttpClient {
   Future<Object?> put(final String url, {final HttpRequestOptions? options}) =>
       request(url, method: HTTPRequestMethod.put, options: options);
 
-  /// Sends a DELETE request to the given [url].
+  /// Sends an HTTP request to the given [url] with the specified [method].
   ///
-  /// - [options]: Optional parameters including headers and query parameters.
-  Future<Object?> delete(
+  /// - [method]: The HTTP method (GET, POST, etc.).
+  /// - [options]: Optional parameters including headers, query parameters, and body.
+  Future<Object?> request(
     final String url, {
+    required final HTTPRequestMethod method,
     final HttpRequestOptions? options,
-  }) =>
-      request(url, method: HTTPRequestMethod.delete, options: options);
-
-  /// Sends a PATCH request to the given [url].
-  ///
-  /// - [options]: Optional parameters including headers and query parameters.
-  Future<Object?> patch(
-    final String url, {
-    final HttpRequestOptions? options,
-  }) =>
-      request(url, method: HTTPRequestMethod.patch, options: options);
-
-  /// Sends a HEAD request to the given [url].
-  ///
-  /// - [options]: Optional parameters including headers and query parameters.
-  Future<Object?> head(final String url, {final HttpRequestOptions? options}) =>
-      request(url, method: HTTPRequestMethod.head, options: options);
+  });
 }

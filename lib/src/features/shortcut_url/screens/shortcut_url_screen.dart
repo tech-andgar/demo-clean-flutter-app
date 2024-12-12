@@ -21,95 +21,97 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
   late final TextEditingController _textUrlController;
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
-        body: ValueListenableBuilder<NotificationMessage?>(
-          valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
-          builder: (final context, final notification, final child) {
-            if (notification != null) {
-              Future<void>.microtask(
-                () => CdsSnackBar.show(context, notification.message),
-              );
-              widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
-            }
+  Widget build(final BuildContext context) {
+    return Scaffold(
+      body: ValueListenableBuilder<NotificationMessage?>(
+        valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
+        builder: (final context, final notification, final child) {
+          if (notification != null) {
+            Future<void>.microtask(
+              () => CdsSnackBar.show(context, notification.message),
+            );
+            widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
+          }
 
-            return child!;
-          },
-          child: CustomScrollView(
-            slivers: <Widget>[
-              const SliverAppBar(
-                centerTitle: true,
-                title: Text('Demo AFGR'),
-                actions: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 16),
-                    child: CdsChangeLanguage(),
-                  ),
-                ],
+          return child!;
+        },
+        child: CustomScrollView(
+          slivers: <Widget>[
+            const SliverAppBar(
+              centerTitle: true,
+              title: Text('Demo AFGR'),
+              actions: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: CdsChangeLanguage(),
+                ),
+              ],
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CdsInputButton(
+                  controller: _textUrlController,
+                  onPressed: () {
+                    if (_textUrlController.text == '') {
+                      CdsSnackBar.show(
+                        context,
+                        LocaleKeys.core_exception_urlEmptyInput.tr(),
+                      );
+                    } else {
+                      widget.shortcutUrlBloc
+                          .generateShortcutUrl(_textUrlController.text)
+                          .then((final isSuccess) {
+                        if (isSuccess) {
+                          _textUrlController.clear();
+                        }
+                      });
+                    }
+                  },
+                ),
               ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CdsInputButton(
-                    controller: _textUrlController,
-                    onPressed: () {
-                      if (_textUrlController.text == '') {
-                        CdsSnackBar.show(
-                          context,
-                          LocaleKeys.core_exception_urlEmptyInput.tr(),
-                        );
-                      } else {
-                        widget.shortcutUrlBloc
-                            .generateShortcutUrl(_textUrlController.text)
-                            .then((final isSuccess) {
-                          if (isSuccess) {
-                            _textUrlController.clear();
-                          }
-                        });
-                      }
-                    },
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  LocaleKeys.feature_mainShortcutUrl_title.tr(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    LocaleKeys.feature_mainShortcutUrl_title.tr(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              ListenableBuilder(
-                listenable: Listenable.merge(<Listenable?>[
-                  widget.shortcutUrlBloc.notifierItemsShortcutUrls,
-                  widget.shortcutUrlBloc.notifierLoading,
-                ]),
-                builder: (final context, final _) =>
-                    widget.shortcutUrlBloc.isEmptyData
-                        ? SliverPadding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 64,
-                              horizontal: 16,
-                            ),
-                            sliver: SliverToBoxAdapter(
-                              child: Center(
-                                child: Text(
-                                  LocaleKeys
-                                      .feature_mainShortcutUrl_sliverListUrl_dataEmpty
-                                      .tr(),
-                                ),
+            ),
+            ListenableBuilder(
+              listenable: Listenable.merge(<Listenable?>[
+                widget.shortcutUrlBloc.notifierItemsShortcutUrls,
+                widget.shortcutUrlBloc.notifierLoading,
+              ]),
+              builder: (final context, final _) =>
+                  widget.shortcutUrlBloc.isEmptyData
+                      ? SliverPadding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 64,
+                            horizontal: 16,
+                          ),
+                          sliver: SliverToBoxAdapter(
+                            child: Center(
+                              child: Text(
+                                LocaleKeys
+                                    .feature_mainShortcutUrl_sliverListUrl_dataEmpty
+                                    .tr(),
                               ),
                             ),
-                          )
-                        : UiWidgetListItems(widget: widget),
-              ),
-            ],
-          ),
+                          ),
+                        )
+                      : UiWidgetListItems(widget: widget),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 
   @override
   void initState() {

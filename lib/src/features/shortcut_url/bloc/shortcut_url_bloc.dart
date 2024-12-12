@@ -19,15 +19,10 @@ class ShortcutUrlBloc {
 
   final ShortcutUrlRepository shortcutUrlRepository;
 
+  bool get isEmptyData => notifierItemsShortcutUrls.value.isEmpty && !isLoading;
+  bool get isLoading => notifierLoading.value;
   List<ShortcutUrlModel> get itemsShortcutUrls =>
       notifierItemsShortcutUrls.value;
-
-  bool get isLoading => notifierLoading.value;
-  bool get isEmptyData => notifierItemsShortcutUrls.value.isEmpty && !isLoading;
-
-  void showLoading() => notifierLoading.value = true;
-
-  void hideLoading() => notifierLoading.value = false;
 
   void dispose() {
     notifierItemsShortcutUrls.dispose();
@@ -59,7 +54,7 @@ class ShortcutUrlBloc {
       return isSuccess;
     }
 
-    showLoading();
+    loadingShow();
     final result =
         await shortcutUrlRepository.postShortcutUrl(url.ensureHttpsPrefix);
 
@@ -93,7 +88,7 @@ class ShortcutUrlBloc {
         isSuccess = false;
     }
 
-    hideLoading();
+    loadingHide();
 
     return isSuccess;
   }
@@ -102,4 +97,8 @@ class ShortcutUrlBloc {
       items.any(
         (final item) => item.links.self == url,
       );
+
+  void loadingHide() => notifierLoading.value = false;
+
+  void loadingShow() => notifierLoading.value = true;
 }

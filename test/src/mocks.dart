@@ -35,13 +35,13 @@ class MockClipboard {
 
   static String? _copiedText;
 
+  static Future<ClipboardData> getData(final String _) async =>
+      ClipboardData(text: _copiedText ?? '');
+
   static Future<void> setData(final ClipboardData data) async {
     await Future.value(null);
     _copiedText = data.text;
   }
-
-  static Future<ClipboardData> getData(final String _) async =>
-      ClipboardData(text: _copiedText ?? '');
 }
 
 /// BLoC.
@@ -89,13 +89,15 @@ class _AppTest extends StatelessWidget {
   final Widget? widget;
 
   @override
-  Widget build(final BuildContext context) => MaterialApp(
-        title: 'Flutter Demo',
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        home: DemoWidget(child: widget),
-      );
+  Widget build(final BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: DemoWidget(child: widget),
+    );
+  }
 }
 
 late BuildContext? context_;

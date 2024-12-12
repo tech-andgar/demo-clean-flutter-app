@@ -15,16 +15,18 @@ class MyApp extends StatelessWidget {
   );
 
   @override
-  Widget build(final BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        home: ShortcutUrlScreen(shortcutUrlBloc: shortcutUrlBloc),
-      );
+  Widget build(final BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: ShortcutUrlScreen(shortcutUrlBloc: shortcutUrlBloc),
+    );
+  }
 }
