@@ -6,7 +6,7 @@ void main() {
   group('CdsItemLoading Widget Tests', () {
     testWidgets(
       'Renders correctly with expected layout and children',
-      (final WidgetTester tester) async {
+      (final tester) async {
         await tester.pumpWidget(
           const MaterialApp(
             home: Scaffold(
@@ -25,20 +25,20 @@ void main() {
           CrossAxisAlignment.start,
         );
 
-        final List<Finder> shimmerFinders = find
+        final shimmerFinders = find
             .byType(CdsShimmerLoading)
             .evaluate()
-            .map((final Element e) => find.byWidget(e.widget))
+            .map((final e) => find.byWidget(e.widget))
             .toList();
         expect(shimmerFinders.length, 2);
 
-        final Size firstShimmerSize = tester.getSize(shimmerFinders[0]);
+        final firstShimmerSize = tester.getSize(shimmerFinders[0]);
         expect(
           firstShimmerSize,
           equals(const Size(400, 16)),
         );
 
-        final Size secondShimmerSize = tester.getSize(shimmerFinders[1]);
+        final secondShimmerSize = tester.getSize(shimmerFinders[1]);
         expect(
           secondShimmerSize,
           equals(const Size(300, 16)),

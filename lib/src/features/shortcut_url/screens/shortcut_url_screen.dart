@@ -1,4 +1,3 @@
-import 'package:demoafgr/src/features/shortcut_url/data/models/remote/shortcut_url_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,11 +24,7 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
   Widget build(final BuildContext context) => Scaffold(
         body: ValueListenableBuilder<NotificationMessage?>(
           valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
-          builder: (
-            final BuildContext context,
-            final NotificationMessage? notification,
-            final Widget? child,
-          ) {
+          builder: (final context, final notification, final child) {
             if (notification != null) {
               Future<void>.microtask(
                 () => CdsSnackBar.show(context, notification.message),
@@ -65,7 +60,7 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
                       } else {
                         widget.shortcutUrlBloc
                             .generateShortcutUrl(_textUrlController.text)
-                            .then((final bool isSuccess) {
+                            .then((final isSuccess) {
                           if (isSuccess) {
                             _textUrlController.clear();
                           }
@@ -92,7 +87,7 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
                   widget.shortcutUrlBloc.notifierItemsShortcutUrls,
                   widget.shortcutUrlBloc.notifierLoading,
                 ]),
-                builder: (final BuildContext context, final _) =>
+                builder: (final context, final _) =>
                     widget.shortcutUrlBloc.isEmptyData
                         ? SliverPadding(
                             padding: const EdgeInsets.symmetric(
@@ -140,24 +135,22 @@ class UiWidgetListItems extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final ShortcutUrlBloc shortcutUrlBloc = widget.shortcutUrlBloc;
-    final List<ShortcutUrlModel> itemsShortcutUrls =
-        shortcutUrlBloc.itemsShortcutUrls;
+    final shortcutUrlBloc = widget.shortcutUrlBloc;
+    final itemsShortcutUrls = shortcutUrlBloc.itemsShortcutUrls;
 
     return SliverList.separated(
       itemCount: shortcutUrlBloc.isLoading
           ? itemsShortcutUrls.length + 1
           : itemsShortcutUrls.length,
-      itemBuilder: (final _, final int index) {
+      itemBuilder: (final _, final index) {
         if (shortcutUrlBloc.isLoading && index == 0) {
           return const CdsItemLoading();
         } else {
-          final int indexUpdated =
-              shortcutUrlBloc.isLoading ? index - 1 : index;
+          final indexUpdated = shortcutUrlBloc.isLoading ? index - 1 : index;
 
           return CdsItemListTileShortcutUrl(
             itemsShortcutUrls[indexUpdated],
-            clipboard: (final ClipboardData clipboardData) async {
+            clipboard: (final clipboardData) async {
               await Clipboard.setData(clipboardData);
 
               return null;

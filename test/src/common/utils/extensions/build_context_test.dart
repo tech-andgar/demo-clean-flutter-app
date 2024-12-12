@@ -12,13 +12,13 @@ Future<void> main() async {
     });
     testWidgets(
       'check type theme',
-      (final WidgetTester tester) async {
+      (final tester) async {
         // Act.
         await tester.pumpWidget(MockBase.appTest());
         await tester.pump();
 
         // Assert.
-        final ThemeData theme = theme_!;
+        final theme = theme_!;
         expect(theme, isA<ThemeData>());
         expect(theme.useMaterial3, true);
       },

@@ -49,7 +49,7 @@ void main() async {
 
   testWidgets(
     'ShortUrlScreen builds correctly',
-    (final WidgetTester tester) async {
+    (final tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(
           MockBase.appTest(MyApp(shortcutUrlBloc: mockBloc)),
@@ -74,7 +74,7 @@ void main() async {
   );
   testWidgets(
     'Generates a short URL',
-    (final WidgetTester tester) async {
+    (final tester) async {
       await tester.runAsync(() async {
         when(() => mockBloc.generateShortcutUrl(any()))
             .thenAnswer((final _) async => true);
@@ -104,7 +104,7 @@ void main() async {
 
   testWidgets(
     'Empty URL Input Test',
-    (final WidgetTester tester) async {
+    (final tester) async {
       await tester.runAsync(() async {
         when(() => mockBloc.generateShortcutUrl(any()))
             .thenAnswer((final _) async => true);
@@ -131,7 +131,7 @@ void main() async {
   );
   testWidgets(
     'Error Handling',
-    (final WidgetTester tester) async {
+    (final tester) async {
       await tester.runAsync(() async {
         when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
           (final _) async => FailureState<ShortcutUrlModel?>(
@@ -173,7 +173,7 @@ void main() async {
   );
   testWidgets(
     'Updated UI for after success url generation',
-    (final WidgetTester tester) async {
+    (final tester) async {
       await tester.runAsync(() async {
         when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
           (final _) async => const SuccessState<ShortcutUrlModel?>(

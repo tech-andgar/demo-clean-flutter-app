@@ -5,7 +5,7 @@ class CdsSnackBar {
 
   static void show(final BuildContext context, final String message) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    final SnackBar snackBar = SnackBar(content: Text(message));
+    final snackBar = SnackBar(content: Text(message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

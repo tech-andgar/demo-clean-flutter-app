@@ -3,7 +3,6 @@ import 'package:demoafgr/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks.dart';
@@ -29,13 +28,13 @@ void main() {
 
       testWidgets(
         'should display correct data',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
                 body: CdsItemListTileShortcutUrl(
                   mockItem,
-                  clipboard: (final ClipboardData clipboardData) async => null,
+                  clipboard: (final clipboardData) async => null,
                 ),
               ),
             ),
@@ -48,13 +47,13 @@ void main() {
 
       testWidgets(
         'copy button should copy short link to clipboard',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
                 body: CdsItemListTileShortcutUrl(
                   mockItem,
-                  clipboard: (final ClipboardData data) async {
+                  clipboard: (final data) async {
                     await MockClipboard.setData(data);
 
                     return null;
@@ -67,8 +66,7 @@ void main() {
           await tester.tap(find.byIcon(Icons.copy));
           await tester.pump();
 
-          final ClipboardData clipboardData =
-              await MockClipboard.getData('text/plain');
+          final clipboardData = await MockClipboard.getData('text/plain');
 
           expect(clipboardData.text, equals(mockItem.links.short));
 

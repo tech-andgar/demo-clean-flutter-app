@@ -31,7 +31,7 @@ class ShortcutUrlModel extends CustomEquatable {
       <String, Object?>{'alias': alias, 'links': links};
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final data = <String, dynamic>{};
     data['alias'] = alias;
     data['_links'] = links.toJson();
 

@@ -6,12 +6,12 @@ void main() {
   group('CdsSnackBar Tests', () {
     testWidgets(
       'Shows a SnackBar with the correct message',
-      (final WidgetTester tester) async {
+      (final tester) async {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
               body: Builder(
-                builder: (final BuildContext context) => Center(
+                builder: (final context) => Center(
                   child: ElevatedButton(
                     onPressed: () => CdsSnackBar.show(context, 'Test Message'),
                     child: const Text('Show SnackBar'),

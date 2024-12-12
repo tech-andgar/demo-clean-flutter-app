@@ -31,7 +31,7 @@ void main() {
     });
 
     test('Sends GET request correctly', () async {
-      final Response<Object?> response = await client.get('endpoint');
+      final response = await client.get('endpoint');
       expect(response.data, 'GET response');
       verify(
         () => mockDio.get<Object?>(
@@ -43,7 +43,7 @@ void main() {
     });
 
     test('Sends POST request correctly', () async {
-      final dynamic postData = <String, String>{'key': 'value'};
+      final postData = <String, String>{'key': 'value'};
       when(
         () => mockDio.post<Object?>(
           any(),
@@ -57,8 +57,7 @@ void main() {
         ),
       );
 
-      final Response<Object?> response =
-          await client.post('endpoint', body: postData);
+      final response = await client.post('endpoint', body: postData);
       expect(response.data, 'POST response');
       verify(
         () => mockDio.post<Object?>(
@@ -70,7 +69,7 @@ void main() {
     });
 
     test('Sends PUT request correctly', () async {
-      final dynamic putData = <String, String>{'key': 'value'};
+      final putData = <String, String>{'key': 'value'};
       when(
         () => mockDio.put<Object?>(
           any(),
@@ -84,8 +83,7 @@ void main() {
         ),
       );
 
-      final Response<Object?> response =
-          await client.put('endpoint', body: putData);
+      final response = await client.put('endpoint', body: putData);
       expect(response.data, 'PUT response');
       verify(
         () => mockDio.put<Object?>(
@@ -105,7 +103,7 @@ void main() {
         ),
       );
 
-      final Response<Object?> response = await client.delete('endpoint');
+      final response = await client.delete('endpoint');
       expect(response.data, 'DELETE response');
       verify(
         () => mockDio.delete<Object?>(
@@ -116,7 +114,7 @@ void main() {
     });
 
     test('Sends PATCH request correctly', () async {
-      final dynamic patchData = <String, String>{'key': 'value'};
+      final patchData = <String, String>{'key': 'value'};
       when(
         () => mockDio.patch<Object?>(
           any(),
@@ -130,8 +128,7 @@ void main() {
         ),
       );
 
-      final Response<Object?> response =
-          await client.patch('endpoint', body: patchData);
+      final response = await client.patch('endpoint', body: patchData);
       expect(response.data, 'PATCH response');
       verify(
         () => mockDio.patch<Object?>(
@@ -150,7 +147,7 @@ void main() {
         ),
       );
 
-      final Response<Object?> response = await client.head('endpoint');
+      final response = await client.head('endpoint');
       expect(response.data, 'HEAD response');
       verify(
         () => mockDio.head<Object?>('endpoint', options: any(named: 'options')),
@@ -172,7 +169,7 @@ void main() {
         ),
       );
 
-      final Response<Object?> response =
+      final response =
           await client.request('endpoint', method: HTTPRequestMethod.get);
       expect(response.data, 'Generic response');
       verify(
@@ -200,7 +197,7 @@ void main() {
       );
     });
     test('Updates the base URL correctly', () {
-      const String newBaseUrl = 'https://newexample.com';
+      const newBaseUrl = 'https://newexample.com';
       client.updateBaseUrl(newBaseUrl);
 
       expect(mockDio.options.baseUrl, newBaseUrl);

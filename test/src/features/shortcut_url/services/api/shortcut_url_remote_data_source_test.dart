@@ -20,8 +20,8 @@ void main() {
       test(
         'newShortcutUrl should make a POST request and return a response',
         () async {
-          const String testUrl = 'https://example.com';
-          final Response<String> expectedResponse = Response<String>(
+          const testUrl = 'https://example.com';
+          final expectedResponse = Response<String>(
             requestOptions: RequestOptions(path: 'alias'),
             data: 'some data',
             statusCode: 200,
@@ -42,7 +42,7 @@ void main() {
       test(
         'newShortcutUrl should handle network errors gracefully',
         () async {
-          const String testUrl = 'https://example.com';
+          const testUrl = 'https://example.com';
 
           when(() => mockHttpClient.post(any(), body: any(named: 'body')))
               .thenThrow(
@@ -62,8 +62,8 @@ void main() {
       test(
         'newShortcutUrl should handle non-200 status codes',
         () async {
-          const String testUrl = 'https://example.com';
-          final Response<String> errorResponse = Response<String>(
+          const testUrl = 'https://example.com';
+          final errorResponse = Response<String>(
             requestOptions: RequestOptions(path: 'alias'),
             data: 'Error occurred',
             statusCode: 404,

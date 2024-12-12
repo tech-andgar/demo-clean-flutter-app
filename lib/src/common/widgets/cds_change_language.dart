@@ -9,19 +9,27 @@ class CdsChangeLanguage extends StatelessWidget {
   /// Constructs a `CdsChangeLanguage` widget.
   const CdsChangeLanguage({super.key});
 
+  List<PopupMenuEntry<Object>> _widgetItems(final BuildContext context) {
+    return context.supportedLocales.map(
+      (final locale) {
+        return PopupMenuItem<Object>(
+          child: Text(locale.localeToLanguageName()),
+          onTap: () => context.setLocale(locale),
+        );
+      },
+    ).toList();
+  }
+
   @override
-  Widget build(final BuildContext context) => Builder(
-        builder: (final BuildContext context) => PopupMenuButton<dynamic>(
+  Widget build(final BuildContext context) {
+    return Builder(
+      builder: (final context) {
+        return PopupMenuButton<Object>(
           tooltip: 'Change language',
-          itemBuilder: (final BuildContext context) => context.supportedLocales
-              .map(
-                (final Locale locale) => PopupMenuItem<dynamic>(
-                  child: Text(locale.localeToLanguageName()),
-                  onTap: () => context.setLocale(locale),
-                ),
-              )
-              .toList(),
+          itemBuilder: _widgetItems,
           child: const Icon(Icons.language),
-        ),
-      );
+        );
+      },
+    );
+  }
 }

@@ -36,7 +36,7 @@ class ShortcutUrlBloc {
   }
 
   Future<bool> generateShortcutUrl(final String url) async {
-    bool isSuccess = false;
+    var isSuccess = false;
 
     if (!url.isValidUrl) {
       notifierNotificationMessage.value = NotificationMessage(
@@ -47,7 +47,7 @@ class ShortcutUrlBloc {
       return isSuccess;
     }
 
-    final bool isMatched =
+    final isMatched =
         isMatchSame(notifierItemsShortcutUrls.value, url.ensureHttpsPrefix);
 
     if (isMatched) {
@@ -60,7 +60,7 @@ class ShortcutUrlBloc {
     }
 
     showLoading();
-    final ResultState<ShortcutUrlModel?> result =
+    final result =
         await shortcutUrlRepository.postShortcutUrl(url.ensureHttpsPrefix);
 
     switch (result) {
@@ -71,7 +71,7 @@ class ShortcutUrlBloc {
         isSuccess = true;
 
       case final FailureState<ShortcutUrlModel?> failureData:
-        final String msgException = switch (failureData.exception) {
+        final msgException = switch (failureData.exception) {
           final DataClientExceptionState<ShortcutUrlModel?>
             dataClientExceptionState =>
             'Error Client: ${dataClientExceptionState.message.toString().split('.')[1]}',
@@ -100,6 +100,6 @@ class ShortcutUrlBloc {
 
   bool isMatchSame(final List<ShortcutUrlModel> items, final String url) =>
       items.any(
-        (final ShortcutUrlModel item) => item.links.self == url,
+        (final item) => item.links.self == url,
       );
 }

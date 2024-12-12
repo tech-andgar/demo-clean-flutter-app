@@ -8,8 +8,8 @@ void main() {
     () {
       testWidgets(
         'Renders TextField and IconButton with correct initial states',
-        (final WidgetTester tester) async {
-          final TextEditingController controller = TextEditingController();
+        (final tester) async {
+          final controller = TextEditingController();
 
           await tester.pumpWidget(
             MaterialApp(
@@ -31,8 +31,8 @@ void main() {
 
       testWidgets(
         'Text input changes are reflected in the controller',
-        (final WidgetTester tester) async {
-          final TextEditingController controller = TextEditingController();
+        (final tester) async {
+          final controller = TextEditingController();
 
           await tester.pumpWidget(
             MaterialApp(
@@ -54,9 +54,9 @@ void main() {
 
       testWidgets(
         'onPressed callback is called when button is pressed',
-        (final WidgetTester tester) async {
-          bool pressed = false;
-          final TextEditingController controller = TextEditingController();
+        (final tester) async {
+          var pressed = false;
+          final controller = TextEditingController();
 
           await tester.pumpWidget(
             MaterialApp(

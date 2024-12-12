@@ -13,7 +13,7 @@ void main() {
   EasyLocalization.logger.enableLevels = <LevelMessages>[];
   late ShortcutUrlBloc shortcutUrlBloc;
   late MockShortcutUrlRepository mockShortcutUrlRepository;
-  const String testUrl = 'http://test.com';
+  const testUrl = 'http://test.com';
 
   setUp(
     () {
@@ -32,7 +32,7 @@ void main() {
   test(
     'should handle invalid URL input',
     () async {
-      const String testUrl = 'invalid-url';
+      const testUrl = 'invalid-url';
 
       expect(await shortcutUrlBloc.generateShortcutUrl(testUrl), false);
     },

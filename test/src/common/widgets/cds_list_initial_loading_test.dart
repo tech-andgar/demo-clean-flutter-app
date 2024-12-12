@@ -6,7 +6,7 @@ void main() {
   group('CdsListInitialLoading Widget Tests', () {
     testWidgets(
       'Renders a column with 10 CdsItemLoading children',
-      (final WidgetTester tester) async {
+      (final tester) async {
         await tester.pumpWidget(
           const MaterialApp(
             home: Scaffold(

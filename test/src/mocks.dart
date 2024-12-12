@@ -21,7 +21,7 @@ class MockDioExceptionHandler extends Mock implements DioExceptionHandler {}
 class MockHttpClient extends Mock implements HttpClient {}
 
 class FakeApiHandler extends Fake
-    implements ApiHandler<dio.Response<dynamic>, ShortcutUrlModel?> {}
+    implements ApiHandler<dio.Response<Object>, ShortcutUrlModel?> {}
 
 /// Model - DataSource.
 
@@ -40,7 +40,7 @@ class MockClipboard {
     _copiedText = data.text;
   }
 
-  static Future<ClipboardData> getData(final String format) async =>
+  static Future<ClipboardData> getData(final String _) async =>
       ClipboardData(text: _copiedText ?? '');
 }
 
@@ -138,8 +138,8 @@ class _MyWidgetLanguagesState extends State<MyWidgetLanguages> {
   @override
   Widget build(final BuildContext context) {
     context_ = context;
-    const Locale localeEn = Locale('en', 'US');
-    const Locale localeEs = Locale('es', 'ES');
+    const localeEn = Locale('en', 'US');
+    const localeEs = Locale('es', 'ES');
 
     return Scaffold(
       body: Column(

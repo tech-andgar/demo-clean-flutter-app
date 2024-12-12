@@ -17,7 +17,7 @@ class UrlModel extends CustomEquatable {
   Map<String, Object?> get namedProps => <String, Object?>{'url': url};
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final data = <String, dynamic>{};
     data['url'] = url;
 
     return data;

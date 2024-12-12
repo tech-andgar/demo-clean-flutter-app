@@ -5,7 +5,7 @@ extension UrlValidator on String {
   /// Returns true if the string is a valid URL, otherwise returns false.
   bool get isValidUrl {
     String url;
-    final bool hasExplicitScheme = contains(RegExp(r'^[a-zA-Z]+:\/\/'));
+    final hasExplicitScheme = contains(RegExp(r'^[a-zA-Z]+:\/\/'));
 
     // Adding 'http://' prefix if no explicit scheme is provided.
     url = (!hasExplicitScheme) ? 'http://$this' : this;
@@ -18,7 +18,7 @@ extension UrlValidator on String {
     }
 
     // List of valid URL schemes.
-    final List<String> validSchemes = <String>[
+    final validSchemes = <String>[
       'http',
       'https',
       'ftp',
@@ -40,12 +40,12 @@ extension UrlValidator on String {
     }
 
     // Checking host segments validity.
-    final List<String> hostSegments = uri.host.split('.');
+    final hostSegments = uri.host.split('.');
     if (hostSegments.length < 2 ||
-        hostSegments.any((final String segment) => segment.isEmpty)) {
+        hostSegments.any((final segment) => segment.isEmpty)) {
       return false;
     }
-    for (final String segment in hostSegments) {
+    for (final segment in hostSegments) {
       if (segment.isEmpty || segment.endsWith('-') || segment.startsWith('-')) {
         return false;
       }

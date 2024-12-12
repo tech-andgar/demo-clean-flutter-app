@@ -9,7 +9,7 @@ void main() {
     () {
       testWidgets(
         'Renders default CdsShimmerLoading with correct dimensions',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
@@ -21,14 +21,14 @@ void main() {
             ),
           );
 
-          final Finder containerFinder = find.byType(Container);
+          final containerFinder = find.byType(Container);
           expect(tester.getSize(containerFinder), equals(const Size(100, 50)));
         },
       );
 
       testWidgets(
         'Renders rectangular CdsShimmerLoading with correct shape',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
@@ -40,9 +40,8 @@ void main() {
             ),
           );
 
-          final Finder containerFinder = find.byType(Container);
-          final Container container =
-              tester.widget(containerFinder) as Container;
+          final containerFinder = find.byType(Container);
+          final container = tester.widget(containerFinder) as Container;
           expect(container.decoration, isA<ShapeDecoration>());
           expect(
             (container.decoration as ShapeDecoration).shape,
@@ -53,8 +52,8 @@ void main() {
 
       testWidgets(
         'Renders circular CdsShimmerLoading with correct shape',
-        (final WidgetTester tester) async {
-          const double size = 100;
+        (final tester) async {
+          const size = 100.0;
           await tester.pumpWidget(
             const MaterialApp(
               home: Scaffold(
@@ -65,9 +64,8 @@ void main() {
             ),
           );
 
-          final Finder containerFinder = find.byType(Container);
-          final Container container =
-              tester.widget(containerFinder) as Container;
+          final containerFinder = find.byType(Container);
+          final container = tester.widget(containerFinder) as Container;
           expect(container.decoration, isA<ShapeDecoration>());
           expect(
             (container.decoration as ShapeDecoration).shape,
@@ -78,8 +76,8 @@ void main() {
 
       testWidgets(
         'Renders square CdsShimmerLoading with correct dimensions',
-        (final WidgetTester tester) async {
-          const double size = 100;
+        (final tester) async {
+          const size = 100.0;
           await tester.pumpWidget(
             const MaterialApp(
               home: Scaffold(
@@ -90,7 +88,7 @@ void main() {
             ),
           );
 
-          final Finder containerFinder = find.byType(Container);
+          final containerFinder = find.byType(Container);
           expect(
             tester.getSize(containerFinder),
             equals(const Size(size, size)),
@@ -100,7 +98,7 @@ void main() {
 
       testWidgets(
         'Uses theme colors correctly',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(
             MaterialApp(
               theme: ThemeData(
@@ -118,8 +116,8 @@ void main() {
             ),
           );
 
-          final Finder shimmerFinder = find.byType(Shimmer);
-          final Shimmer shimmer = tester.widget(shimmerFinder) as Shimmer;
+          final shimmerFinder = find.byType(Shimmer);
+          final shimmer = tester.widget(shimmerFinder) as Shimmer;
           expect(shimmer.gradient.colors, <Color>[
             const Color(0x1af44336),
             const Color(0x1af44336),

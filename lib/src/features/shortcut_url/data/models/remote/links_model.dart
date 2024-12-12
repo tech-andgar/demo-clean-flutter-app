@@ -26,7 +26,7 @@ class LinksModel extends CustomEquatable {
       <String, Object?>{'self': self, 'short': short};
 
   Map<String, Object?> toJson() {
-    final Map<String, Object?> data = <String, Object?>{};
+    final data = <String, Object?>{};
     data['self'] = self;
     data['short'] = short;
 

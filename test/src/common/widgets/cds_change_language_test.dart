@@ -19,7 +19,7 @@ void main() async {
       );
       testWidgets(
         'Renders PopupMenuButton with correct items',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
@@ -33,7 +33,7 @@ void main() async {
       );
       testWidgets(
         'Renders PopupMenuButton with correct items and handles taps',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
@@ -55,7 +55,7 @@ void main() async {
       );
       testWidgets(
         'Locale verify correctly in en-US',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
@@ -70,7 +70,7 @@ void main() async {
 
       testWidgets(
         'setState callback is invoked on selection',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
@@ -95,7 +95,7 @@ void main() async {
     () {
       testWidgets(
         'UI elements display correctly',
-        (final WidgetTester tester) async {
+        (final tester) async {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
@@ -112,7 +112,7 @@ void main() async {
 
           expect(find.byIcon(Icons.language), findsOneWidget);
 
-          final Finder languageButton = find.byType(PopupMenuButton);
+          final languageButton = find.byType(PopupMenuButton);
           expect(
             // ignore: strict_raw_type
             tester.widget<PopupMenuButton>(languageButton).tooltip,

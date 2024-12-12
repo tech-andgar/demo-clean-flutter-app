@@ -24,10 +24,10 @@ extension LocaleExtension on Locale {
   /// print(englishLocale.localeToLanguageName(toOriginal: false)); // Output: Inglés
   /// ```
   String localeToLanguageName({final bool toOriginal = true}) {
-    final String type = toOriginal ? 'original' : 'translation';
+    final type = toOriginal ? 'original' : 'translation';
 
     // Mapping of language codes to language names.
-    final Map<String, String> languageMap = <String, String>{
+    final languageMap = <String, String>{
       'en': 'core.languages.en.$type'.tr(),
       'es': 'core.languages.es.$type'.tr(),
       'pt': 'core.languages.pt.$type'.tr(),
