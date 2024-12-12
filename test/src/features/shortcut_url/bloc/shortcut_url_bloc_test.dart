@@ -109,7 +109,7 @@ void main() {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (final _) async => FailureState<ShortcutUrlModel?>(
           DataClientExceptionState<ShortcutUrlModel?>(
-            message: 'Falied.ExceptionInternalClient',
+            message: 'Failed.ExceptionInternalClient',
             stackTrace: StackTrace.current,
           ),
         ),
@@ -133,7 +133,7 @@ void main() {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (final _) async => FailureState<ShortcutUrlModel?>(
           DataParseExceptionState<ShortcutUrlModel?>(
-            message: 'Falied.ExceptionInternalParse',
+            message: 'Failed.ExceptionInternalParse',
             stackTrace: StackTrace.current,
           ),
         ),
@@ -146,7 +146,7 @@ void main() {
       );
       expect(
         shortcutUrlBloc.notifierNotificationMessage.value?.message,
-        'Error Data Parse: Falied.ExceptionInternalParse',
+        'Error Data Parse: Failed.ExceptionInternalParse',
       );
       expect(shortcutUrlBloc.isLoading, false);
     },
@@ -157,7 +157,7 @@ void main() {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (final _) async => FailureState<ShortcutUrlModel?>(
           DataParseExceptionState<ShortcutUrlModel?>(
-            message: 'Falied.ExceptionInternalParse',
+            message: 'Failed.ExceptionInternalParse',
             stackTrace: StackTrace.current,
           ),
         ),
@@ -171,7 +171,7 @@ void main() {
       );
       expect(
         shortcutUrlBloc.notifierNotificationMessage.value?.message,
-        'Error Data Parse: Falied.ExceptionInternalParse',
+        'Error Data Parse: Failed.ExceptionInternalParse',
       );
       expect(shortcutUrlBloc.isLoading, false);
     },
@@ -182,7 +182,7 @@ void main() {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (final _) async => FailureState<ShortcutUrlModel?>(
           DataHttpExceptionState<ShortcutUrlModel?>(
-            message: 'Falied.ExceptionInternalHttp',
+            message: 'Failed.ExceptionInternalHttp',
             httpException: HttpStatus.fromCode(404).exception(),
             stackTrace: StackTrace.current,
           ),
@@ -203,7 +203,7 @@ void main() {
     },
   );
   test(
-    'should handle failure ExeptionState other type Unknown in URL generation',
+    'should handle failure ExceptionState other type Unknown in URL generation',
     () async {
       when(() => mockShortcutUrlRepository.postShortcutUrl(any())).thenAnswer(
         (final _) async => FailureState<ShortcutUrlModel?>(
