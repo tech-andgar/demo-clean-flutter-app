@@ -9,8 +9,8 @@ analyzer:
     strict-raw-types: true
 
   strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
+    implicit-casts: true
+    implicit-dynamic: true
 
   exclude:
     - lib/**/*.g.dart
@@ -34,10 +34,11 @@ linter:
     - always_declare_return_types
     - always_put_control_body_on_new_line # works against dartfmt
     - always_put_required_named_parameters_first
-    # - always_specify_types # More disbuting
+    # - always_specify_types # More disturbing
     - avoid_annotating_with_dynamic
     - avoid_bool_literals_in_conditional_expressions
-    - avoid_catching_errors # tempory disabled because working validation
+    # - avoid_catches_without_on_clauses
+    - avoid_catching_errors # temporary disabled because working validation
     - avoid_classes_with_only_static_members
     - avoid_double_and_int_checks
     - avoid_field_initializers_in_const_classes
@@ -48,7 +49,7 @@ linter:
     - avoid_private_typedef_functions
     - avoid_returning_this
     - avoid_setters_without_getters
-    # - avoid_types_on_closure_parameters # confilict always_specify_types
+    - avoid_types_on_closure_parameters # conflict always_specify_types
     - avoid_unused_constructor_parameters
     - avoid_void_async
     - cascade_invocations
@@ -56,7 +57,9 @@ linter:
     - join_return_with_assignment
     - library_prefixes
     # - lines_longer_than_80_chars
-    # - omit_local_variable_types # confilict always_specify_types
+    - omit_local_variable_types # conflict always_specify_types
+    - omit_obvious_local_variable_types # conflict always_specify_types - support Dart 3.6
+    # - omit_obvious_property_types # conflict always_specify_types - support Dart 3.6
     - one_member_abstracts
     - only_throw_errors
     - package_api_docs
@@ -67,7 +70,7 @@ linter:
     - prefer_const_declarations
     - prefer_const_literals_to_create_immutables
     - prefer_constructors_over_static_methods
-    - prefer_expression_function_bodies
+    # - prefer_expression_function_bodies
     - prefer_final_fields
     - prefer_final_in_for_each
     - prefer_final_locals
@@ -88,11 +91,12 @@ linter:
 
 dart_code_linter:
   extends:
-    # - package:dart_code_linter/presets/recommended.yaml
-    # - package:dart_code_linter/presets/metrics_recommended.yaml
+    - package:dart_code_linter/presets/recommended.yaml
+    - package:dart_code_linter/presets/metrics_recommended.yaml
     # - package:dart_code_linter/presets/dart_all.yaml
     # - package:dart_code_linter/presets/all.yaml
     # - package:dart_code_linter/presets/intl.yaml
+
 
   metrics:
     cyclomatic-complexity: 20
@@ -103,34 +107,63 @@ dart_code_linter:
     - test/**
 
   rules:
-  - member-ordering:
+    prefer-immediate-return: false
+
+    missing-test-assertion: false
+
+    no-magic-number: false
+      # allowed: [0, 1, 2, 4, 8, 10, 16, 30, 32, 45, 60, 64, 100, 120, 128]
+      # allow-only-once: true
+      # exclude:
+      #   - lib/core/data/models/migrations.dart
+
+
+    no-empty-block:
+      exclude:
+        - test/src/common/widgets/cds_input_button_test.dart
+
+    avoid-non-null-assertion: false
+
+    prefer-extracting-callbacks:
+      ignored-named-arguments:
+        - onPressed
+      allowed-line-count: 6
+
+    avoid-nested-conditional-expressions:
+      acceptable-level: 2
+
+    member-ordering:
       order:
         - constructors
         - public-fields
         - private-fields
-        - close-method
         - dispose-method
+        - close-method
       widgets-order:
         - constructor
-        - build-method
         - init-state-method
         - did-change-dependencies-method
         - did-update-widget-method
         - dispose-method
+        - build-method
   # - format-comment: true
   # - avoid-dynamic: true
-  - avoid-passing-async-when-sync-expected: true
-  - avoid-redundant-async: true
-  - avoid-unnecessary-type-assertions: true
-  - avoid-unnecessary-type-casts: true
-  - avoid-unrelated-type-assertions: true
+    avoid-passing-async-when-sync-expected: true
+    avoid-redundant-async: true
+    avoid-unnecessary-type-assertions: true
+    avoid-unnecessary-type-casts: true
+    avoid-unrelated-type-assertions: true
   # - avoid-unused-parameters: true
-  - avoid-nested-conditional-expressions: true
-  - newline-before-return: true
-  - no-boolean-literal-compare: true
+    newline-before-return: true
+    no-boolean-literal-compare: true
   # - no-empty-block: true
-  - prefer-trailing-comma: true
-  - prefer-conditional-expressions: true
-  - no-equal-then-else: true
-  - prefer-moving-to-variable: true
+    prefer-trailing-comma: true
+    prefer-conditional-expressions: true
+    no-equal-then-else: true
+    prefer-moving-to-variable: true
   # - prefer-match-file-name: true
+
+  anti-patterns:
+    - long-method:
+        exclude:
+          - lib/core/data/models/migrations.dart
