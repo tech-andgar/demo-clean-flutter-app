@@ -26,8 +26,9 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
       body: ValueListenableBuilder<NotificationMessage?>(
         valueListenable: widget.shortcutUrlBloc.notifierNotificationMessage,
         builder: (final context, final notification, final child) {
-          if (notification != null) {
+          if (notification != null && mounted) {
             Future<void>.microtask(
+              // ignore: use_build_context_synchronously
               () => CdsSnackBar.show(context, notification.message),
             );
             widget.shortcutUrlBloc.notifierNotificationMessage.value = null;
