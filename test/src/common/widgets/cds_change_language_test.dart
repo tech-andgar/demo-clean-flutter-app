@@ -23,12 +23,12 @@ void main() async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
-          expect(find.byType(PopupMenuButton), findsOneWidget);
+          expect(find.byType(PopupMenuButton<Widget>), findsOneWidget);
 
-          await tester.tap(find.byType(PopupMenuButton));
+          await tester.tap(find.byType(PopupMenuButton<Widget>));
           await tester.pump();
 
-          expect(find.byType(PopupMenuItem), findsNWidgets(3));
+          expect(find.byType(PopupMenuItem<Widget>), findsNWidgets(3));
         },
       );
       testWidgets(
@@ -37,13 +37,13 @@ void main() async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
-          expect(find.byType(PopupMenuButton), findsOneWidget);
+          expect(find.byType(PopupMenuButton<Widget>), findsOneWidget);
 
-          await tester.tap(find.byType(PopupMenuButton));
+          await tester.tap(find.byType(PopupMenuButton<Widget>));
           await tester.pumpAndSettle();
 
           expect(
-            find.byType(PopupMenuItem),
+            find.byType(PopupMenuItem<Widget>),
             findsNWidgets(supportedI18nLocals.length),
           );
 
@@ -74,13 +74,13 @@ void main() async {
           await tester.pumpWidget(MockBase.appTest(const CdsChangeLanguage()));
           await tester.pumpAndSettle();
 
-          expect(find.byType(PopupMenuButton), findsOneWidget);
+          expect(find.byType(PopupMenuButton<Widget>), findsOneWidget);
 
-          await tester.tap(find.byType(PopupMenuButton));
+          await tester.tap(find.byType(PopupMenuButton<Widget>));
           await tester.pumpAndSettle();
 
           expect(
-            find.byType(PopupMenuItem),
+            find.byType(PopupMenuItem<Widget>),
             findsNWidgets(supportedI18nLocals.length),
           );
 
@@ -112,7 +112,7 @@ void main() async {
 
           expect(find.byIcon(Icons.language), findsOneWidget);
 
-          final languageButton = find.byType(PopupMenuButton);
+          final languageButton = find.byType(PopupMenuButton<Widget>);
           expect(
             // ignore: strict_raw_type
             tester.widget<PopupMenuButton>(languageButton).tooltip,
