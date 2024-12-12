@@ -24,25 +24,18 @@ class DioAdapterHttpClient implements HttpClient {
   /// Sends a HTTP DELETE request.
   ///
   /// [url] is the endpoint URL.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   @override
   Future<Response<Object?>> delete(
     final String url, {
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response =
-        await _dio.delete(url, options: Options(headers: headers));
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.delete(url, options: Options(headers: options?.headers));
 
   /// Sends a HTTP GET request.
   ///
   /// [url] is the endpoint URL.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   ///
   /// Example usage:
   /// ```dart
@@ -61,116 +54,95 @@ class DioAdapterHttpClient implements HttpClient {
   @override
   Future<Response<Object?>> get(
     final String url, {
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response = await _dio.get(
-      url,
-      queryParameters: queryParameters,
-      options: Options(headers: headers),
-    );
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.get(
+        url,
+        queryParameters: options?.queryParameters,
+        options: Options(headers: options?.headers),
+      );
 
   /// Sends a HTTP HEAD request.
   ///
   /// [url] is the endpoint URL.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   @override
   Future<Response<Object?>> head(
     final String url, {
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response =
-        await _dio.head(url, options: Options(headers: headers));
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.head(url, options: Options(headers: options?.headers));
 
   /// Sends a HTTP PATCH request.
   ///
   /// [url] is the endpoint URL.
   /// [body] is the request body data.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   @override
   Future<Response<Object?>> patch(
     final String url, {
     final Object? body,
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response =
-        await _dio.patch(url, data: body, options: Options(headers: headers));
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.patch(
+        url,
+        data: body,
+        options: Options(headers: options?.headers),
+      );
 
   /// Sends a HTTP POST request.
   ///
   /// [url] is the endpoint URL.
   /// [body] is the request body data.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   @override
   Future<Response<Object?>> post(
     final String url, {
     final Object? body,
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response =
-        await _dio.post(url, data: body, options: Options(headers: headers));
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.post(
+        url,
+        data: body,
+        options: Options(headers: options?.headers),
+      );
 
   /// Sends a HTTP PUT request.
   ///
   /// [url] is the endpoint URL.
   /// [body] is the request body data.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   @override
   Future<Response<Object?>> put(
     final String url, {
     final Object? body,
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response =
-        await _dio.put(url, data: body, options: Options(headers: headers));
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.put(
+        url,
+        data: body,
+        options: Options(headers: options?.headers),
+      );
 
   /// Sends a HTTP request with a specified [method].
   ///
   /// [method] is the HTTP method (GET, POST, etc.).
   /// [url] is the endpoint URL.
   /// [body] is the request body data.
-  /// [queryParameters] are the optional query parameters.
-  /// [headers] are the optional HTTP headers.
+  /// [options]: Optional parameters including headers and query parameters.
   @override
   Future<Response<Object?>> request(
     final String url, {
     required final HTTPRequestMethod method,
     final Object? body,
-    final Map<String, Object?>? queryParameters,
-    final Map<String, Object?>? headers,
-  }) async {
-    final Response<Object?> response = await _dio.request(
-      url,
-      queryParameters: queryParameters,
-      data: body,
-      options: Options(method: method.name, headers: headers),
-    );
-
-    return response;
-  }
+    final HttpRequestOptions? options,
+  }) async =>
+      await _dio.request(
+        url,
+        queryParameters: options?.queryParameters,
+        data: body,
+        options: Options(method: method.name, headers: options?.headers),
+      );
 
   /// Updates the base URL of the Dio instance.
   ///

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../../../../core/core.dart';
@@ -14,8 +16,12 @@ class ShortcutUrlRemoteDataSource {
 
   Future<Response<Object?>> newShortcutUrl(final String url) async {
     final Map<String, Object?> urlModel = UrlModel(url).toJson();
-    final Response<Object?> response =
-        await httpClient_.post('alias', body: urlModel) as Response<Object?>;
+    final response = await httpClient_.post(
+      'alias',
+      options: HttpRequestOptions(body: urlModel),
+    ) as Response<Object?>;
+
+    log('$response');
 
     return response;
   }
