@@ -27,22 +27,14 @@ void main() {
             statusCode: 200,
           );
 
-          when(
-            () => mockHttpClient.post(
-              any(),
-              options: HttpRequestOptions(body: any(named: 'body')),
-            ),
-          ).thenAnswer((final _) async => expectedResponse);
+          when(() => mockHttpClient.post(any(), body: any(named: 'body')))
+              .thenAnswer((final _) async => expectedResponse);
 
           final response = await dataSource.newShortcutUrl(testUrl);
 
           expect(response, expectedResponse);
-          verify(
-            () => mockHttpClient.post(
-              'alias',
-              options: HttpRequestOptions(body: any(named: 'body')),
-            ),
-          ).called(1);
+          verify(() => mockHttpClient.post('alias', body: any(named: 'body')))
+              .called(1);
         },
       );
 
@@ -51,12 +43,8 @@ void main() {
         () async {
           const testUrl = 'https://example.com';
 
-          when(
-            () => mockHttpClient.post(
-              any(),
-              options: HttpRequestOptions(body: any(named: 'body')),
-            ),
-          ).thenThrow(
+          when(() => mockHttpClient.post(any(), body: any(named: 'body')))
+              .thenThrow(
             DioException(
               requestOptions: RequestOptions(path: 'alias'),
               error: 'Network Error',
@@ -80,12 +68,8 @@ void main() {
             statusCode: 404,
           );
 
-          when(
-            () => mockHttpClient.post(
-              any(),
-              options: HttpRequestOptions(body: any(named: 'body')),
-            ),
-          ).thenAnswer((final _) async => errorResponse);
+          when(() => mockHttpClient.post(any(), body: any(named: 'body')))
+              .thenAnswer((final _) async => errorResponse);
 
           final response = await dataSource.newShortcutUrl(testUrl);
 

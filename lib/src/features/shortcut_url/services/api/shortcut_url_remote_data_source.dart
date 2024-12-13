@@ -18,7 +18,7 @@ class ShortcutUrlRemoteDataSource {
     final Map<String, Object?> urlModel = UrlModel(url).toJson();
     final response = await httpClient_.post(
       'alias',
-      options: HttpRequestOptions(body: urlModel),
+      body: urlModel,
     ) as Response<Object?>;
 
     log('$response');

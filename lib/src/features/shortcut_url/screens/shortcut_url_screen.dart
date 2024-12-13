@@ -89,24 +89,25 @@ class _ShortcutUrlScreenState extends State<ShortcutUrlScreen> {
                 widget.shortcutUrlBloc.notifierItemsShortcutUrls,
                 widget.shortcutUrlBloc.notifierLoading,
               ]),
-              builder: (final context, final _) =>
-                  widget.shortcutUrlBloc.isEmptyData
-                      ? SliverPadding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 64,
-                            horizontal: 16,
-                          ),
-                          sliver: SliverToBoxAdapter(
-                            child: Center(
-                              child: Text(
-                                LocaleKeys
-                                    .feature_mainShortcutUrl_sliverListUrl_dataEmpty
-                                    .tr(),
-                              ),
+              builder: (final context, final _) {
+                return widget.shortcutUrlBloc.isEmptyData
+                    ? SliverPadding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 64,
+                          horizontal: 16,
+                        ),
+                        sliver: SliverToBoxAdapter(
+                          child: Center(
+                            child: Text(
+                              LocaleKeys
+                                  .feature_mainShortcutUrl_sliverListUrl_dataEmpty
+                                  .tr(),
                             ),
                           ),
-                        )
-                      : UiWidgetListItems(widget: widget),
+                        ),
+                      )
+                    : UiWidgetListItems(widget: widget);
+              },
             ),
           ],
         ),

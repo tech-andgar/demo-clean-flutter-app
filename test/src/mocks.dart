@@ -55,6 +55,9 @@ class MockShortcutUrlBloc extends Mock implements ShortcutUrlBloc {
   final ValueNotifier<bool> notifierLoading = ValueNotifier<bool>(false);
 
   @override
+  bool get isEmptyData => notifierItemsShortcutUrls.value.isEmpty && !isLoading;
+
+  @override
   bool get isLoading => notifierLoading.value;
 
   @override

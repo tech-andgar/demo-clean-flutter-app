@@ -28,6 +28,7 @@ class DioAdapterHttpClient implements HttpClient {
   @override
   Future<Response<Object?>> delete(
     final String url, {
+    final Object? body,
     final HttpRequestOptions? options,
   }) async =>
       await _dio.delete(url, options: Options(headers: options?.headers));
@@ -54,6 +55,7 @@ class DioAdapterHttpClient implements HttpClient {
   @override
   Future<Response<Object?>> get(
     final String url, {
+    final Object? body,
     final HttpRequestOptions? options,
   }) async =>
       await _dio.get(
@@ -69,6 +71,7 @@ class DioAdapterHttpClient implements HttpClient {
   @override
   Future<Response<Object?>> head(
     final String url, {
+    final Object? body,
     final HttpRequestOptions? options,
   }) async =>
       await _dio.head(url, options: Options(headers: options?.headers));
