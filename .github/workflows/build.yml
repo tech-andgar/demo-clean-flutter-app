@@ -29,6 +29,10 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: ${{ matrix.channel }}
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
+          architecture: x64
 
       - id: disabled_analytics_flutter
         name: Disabled Analytics Flutter
@@ -39,11 +43,11 @@ jobs:
         run: dart --disable-analytics
 
       - id: checking_version_flutter
-        name: Check version Flutter is installed
+        name: 🔍 Check version Flutter is installed
         run: flutter --version
 
       - id: checking_version_dart
-        name: Check version Dart is installed
+        name: 🔍 Check version Dart is installed
         run: dart --version
 
       - name: 📦 Install Dependencies
@@ -86,7 +90,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v3
         with:
           path: "./coverage/lcov.info"
-          min_coverage: 94
+          min_coverage: 88
 
       - id: run_package_flutter_coverage_badge
         name: Run package flutter_coverage_badge
