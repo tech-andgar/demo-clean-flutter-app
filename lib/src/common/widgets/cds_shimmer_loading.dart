@@ -50,8 +50,8 @@ class CdsShimmerLoading extends StatelessWidget {
     final colorOutline = context.theme.colorScheme.outline;
 
     return Shimmer.fromColors(
-      baseColor: colorOutline.withValues(alpha: .1),
-      highlightColor: colorOutline.withValues(alpha: .3),
+      baseColor: colorOutline.withAlpha(26),
+      highlightColor: colorOutline.withAlpha(77),
       child: Container(
         height: height,
         width: width,
