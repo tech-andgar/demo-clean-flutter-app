@@ -1,4 +1,4 @@
-# DEMO AFGR
+# DEMO AFGR - Test Technical
 
 ![coverage][coverage_badge]
 
